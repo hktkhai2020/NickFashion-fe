@@ -1,0 +1,29 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot Password",
+    "rememberMe": "Remember Me",
+    "loginSuccess": "Login Success",
+    "loginFailed": "Login Failed"
+  },
+  "register": {
+    "title": "Register",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "register": "Register",
+    "login": "Login"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "email": "Email",
+    "resetPassword": "Reset Password",
+    "resetPasswordSuccess": "Reset Password Success",
+    "resetPasswordFailed": "Reset Password Failed"
+  }
+}

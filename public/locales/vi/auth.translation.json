@@ -1,0 +1,29 @@
+{
+  "login": {
+    "title": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "forgotPassword": "Quên mật khẩu",
+    "rememberMe": "Nhớ tôi",
+    "loginSuccess": "Đăng nhập thành công",
+    "loginFailed": "Đăng nhập thất bại"
+  },
+  "register": {
+    "title": "Đăng ký",
+    "name": "Tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "register": "Đăng ký",
+    "login": "Đăng nhập"
+  },
+  "forgotPassword": {
+    "title": "Quên mật khẩu",
+    "email": "Email",
+    "resetPassword": "Khôi phục mật khẩu",
+    "resetPasswordSuccess": "Khôi phục mật khẩu thành công",
+    "resetPasswordFailed": "Khôi phục mật khẩu thất bại"
+  }
+}
