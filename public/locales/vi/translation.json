@@ -4,11 +4,19 @@
     "email": "Email",
     "password": "Mật khẩu",
     "login": "Đăng nhập",
-    "register": "Đăng ký",
     "forgotPassword": "Quên mật khẩu",
     "rememberMe": "Nhớ tôi",
     "loginSuccess": "Đăng nhập thành công",
-    "loginFailed": "Đăng nhập thất bại"
+    "loginFailed": "Đăng nhập thất bại",
+    "nameInput": "Email hoặc số điện thoại",
+    "passwordInput": "Mật khẩu",
+    "signIn": "ĐĂNG NHẬP",
+    "forget": "Quên mật khẩu?",
+    "description": "Điểm đến mua sắm thời trang trực tuyến uy tín, nơi phong cách hiện đại gặp gỡ giá trị vượt trội — nickfashion.com",
+    "footer-description": "Nơi tôn vinh phong cách hiện đại của bạn",
+    "address": "Địa chỉ: Phòng 201, tầng 5, tòa nhà GP Goat,P. Ô Chợ Dừa,TP. Hà Nội.",
+    "footerPaymentTitle": "THANH TOÁN",
+    "footerShippingTitle": "ĐƠN VỊ VẬN CHUYỂN"
   },
   "register": {
     "title": "Đăng ký",
@@ -18,6 +26,9 @@
     "confirmPassword": "Xác nhận mật khẩu",
     "register": "Đăng ký",
     "login": "Đăng nhập"
+  },
+  "assistant": {
+    "title": "Bạn cần giúp đỡ?"
   },
   "forgotPassword": {
     "title": "Quên mật khẩu",

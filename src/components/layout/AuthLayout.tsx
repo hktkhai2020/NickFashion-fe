@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import HeaderAuth from "@/components/common/header.auth";
+import { FooterAuth, HeaderAuth } from "@/components/common";
 interface AuthLayoutProps {
   children?: React.ReactNode;
 }
@@ -10,6 +10,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     <>
       <HeaderAuth />
       {children || <Outlet />}
+      <FooterAuth />
     </>
   );
 };

@@ -1,0 +1,30 @@
+.containers {
+  width: 100dvw;
+  background: linear-gradient(180deg, #d2b48c 0%, #bda075 100%);
+  .footer-auth {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    padding: 2rem 0;
+    .info-address {
+      .nickFashion {
+      }
+    }
+    .service-deliver {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .policy {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .network {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+}

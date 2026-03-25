@@ -1,11 +1,4 @@
-export { Header } from './Header';
-export { Footer } from './Footer';
-export { Button } from './Button';
-export { Input } from './Input';
-export { Card } from './Card';
-export { Modal } from './Modal';
-export { Loading } from './Loading';
-export { Breadcrumb } from './Breadcrumb';
-export { Pagination } from './Pagination';
-export { Rating } from './Rating';
-export { Image } from './Image';
+export { default as FooterAuth } from "./Footer.auth.tsx";
+export { default as HeaderAuth } from "./Header.auth.tsx";
+export { default as Header } from "./Header.tsx";
+export { default as Footer } from "./Footer.tsx";

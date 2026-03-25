@@ -1,7 +1,31 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Gucci Sans Pro";
+  src: url("/fonts/GucciSansPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gucci Sans Pro";
+  src: url("/fonts/GucciSansPro-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gucci Sans Pro";
+  src: url("/fonts/GucciSansPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Gucci Sans Pro";
   line-height: 1.5;
   font-weight: 400;
 }
@@ -10,6 +34,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
