@@ -6,7 +6,7 @@ const HeaderAuth = () => {
   const { t } = useTranslation("translation");
   return (
     <>
-      <div className="w-dvw  h-auto  flex items-center justify-around">
+      <div className="w-dvw  h-auto  flex items-center sm:justify-around  ">
         <div className="flex items-center gap-[2rem] ">
           <div className="">
             <svg
@@ -109,12 +109,15 @@ l-4 -218 206 0 206 0 0 158 c0 180 10 214 70 244 32 16 76 18 473 18 l437 0 0
             </svg>
           </div>
           <div className="text-[2rem] font-medium">
-            {currentPath == "/buyer/login" || currentPath == "/buyer/login/"
+            {currentPath == "/buyer/login" || currentPath == "/buyer/register/"
               ? t("login.title")
               : t("register.title")}
           </div>
         </div>
-        <div style={{ marginRight: "20px", color: "red" }}>
+        <div
+          style={{ marginRight: "20px", color: "red" }}
+          className="sm:block hidden"
+        >
           {t("assistant.title")}
         </div>
       </div>

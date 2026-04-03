@@ -1,18 +1,44 @@
 import React from "react";
 import "styles/auth/loginPage.scss";
-import { Button, Form, Input, Divider } from "antd";
+import { Button, Form, Input, Divider, notification } from "antd";
 import type { FormProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { authService } from "@/services";
+import { useNavigate } from "react-router-dom";
 type FieldType = {
   username?: string;
   password?: string;
   remember?: string;
 };
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation("translation");
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation("translation");
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    try {
+      const { username, password } = values;
+
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      const payload = emailPattern.test(username!)
+        ? { email: username, password: password! }
+        : { phone: username, password: password! };
+
+      const response = await authService.login(payload);
+      if (response) {
+        notification.success({
+          title: t("login.loginSuccess"),
+          description: response.message,
+        });
+        navigate("/nickfashion");
+      }
+    } catch (error) {
+      console.log("Error Login:", error);
+      notification.error({
+        title: t("login.loginFailed"),
+        description: t("login.descriptionLoginFailed"),
+      });
+    }
   };
   const onFinishFailed = () => {};
   return (
@@ -48,7 +74,7 @@ const LoginPage: React.FC = () => {
             >
               <Input
                 placeholder={t("login.nameInput")}
-                className="w-[15rem]! h-[2.5rem] text-[1rem]! bg-white!"
+                className="w-[17rem]! h-[2.5rem] text-[1rem]! bg-white!"
               />
             </Form.Item>
 
@@ -56,23 +82,27 @@ const LoginPage: React.FC = () => {
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
+                {
+                  min: 8,
+                  message: "Password must be at least 8 characters long",
+                },
               ]}
               className="!mb-2"
             >
               <Input.Password
-                className="w-[15rem]! h-[2.5rem] bg-white! text-[#ccc6c6]!"
+                className="w-[17rem]! h-[2.5rem] bg-white! text-[#ccc6c6]!"
                 placeholder={t("login.passwordInput")}
               />
             </Form.Item>
             <div className=" !mb-2 text-right  ">
-              <a href="/forgot-password" className="!text-white !underline">
+              <a href="" className="!text-white !underline">
                 {t("login.forget")}
               </a>
             </div>
             <Form.Item label={null} className="!mb-0">
               <Button
                 htmlType="submit"
-                className="!w-[15rem] !h-[2.5rem] !bg-[#4780d6] !text-white !border-none"
+                className="!w-[17rem] !h-[2.5rem] !bg-[#4780d6] !text-white !border-none"
               >
                 {t("login.signIn")}
               </Button>
@@ -80,9 +110,45 @@ const LoginPage: React.FC = () => {
           </Form>
           <Divider className="!text-white !border-amber-50 ">or</Divider>
           <div className="">
-            <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-              <GoogleLogin onSuccess={() => {}} onError={() => {}} />
+            <GoogleOAuthProvider
+              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID as string}
+            >
+              <GoogleLogin
+                onSuccess={async (event) => {
+                  const { credential } = event;
+                  try {
+                    const response = await authService.loginGoogle(credential!);
+                    if (response) {
+                      notification.success({
+                        title: t("login.loginSuccess"),
+                        description: response.message,
+                      });
+                      navigate("/nickfashion");
+                    }
+                  } catch (error) {
+                    console.log("Error Login Google:", error);
+                    notification.error({
+                      title: t("login.loginFailed"),
+                      description: t("login.descriptionLoginFailed"),
+                    });
+                  }
+                }}
+                onError={() => {
+                  notification.error({
+                    title: t("login.loginFailed"),
+                    description: t("login.descriptionLoginFailed"),
+                  });
+                }}
+              />
             </GoogleOAuthProvider>
+          </div>
+          <div className=" text-center !pt-[2rem] text-[1rem]">
+            {i18n.language == "vi"
+              ? "Bạn chưa có tài khoản? "
+              : "Are you new? "}
+            <a href="/buyer/register" className=" !underline">
+              {i18n.language == "vi" ? "Tạo tài khoản" : "Create an Account"}
+            </a>
           </div>
         </div>
       </div>

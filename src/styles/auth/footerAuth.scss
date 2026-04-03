@@ -7,10 +7,6 @@
     justify-content: center;
     gap: 5rem;
     padding: 2rem 0;
-    .info-address {
-      .nickFashion {
-      }
-    }
     .service-deliver {
       display: flex;
       flex-direction: column;
@@ -25,6 +21,15 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .containers {
+    .footer-auth {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
     }
   }
 }
