@@ -41,8 +41,8 @@ export interface UserRegister {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
   phone?: string;
+  gender?: "male" | "female";
 }
 
 export interface ChangePassword {
@@ -82,4 +82,9 @@ export interface LoginResponse {
     id: string;
   };
   accessToken: string;
+}
+export interface CheckEmailResponse {
+  success: boolean;
+  exists: boolean;
+  message: string;
 }

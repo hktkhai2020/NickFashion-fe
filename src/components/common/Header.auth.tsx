@@ -111,6 +111,8 @@ l-4 -218 206 0 206 0 0 158 c0 180 10 214 70 244 32 16 76 18 473 18 l437 0 0
           <div className="text-[2rem] font-medium">
             {currentPath == "/buyer/login" || currentPath == "/buyer/register/"
               ? t("login.title")
+              : currentPath == "/buyer/forgot-password"
+              ? t("forgotPassword.title")
               : t("register.title")}
           </div>
         </div>

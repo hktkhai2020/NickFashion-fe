@@ -1,11 +1,15 @@
-import React from "react";
-import { Button, Divider, Form, Input, notification, Select } from "antd";
+import React, { useRef, useState } from "react";
+import { Button, Divider, Form, Input, notification, Select, Spin } from "antd";
+import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@/services";
 import "@/styles/auth/registerPage.scss";
+import type { FormProps } from "antd";
+import { motion } from "framer-motion";
 type FieldType = {
+  otp?: string;
   username?: string;
   email?: string;
   phone?: string;
@@ -18,6 +22,58 @@ const RegisterPage: React.FC = () => {
   const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
   const [form] = Form.useForm<FieldType>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [otpCountdown, setOtpCountdown] = useState(0);
+  const [showInputOtp, setShowInputOtp] = useState(false);
+  const [isOtpLoading, setIsOtpLoading] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    try {
+      if (!allowSubmit) {
+        notification.error({
+          title: t("register.registerFailed"),
+          description: t("register.otpVerifyFailed"),
+        });
+        return;
+      }
+      const response = await authService.register({
+        name: values.username!,
+        email: values.email!,
+        password: values.password!,
+        gender: values.gender as "male" | "female",
+      });
+      if (response) {
+        notification.success({
+          title: t("register.registerSuccess"),
+          description: response.message,
+        });
+        navigate("/buyer/login");
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        t("register.descriptionRegisterFailed");
+
+      const description =
+        errorMessage === "Email already exists"
+          ? t("register.emailAlreadyExists")
+          : t("register.descriptionRegisterFailed");
+
+      notification.error({
+        title: t("register.registerFailed"),
+        description,
+      });
+    }
+  };
   return (
     <div className="auth-register">
       <div className="auth-background">
@@ -33,7 +89,7 @@ const RegisterPage: React.FC = () => {
             layout="vertical"
             style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
-            // onFinish={onFinish}
+            onFinish={onFinish}
             // onFinishFailed={onFinishFailed}
             autoComplete="off"
             requiredMark={false}
@@ -44,9 +100,12 @@ const RegisterPage: React.FC = () => {
               rules={[
                 { required: true, message: "Please input your username!" },
                 {
-                  pattern:
-                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^\d{10,11}$/,
-                  message: "Please enter a valid email or phone number!",
+                  min: 2,
+                  message: "Username must be at least 2 characters long",
+                },
+                {
+                  max: 100,
+                  message: "Username must be at most 100 characters long",
                 },
               ]}
             >
@@ -64,14 +123,151 @@ const RegisterPage: React.FC = () => {
                   pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "Please enter a valid email!",
                 },
+                {
+                  validator: async (_, value) => {
+                    if (
+                      !value ||
+                      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                        value,
+                      )
+                    ) {
+                      return Promise.resolve();
+                    }
+
+                    return new Promise((resolve, reject) => {
+                      if (timerRef.current) clearTimeout(timerRef.current);
+
+                      timerRef.current = setTimeout(async () => {
+                        try {
+                          const response = await authService.checkEmail(
+                            value as string,
+                          );
+                          if (response.exists) {
+                            setIsEmailValid(false);
+                            reject(new Error(response.message));
+                          } else {
+                            setIsEmailValid(true);
+                            resolve(undefined);
+                          }
+                        } catch {
+                          resolve(undefined);
+                        }
+                      }, 500);
+                    });
+                  },
+                },
               ]}
             >
               <Input
                 placeholder={t("register.email")}
                 className="w-[17rem]! h-[2.5rem] text-[1rem]! bg-white!"
+                suffix={
+                  <Button
+                    size="small"
+                    type="link"
+                    disabled={!isEmailValid || otpCountdown > 0}
+                    className="!text-[#4780d6] !text-[0.75rem] !p-0 !h-auto"
+                    onClick={async () => {
+                      const email = form.getFieldValue("email");
+                      try {
+                        setOtpCountdown(60);
+                        await authService.sendVerifyEmail(email);
+                        notification.success({
+                          message: t("register.otpSent"),
+                        });
+                        setShowInputOtp(true);
+                        const interval = setInterval(() => {
+                          setOtpCountdown((prev) => {
+                            if (prev <= 1) {
+                              clearInterval(interval);
+                              return 0;
+                            }
+                            return prev - 1;
+                          });
+                        }, 1000);
+                      } catch (error: any) {
+                        setOtpCountdown(0);
+                        notification.error({
+                          message:
+                            error?.response?.data?.message ||
+                            t("register.otpSendFailed"),
+                        });
+                      } finally {
+                      }
+                    }}
+                  >
+                    {otpCountdown > 0
+                      ? `${otpCountdown}s`
+                      : t("register.getOtp")}
+                  </Button>
+                }
               />
             </Form.Item>
 
+            {showInputOtp && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Form.Item<FieldType>
+                  name="otp"
+                  rules={[
+                    { required: true, message: "Please input your OTP!" },
+                    {
+                      pattern: /^\d{6}$/,
+                      message: "Please enter a valid OTP!",
+                    },
+                  ]}
+                  className="!mb-[1.5rem]"
+                >
+                  <Input
+                    className="w-[17rem]! h-[2.5rem] bg-white! text-[#ccc6c6]!"
+                    placeholder={t("register.otp")}
+                    onChange={(e) => {
+                      const email = form.getFieldValue("email");
+                      return new Promise((resolve, reject) => {
+                        if (timerRef.current) {
+                          clearTimeout(timerRef.current);
+                          setIsOtpVerified(false);
+                          setAllowSubmit(false);
+                          setIsOtpLoading(true);
+                        }
+
+                        timerRef.current = setTimeout(async () => {
+                          try {
+                            const response = await authService.verifyEmail(
+                              email as string,
+                              e.target.value,
+                            );
+                            if (response.success) {
+                              setIsOtpLoading(false);
+                              setIsOtpVerified(true);
+                              setAllowSubmit(true);
+                              resolve(undefined);
+                            } else {
+                              reject(new Error(response.message));
+                            }
+                          } catch {
+                            reject(new Error(t("register.otpVerifyFailed")));
+                          }
+                        }, 500);
+                      });
+                    }}
+                    suffix={
+                      isOtpVerified ? (
+                        <CheckCircleOutlined className="!text-green-500" />
+                      ) : isOtpLoading ? (
+                        <Spin
+                          indicator={<LoadingOutlined spin />}
+                          size="small"
+                        />
+                      ) : null
+                    }
+                  />
+                </Form.Item>
+              </motion.div>
+            )}
             <Form.Item<FieldType>
               name="password"
               rules={[
@@ -132,6 +328,9 @@ const RegisterPage: React.FC = () => {
               <Button
                 htmlType="submit"
                 className="!w-[17rem] !h-[2.5rem] !bg-[#4780d6] !text-white !border-none"
+                onClick={() => {
+                  form.submit();
+                }}
               >
                 {t("login.register")}
               </Button>

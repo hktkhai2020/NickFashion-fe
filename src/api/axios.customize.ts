@@ -6,7 +6,8 @@ const API_BASE_URL =
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 1000,
+  // Gửi mail / thao tác DB thường > 1s; quá ngắn sẽ abort phía client dù server vẫn xử lý xong
+  timeout: 30_000,
   headers: {
     "Content-Type": "application/json",
   },

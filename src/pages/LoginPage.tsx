@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { authService } from "@/services";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "@/store/useUserStore";
 type FieldType = {
   username?: string;
   password?: string;
@@ -14,6 +15,7 @@ type FieldType = {
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation("translation");
+  const setUser = useUserStore((state) => state.setUser);
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     try {
       const { username, password } = values;
@@ -30,13 +32,18 @@ const LoginPage: React.FC = () => {
           title: t("login.loginSuccess"),
           description: response.message,
         });
-        navigate("/nickfashion");
+        if (response.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/nickfashion");
+        }
+        setUser(response.user);
       }
-    } catch (error) {
-      console.log("Error Login:", error);
+    } catch (error: any) {
       notification.error({
         title: t("login.loginFailed"),
-        description: t("login.descriptionLoginFailed"),
+        description:
+          error?.response?.data?.message || t("login.descriptionLoginFailed"),
       });
     }
   };
@@ -95,7 +102,10 @@ const LoginPage: React.FC = () => {
               />
             </Form.Item>
             <div className=" !mb-2 text-right  ">
-              <a href="" className="!text-white !underline">
+              <a
+                href="/buyer/forgot-password"
+                className="!text-white !underline"
+              >
                 {t("login.forget")}
               </a>
             </div>
@@ -123,7 +133,12 @@ const LoginPage: React.FC = () => {
                         title: t("login.loginSuccess"),
                         description: response.message,
                       });
-                      navigate("/nickfashion");
+                      setUser(response.user);
+                      if (response.user.role === "admin") {
+                        navigate("/admin/dashboard");
+                      } else {
+                        navigate("/nickfashion");
+                      }
                     }
                   } catch (error) {
                     console.log("Error Login Google:", error);

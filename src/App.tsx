@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ConfigProvider } from "antd";
-import { AppRoutes, AdminRoutes, LoginRoutes } from "@/routes";
+import { AppRoutes, AdminRoutes, AuthRoutes } from "@/routes";
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
     >
       <BrowserRouter>
         <Routes>
-          <Route path="/nickfashion" element={<AppRoutes />} />
-          <Route path="/buyer/*" element={<LoginRoutes />} />
+          <Route path="/nickfashion/*" element={<AppRoutes />} />
+          <Route path="/buyer/*" element={<AuthRoutes />} />
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </BrowserRouter>

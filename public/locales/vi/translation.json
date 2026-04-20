@@ -30,8 +30,17 @@
     "email": "Email",
     "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
+    "otp": "Mã OTP",
     "register": "Đăng ký",
-    "login": "Đăng nhập"
+    "login": "Đăng nhập",
+    "registerSuccess": "Đăng ký thành công",
+    "registerFailed": "Đăng ký thất bại",
+    "descriptionRegisterFailed": "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.",
+    "emailAlreadyExists": "Email này đã được đăng ký.",
+    "getOtp": "Lấy mã",
+    "otpSent": "Mã OTP đã được gửi đến email của bạn",
+    "otpSendFailed": "Gửi OTP thất bại",
+    "otpVerifyFailed": "Mã OTP không hợp lệ"
   },
   "assistant": {
     "title": "Bạn cần giúp đỡ?"
@@ -41,6 +50,10 @@
     "email": "Email",
     "resetPassword": "Khôi phục mật khẩu",
     "resetPasswordSuccess": "Khôi phục mật khẩu thành công",
-    "resetPasswordFailed": "Khôi phục mật khẩu thất bại"
+    "resetPasswordFailed": "Khôi phục mật khẩu thất bại",
+    "sendOtpSuccess": "Mã OTP đã được gửi đến email của bạn",
+    "sendOtpFailed": "Gửi mã OTP thất bại",
+    "verifyOtpSuccess": "Mã OTP đã được xác nhận",
+    "verifyOtpFailed": "Xác nhận mã OTP thất bại"
   }
 }

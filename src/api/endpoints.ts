@@ -7,7 +7,12 @@ export const endpoints = {
   registerGoogle: "/auth/google-register",
   logout: "/auth/logout",
   refreshToken: "/auth/refresh",
-
+  checkEmail: "/auth/check-email",
+  sendVerifyEmail: "/auth/send-verify-email",
+  verifyEmail: "/auth/verify-email-otp",
+  forgotPassword: "/auth/forgot-password",
+  verifyOtpForgotPassword: "/auth/verify-otp",
+  resetPassword: "/auth/reset-password",
   // Products
   products: "/products",
   productDetail: (id: string) => `/products/${id}`,

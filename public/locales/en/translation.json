@@ -28,11 +28,20 @@
     "name": "Full Name",
     "title": "Register",
     "email": "Email",
+    "otp": "OTP",
     "phone": "Phone",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "register": "Register",
-    "login": "Login"
+    "login": "Login",
+    "registerSuccess": "Register Success",
+    "registerFailed": "Register Failed",
+    "descriptionRegisterFailed": "An error occurred during registration. Please try again.",
+    "emailAlreadyExists": "This email is already registered.",
+    "getOtp": "Get OTP",
+    "otpSent": "OTP code has been sent to your email",
+    "otpSendFailed": "Failed to send OTP",
+    "otpVerifyFailed": "Invalid OTP"
   },
   "assistant": {
     "title": "Do you need help?"
@@ -42,6 +51,11 @@
     "email": "Email",
     "resetPassword": "Reset Password",
     "resetPasswordSuccess": "Reset Password Success",
-    "resetPasswordFailed": "Reset Password Failed"
+    "resetPasswordFailed": "Reset Password Failed",
+    "sendOtpSuccess": "OTP has been sent to your email",
+    "sendOtpFailed": "Failed to send OTP",
+    "verifyOtpSuccess": "OTP has been verified",
+    "verifyOtpFailed": "Failed to verify OTP"
+
   }
 }
