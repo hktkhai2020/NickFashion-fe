@@ -88,3 +88,15 @@ export interface CheckEmailResponse {
   exists: boolean;
   message: string;
 }
+
+export interface MeResponse {
+  success: boolean;
+  message: string;
+  user: User;
+}
+
+export interface RefreshTokenResponse {
+  success: boolean;
+  message: string;
+  accessToken: string;
+}

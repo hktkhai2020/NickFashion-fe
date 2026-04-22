@@ -6,43 +6,53 @@ import {
   ExportOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import categoryService from "@/services/categoryService";
+import supplierService from "@/services/supplierService";
 import {
   ProTable,
   type ActionType,
   type ProColumns,
 } from "@ant-design/pro-components";
-import { Category } from "@/types";
+import { Supplier } from "@/types";
 import { Button, Popconfirm, message } from "antd";
 import "@/styles/admin/adminPage.scss";
-import CreateCategory from "@/components/admin/category/create.category";
-import UpdateCategory from "@/components/admin/category/update.category";
-import DetailCategory from "@/components/admin/category/detail.category";
-const AdminCategoryList: React.FC = () => {
+import CreateSupplier from "@/components/admin/supplier/create.supplier";
+import UpdateSupplier from "@/components/admin/supplier/update.supplier";
+import DetailSupplier from "@/components/admin/supplier/detail.supplier";
+
+const AdminSupplier: React.FC = () => {
   const actionRef = useRef<ActionType>(null);
-  const [category, setCategory] = useState<Category | null>(null);
-  const [openModalCategoryUpdate, setOpenModalCategoryUpdate] = useState(false);
-  const [openModalCategoryCreate, setOpenModalCategoryCreate] = useState(false);
-  const [openModalCategoryDetail, setOpenModalCategoryDetail] = useState(false);
-  const [exportBook, setExportBook] = useState<Category[]>([]);
-  const handleDeleteCategory = useCallback(async (id: string) => {
+  const [supplier, setSupplier] = useState<Supplier | null>(null);
+  const [openModalSupplierUpdate, setOpenModalSupplierUpdate] = useState(false);
+  const [openModalSupplierCreate, setOpenModalSupplierCreate] = useState(false);
+  const [openModalSupplierDetail, setOpenModalSupplierDetail] = useState(false);
+  const [exportData, setExportData] = useState<Supplier[]>([]);
+
+  const handleDeleteSupplier = useCallback(async (id: string) => {
     try {
-      await categoryService.deleteCategory(id);
-      message.success("Xóa danh mục thành công");
+      await supplierService.deleteSupplier(id);
+      message.success("Xóa nhà cung cấp thành công");
       actionRef.current?.reload();
     } catch {
-      message.error("Xóa danh mục thất bại");
+      message.error("Xóa nhà cung cấp thất bại");
     }
   }, []);
 
-  const columns: ProColumns<Category>[] = [
+  const columns: ProColumns<Supplier>[] = [
     {
       dataIndex: "index",
       valueType: "indexBorder",
       width: 48,
     },
     {
-      title: "Tên danh mục",
+      title: "Mã NCC",
+      dataIndex: "code",
+      copyable: true,
+      width: 100,
+      hideInSearch: true,
+      ellipsis: true,
+    },
+    {
+      title: "Tên nhà cung cấp",
       dataIndex: "name",
       sorter: true,
       sortDirections: ["ascend", "descend"],
@@ -50,8 +60,8 @@ const AdminCategoryList: React.FC = () => {
       render: (_, record) => (
         <a
           onClick={() => {
-            setOpenModalCategoryDetail(true);
-            setCategory(record);
+            setOpenModalSupplierDetail(true);
+            setSupplier(record);
           }}
         >
           {record.name}
@@ -59,28 +69,27 @@ const AdminCategoryList: React.FC = () => {
       ),
     },
     {
-      title: "Slug",
-      dataIndex: "slug",
-      copyable: true,
-      width: "auto",
+      title: "Email",
+      dataIndex: "email",
+      width: 200,
       hideInSearch: true,
       ellipsis: true,
     },
     {
-      title: "Hiển thị trang chủ",
-      dataIndex: "isShowOnHome",
-      valueType: "switch",
+      title: "Số điện thoại",
+      dataIndex: "phone",
       width: 130,
       hideInSearch: true,
-      align: "center",
+    },
+    {
+      title: "Công nợ",
+      dataIndex: "debt",
+      width: 120,
+      hideInSearch: true,
+      align: "right",
       render: (_, record) => (
-        <span
-          style={{
-            color: record.isShowOnHome ? "#52c41a" : "#8c8c8c",
-            fontWeight: 600,
-          }}
-        >
-          {record.isShowOnHome ? "Có" : "Không"}
+        <span style={{ color: record.debt > 0 ? "#ff4d4f" : "#52c41a", fontWeight: 600 }}>
+          {record.debt.toLocaleString()} đ
         </span>
       ),
     },
@@ -124,15 +133,15 @@ const AdminCategoryList: React.FC = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              setOpenModalCategoryUpdate(true);
-              setCategory(entity);
+              setOpenModalSupplierUpdate(true);
+              setSupplier(entity);
             }}
           />
           <Popconfirm
             key="delete"
-            title="Xóa danh mục"
-            description="Bạn có chắc chắn muốn xóa danh mục này không?"
-            onConfirm={() => handleDeleteCategory(entity._id)}
+            title="Xóa nhà cung cấp"
+            description="Bạn có chắc chắn muốn xóa nhà cung cấp này không?"
+            onConfirm={() => handleDeleteSupplier(entity._id)}
             okText="Xóa"
             cancelText="Hủy"
             okButtonProps={{ danger: true }}
@@ -150,7 +159,7 @@ const AdminCategoryList: React.FC = () => {
     <>
       <div className="admin-page-header">
         <h2 className="admin-page-title text-2xl font-bold text-red-500 mb-2!">
-          Quản lý danh mục
+          Quản lý nhà cung cấp
         </h2>
       </div>
 
@@ -172,13 +181,16 @@ const AdminCategoryList: React.FC = () => {
             sortOrder = sort.createdAt === "ascend" ? "asc" : "desc";
           }
 
-          const res = await categoryService.getCategories({
+          const res = await supplierService.getSuppliers({
             current: params.current,
             pageSize: params.pageSize,
             search: params.name,
             sortBy: sortBy as
               | "sortOrder"
               | "name"
+              | "email"
+              | "phone"
+              | "address"
               | "createdAt"
               | "updatedAt"
               | undefined,
@@ -188,7 +200,7 @@ const AdminCategoryList: React.FC = () => {
           if (!res.success) {
             return { data: [], success: false, total: 0 };
           }
-          setExportBook(res.data);
+          setExportData(res.data);
           return {
             data: res.data,
             success: true,
@@ -200,7 +212,7 @@ const AdminCategoryList: React.FC = () => {
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} trên ${total} danh mục`,
+            `${range[0]}-${range[1]} trên ${total} nhà cung cấp`,
         }}
         search={{
           labelWidth: "auto",
@@ -209,18 +221,18 @@ const AdminCategoryList: React.FC = () => {
           reload: true,
           density: true,
         }}
-        headerTitle="Danh sách danh mục"
+        headerTitle="Danh sách nhà cung cấp"
         dateFormatter="string"
         toolBarRender={() => [
           <Button
             key="button"
             icon={<PlusOutlined />}
             onClick={() => {
-              setOpenModalCategoryCreate(true);
+              setOpenModalSupplierCreate(true);
             }}
             type="primary"
           >
-            Thêm danh mục mới
+            Thêm nhà cung cấp mới
           </Button>,
           <Button
             key="button"
@@ -228,30 +240,30 @@ const AdminCategoryList: React.FC = () => {
             onClick={() => {}}
             type="primary"
           >
-            <CSVLink data={exportBook} filename="export.csv">
+            <CSVLink data={exportData} filename="export_suppliers.csv">
               Export
             </CSVLink>
           </Button>,
         ]}
       />
-      <CreateCategory
-        isOpen={openModalCategoryCreate}
-        setIsOpen={setOpenModalCategoryCreate}
+      <CreateSupplier
+        isOpen={openModalSupplierCreate}
+        setIsOpen={setOpenModalSupplierCreate}
         actionRef={actionRef}
       />
-      <UpdateCategory
-        isOpen={openModalCategoryUpdate}
-        setIsOpen={setOpenModalCategoryUpdate}
+      <UpdateSupplier
+        isOpen={openModalSupplierUpdate}
+        setIsOpen={setOpenModalSupplierUpdate}
         actionRef={actionRef}
-        category={category as Category}
+        supplier={supplier as Supplier}
       />
-      <DetailCategory
-        isOpen={openModalCategoryDetail}
-        setIsOpen={setOpenModalCategoryDetail}
-        category={category as Category}
+      <DetailSupplier
+        isOpen={openModalSupplierDetail}
+        setIsOpen={setOpenModalSupplierDetail}
+        supplier={supplier as Supplier}
       />
     </>
   );
 };
 
-export default AdminCategoryList;
+export default AdminSupplier;

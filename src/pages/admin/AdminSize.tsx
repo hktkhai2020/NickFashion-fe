@@ -6,52 +6,54 @@ import {
   ExportOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import categoryService from "@/services/categoryService";
+import sizeService from "@/services/sizeService";
 import {
   ProTable,
   type ActionType,
   type ProColumns,
 } from "@ant-design/pro-components";
-import { Category } from "@/types";
+import { Size } from "@/types";
 import { Button, Popconfirm, message } from "antd";
 import "@/styles/admin/adminPage.scss";
-import CreateCategory from "@/components/admin/category/create.category";
-import UpdateCategory from "@/components/admin/category/update.category";
-import DetailCategory from "@/components/admin/category/detail.category";
-const AdminCategoryList: React.FC = () => {
+import CreateSize from "@/components/admin/size/create.size";
+import UpdateSize from "@/components/admin/size/update.size";
+import DetailSize from "@/components/admin/size/detail.size";
+
+const AdminSize: React.FC = () => {
   const actionRef = useRef<ActionType>(null);
-  const [category, setCategory] = useState<Category | null>(null);
-  const [openModalCategoryUpdate, setOpenModalCategoryUpdate] = useState(false);
-  const [openModalCategoryCreate, setOpenModalCategoryCreate] = useState(false);
-  const [openModalCategoryDetail, setOpenModalCategoryDetail] = useState(false);
-  const [exportBook, setExportBook] = useState<Category[]>([]);
-  const handleDeleteCategory = useCallback(async (id: string) => {
+  const [size, setSize] = useState<Size | null>(null);
+  const [openModalSizeUpdate, setOpenModalSizeUpdate] = useState(false);
+  const [openModalSizeCreate, setOpenModalSizeCreate] = useState(false);
+  const [openModalSizeDetail, setOpenModalSizeDetail] = useState(false);
+  const [exportData, setExportData] = useState<Size[]>([]);
+
+  const handleDeleteSize = useCallback(async (id: string) => {
     try {
-      await categoryService.deleteCategory(id);
-      message.success("Xóa danh mục thành công");
+      await sizeService.deleteSize(id);
+      message.success("Xóa size thành công");
       actionRef.current?.reload();
     } catch {
-      message.error("Xóa danh mục thất bại");
+      message.error("Xóa size thất bại");
     }
   }, []);
 
-  const columns: ProColumns<Category>[] = [
+  const columns: ProColumns<Size>[] = [
     {
       dataIndex: "index",
       valueType: "indexBorder",
       width: 48,
     },
     {
-      title: "Tên danh mục",
+      title: "Tên size",
       dataIndex: "name",
       sorter: true,
       sortDirections: ["ascend", "descend"],
-      width: "auto",
+      width: 150,
       render: (_, record) => (
         <a
           onClick={() => {
-            setOpenModalCategoryDetail(true);
-            setCategory(record);
+            setOpenModalSizeDetail(true);
+            setSize(record);
           }}
         >
           {record.name}
@@ -59,30 +61,11 @@ const AdminCategoryList: React.FC = () => {
       ),
     },
     {
-      title: "Slug",
-      dataIndex: "slug",
-      copyable: true,
-      width: "auto",
+      title: "Loại danh mục",
+      dataIndex: ["type", "name"],
+      width: 200,
       hideInSearch: true,
       ellipsis: true,
-    },
-    {
-      title: "Hiển thị trang chủ",
-      dataIndex: "isShowOnHome",
-      valueType: "switch",
-      width: 130,
-      hideInSearch: true,
-      align: "center",
-      render: (_, record) => (
-        <span
-          style={{
-            color: record.isShowOnHome ? "#52c41a" : "#8c8c8c",
-            fontWeight: 600,
-          }}
-        >
-          {record.isShowOnHome ? "Có" : "Không"}
-        </span>
-      ),
     },
     {
       title: "Hoạt động",
@@ -124,15 +107,15 @@ const AdminCategoryList: React.FC = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              setOpenModalCategoryUpdate(true);
-              setCategory(entity);
+              setOpenModalSizeUpdate(true);
+              setSize(entity);
             }}
           />
           <Popconfirm
             key="delete"
-            title="Xóa danh mục"
-            description="Bạn có chắc chắn muốn xóa danh mục này không?"
-            onConfirm={() => handleDeleteCategory(entity._id)}
+            title="Xóa size"
+            description="Bạn có chắc chắn muốn xóa size này không?"
+            onConfirm={() => handleDeleteSize(entity._id)}
             okText="Xóa"
             cancelText="Hủy"
             okButtonProps={{ danger: true }}
@@ -150,7 +133,7 @@ const AdminCategoryList: React.FC = () => {
     <>
       <div className="admin-page-header">
         <h2 className="admin-page-title text-2xl font-bold text-red-500 mb-2!">
-          Quản lý danh mục
+          Quản lý size
         </h2>
       </div>
 
@@ -172,23 +155,18 @@ const AdminCategoryList: React.FC = () => {
             sortOrder = sort.createdAt === "ascend" ? "asc" : "desc";
           }
 
-          const res = await categoryService.getCategories({
+          const res = await sizeService.getSizes({
             current: params.current,
             pageSize: params.pageSize,
             search: params.name,
-            sortBy: sortBy as
-              | "sortOrder"
-              | "name"
-              | "createdAt"
-              | "updatedAt"
-              | undefined,
+            sortBy: sortBy as "sortOrder" | "name" | "createdAt" | "updatedAt" | undefined,
             sortOrder: sortOrder as "asc" | "desc" | undefined,
           });
 
           if (!res.success) {
             return { data: [], success: false, total: 0 };
           }
-          setExportBook(res.data);
+          setExportData(res.data);
           return {
             data: res.data,
             success: true,
@@ -200,7 +178,7 @@ const AdminCategoryList: React.FC = () => {
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} trên ${total} danh mục`,
+            `${range[0]}-${range[1]} trên ${total} size`,
         }}
         search={{
           labelWidth: "auto",
@@ -209,18 +187,18 @@ const AdminCategoryList: React.FC = () => {
           reload: true,
           density: true,
         }}
-        headerTitle="Danh sách danh mục"
+        headerTitle="Danh sách size"
         dateFormatter="string"
         toolBarRender={() => [
           <Button
             key="button"
             icon={<PlusOutlined />}
             onClick={() => {
-              setOpenModalCategoryCreate(true);
+              setOpenModalSizeCreate(true);
             }}
             type="primary"
           >
-            Thêm danh mục mới
+            Thêm size mới
           </Button>,
           <Button
             key="button"
@@ -228,30 +206,30 @@ const AdminCategoryList: React.FC = () => {
             onClick={() => {}}
             type="primary"
           >
-            <CSVLink data={exportBook} filename="export.csv">
+            <CSVLink data={exportData} filename="export_sizes.csv">
               Export
             </CSVLink>
           </Button>,
         ]}
       />
-      <CreateCategory
-        isOpen={openModalCategoryCreate}
-        setIsOpen={setOpenModalCategoryCreate}
+      <CreateSize
+        isOpen={openModalSizeCreate}
+        setIsOpen={setOpenModalSizeCreate}
         actionRef={actionRef}
       />
-      <UpdateCategory
-        isOpen={openModalCategoryUpdate}
-        setIsOpen={setOpenModalCategoryUpdate}
+      <UpdateSize
+        isOpen={openModalSizeUpdate}
+        setIsOpen={setOpenModalSizeUpdate}
         actionRef={actionRef}
-        category={category as Category}
+        size={size as Size}
       />
-      <DetailCategory
-        isOpen={openModalCategoryDetail}
-        setIsOpen={setOpenModalCategoryDetail}
-        category={category as Category}
+      <DetailSize
+        isOpen={openModalSizeDetail}
+        setIsOpen={setOpenModalSizeDetail}
+        size={size as Size}
       />
     </>
   );
 };
 
-export default AdminCategoryList;
+export default AdminSize;

@@ -46,7 +46,7 @@ const HeaderAdmin: React.FC<{
           <Dropdown
             menu={{ items: item }}
             trigger={["click"]}
-            placement="bottomCenter"
+            placement="bottom"
           >
             <div className="user-info">
               <Avatar

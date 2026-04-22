@@ -32,6 +32,7 @@ const LoginPage: React.FC = () => {
           title: t("login.loginSuccess"),
           description: response.message,
         });
+        localStorage.setItem("accessToken", response.accessToken);
         if (response.user.role === "admin") {
           navigate("/admin/dashboard");
         } else {
@@ -133,6 +134,7 @@ const LoginPage: React.FC = () => {
                         title: t("login.loginSuccess"),
                         description: response.message,
                       });
+                      localStorage.setItem("accessToken", response.accessToken);
                       setUser(response.user);
                       if (response.user.role === "admin") {
                         navigate("/admin/dashboard");

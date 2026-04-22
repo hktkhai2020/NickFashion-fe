@@ -2,7 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import { ADMIN_ROUTES } from "@/constants/routes";
 import { Dashboard, AdminProductList, AdminCategoryList } from "@/pages/admin";
 import { AdminLayout } from "@/components/layout";
-
+import AdminSupplier from "@/pages/admin/AdminSupplier";
+import AdminBrand from "@/pages/admin/AdminBrand";
+import AdminSize from "@/pages/admin/AdminSize";
 const AdminRoutes = () => {
   return (
     <Routes>
@@ -10,10 +12,10 @@ const AdminRoutes = () => {
         <Route path={ADMIN_ROUTES.DASHBOARD} element={<Dashboard />} />
         <Route path={ADMIN_ROUTES.PRODUCTS} element={<AdminProductList />} />
         <Route path={ADMIN_ROUTES.CATEGORIES} element={<AdminCategoryList />} />
+        <Route path={ADMIN_ROUTES.SUPPLIER} element={<AdminSupplier />} />
+        <Route path={ADMIN_ROUTES.BRAND} element={<AdminBrand />} />
+        <Route path={ADMIN_ROUTES.SIZE} element={<AdminSize />} />
         {/* <Route path={ADMIN_ROUTES.IMPORTGOODS} element={<AdminImportGoods />} />
-        <Route path={ADMIN_ROUTES.SUPPLIER} element={<AdminSupplierList />} />
-        <Route path={ADMIN_ROUTES.BRAND} element={<AdminBrandList />} />
-        <Route path={ADMIN_ROUTES.SIZE} element={<AdminSizeList />} />
         <Route path={ADMIN_ROUTES.COLOR} element={<AdminColorList />} />
         <Route path={ADMIN_ROUTES.VARIANTS} element={<AdminVariantsList />} />
         <Route path={ADMIN_ROUTES.USER} element={<AdminUserList />} />

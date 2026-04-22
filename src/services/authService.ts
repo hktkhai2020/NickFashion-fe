@@ -6,6 +6,8 @@ import {
   User,
   LoginResponse,
   CheckEmailResponse,
+  MeResponse,
+  RefreshTokenResponse,
 } from "@/types";
 
 export const authService = {
@@ -62,7 +64,14 @@ export const authService = {
   },
 
   getProfile: async () => {
-    const response = await apiClient.get<User>(endpoints.userProfile);
+    const response = await apiClient.get<MeResponse>(endpoints.me);
+    return response.data;
+  },
+  refreshToken: async () => {
+    const response = await apiClient.post<RefreshTokenResponse>(
+      endpoints.refreshToken,
+    );
+    localStorage.setItem("accessToken", response.data.accessToken);
     return response.data;
   },
 

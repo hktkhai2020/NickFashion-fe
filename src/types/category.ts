@@ -1,18 +1,27 @@
 // Category Types
 export interface Category {
-  id: string;
+  _id: string;
   name: string;
-  slug: string;
-  description?: string;
-  image?: string;
-  parentId?: string;
-  children?: Category[];
-  productCount: number;
+  sortOrder: number;
   isActive: boolean;
+  isFeatured: boolean;
+  isShowOnHome: boolean;
+  metaTitle: string | null;
+  metaDescription: string | null;
   createdAt: string;
   updatedAt: string;
+  slug: string;
+  __v: number;
+  id: string;
 }
 
-export interface CategoryWithProducts extends Category {
-  products: Product[];
+export interface CategoryResponse {
+  success: boolean;
+  pagination: {
+    current: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+  data: Category[];
 }

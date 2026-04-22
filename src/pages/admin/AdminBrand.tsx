@@ -6,43 +6,45 @@ import {
   ExportOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import categoryService from "@/services/categoryService";
+import brandService from "@/services/brandService";
 import {
   ProTable,
   type ActionType,
   type ProColumns,
 } from "@ant-design/pro-components";
-import { Category } from "@/types";
+import { Brand } from "@/types";
 import { Button, Popconfirm, message } from "antd";
 import "@/styles/admin/adminPage.scss";
-import CreateCategory from "@/components/admin/category/create.category";
-import UpdateCategory from "@/components/admin/category/update.category";
-import DetailCategory from "@/components/admin/category/detail.category";
-const AdminCategoryList: React.FC = () => {
+import CreateBrand from "@/components/admin/brand/brand.create";
+import UpdateBrand from "@/components/admin/brand/brand.update";
+import DetailBrand from "@/components/admin/brand/brand.detail";
+
+const AdminBrand: React.FC = () => {
   const actionRef = useRef<ActionType>(null);
-  const [category, setCategory] = useState<Category | null>(null);
-  const [openModalCategoryUpdate, setOpenModalCategoryUpdate] = useState(false);
-  const [openModalCategoryCreate, setOpenModalCategoryCreate] = useState(false);
-  const [openModalCategoryDetail, setOpenModalCategoryDetail] = useState(false);
-  const [exportBook, setExportBook] = useState<Category[]>([]);
-  const handleDeleteCategory = useCallback(async (id: string) => {
+  const [brand, setBrand] = useState<Brand | null>(null);
+  const [openModalBrandUpdate, setOpenModalBrandUpdate] = useState(false);
+  const [openModalBrandCreate, setOpenModalBrandCreate] = useState(false);
+  const [openModalBrandDetail, setOpenModalBrandDetail] = useState(false);
+  const [exportData, setExportData] = useState<Brand[]>([]);
+
+  const handleDeleteBrand = useCallback(async (id: string) => {
     try {
-      await categoryService.deleteCategory(id);
-      message.success("Xóa danh mục thành công");
+      await brandService.deleteBrand(id);
+      message.success("Xóa thương hiệu thành công");
       actionRef.current?.reload();
     } catch {
-      message.error("Xóa danh mục thất bại");
+      message.error("Xóa thương hiệu thất bại");
     }
   }, []);
 
-  const columns: ProColumns<Category>[] = [
+  const columns: ProColumns<Brand>[] = [
     {
       dataIndex: "index",
       valueType: "indexBorder",
       width: 48,
     },
     {
-      title: "Tên danh mục",
+      title: "Tên thương hiệu",
       dataIndex: "name",
       sorter: true,
       sortDirections: ["ascend", "descend"],
@@ -50,8 +52,8 @@ const AdminCategoryList: React.FC = () => {
       render: (_, record) => (
         <a
           onClick={() => {
-            setOpenModalCategoryDetail(true);
-            setCategory(record);
+            setOpenModalBrandDetail(true);
+            setBrand(record);
           }}
         >
           {record.name}
@@ -62,25 +64,32 @@ const AdminCategoryList: React.FC = () => {
       title: "Slug",
       dataIndex: "slug",
       copyable: true,
-      width: "auto",
+      width: 200,
+      hideInSearch: true,
+      ellipsis: true,
+    },
+    {
+      title: "Email liên hệ",
+      dataIndex: "contactEmail",
+      width: 200,
       hideInSearch: true,
       ellipsis: true,
     },
     {
       title: "Hiển thị trang chủ",
-      dataIndex: "isShowOnHome",
+      dataIndex: "isFeatured",
       valueType: "switch",
-      width: 130,
+      width: 150,
       hideInSearch: true,
       align: "center",
       render: (_, record) => (
         <span
           style={{
-            color: record.isShowOnHome ? "#52c41a" : "#8c8c8c",
+            color: record.isFeatured ? "#52c41a" : "#8c8c8c",
             fontWeight: 600,
           }}
         >
-          {record.isShowOnHome ? "Có" : "Không"}
+          {record.isFeatured ? "Nổi bật" : "Bình thường"}
         </span>
       ),
     },
@@ -124,15 +133,15 @@ const AdminCategoryList: React.FC = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              setOpenModalCategoryUpdate(true);
-              setCategory(entity);
+              setOpenModalBrandUpdate(true);
+              setBrand(entity);
             }}
           />
           <Popconfirm
             key="delete"
-            title="Xóa danh mục"
-            description="Bạn có chắc chắn muốn xóa danh mục này không?"
-            onConfirm={() => handleDeleteCategory(entity._id)}
+            title="Xóa thương hiệu"
+            description="Bạn có chắc chắn muốn xóa thương hiệu này không?"
+            onConfirm={() => handleDeleteBrand(entity._id)}
             okText="Xóa"
             cancelText="Hủy"
             okButtonProps={{ danger: true }}
@@ -150,7 +159,7 @@ const AdminCategoryList: React.FC = () => {
     <>
       <div className="admin-page-header">
         <h2 className="admin-page-title text-2xl font-bold text-red-500 mb-2!">
-          Quản lý danh mục
+          Quản lý thương hiệu
         </h2>
       </div>
 
@@ -172,23 +181,18 @@ const AdminCategoryList: React.FC = () => {
             sortOrder = sort.createdAt === "ascend" ? "asc" : "desc";
           }
 
-          const res = await categoryService.getCategories({
+          const res = await brandService.getBrands({
             current: params.current,
             pageSize: params.pageSize,
             search: params.name,
-            sortBy: sortBy as
-              | "sortOrder"
-              | "name"
-              | "createdAt"
-              | "updatedAt"
-              | undefined,
+            sortBy: sortBy as "sortOrder" | "name" | "createdAt" | "updatedAt" | undefined,
             sortOrder: sortOrder as "asc" | "desc" | undefined,
           });
 
           if (!res.success) {
             return { data: [], success: false, total: 0 };
           }
-          setExportBook(res.data);
+          setExportData(res.data);
           return {
             data: res.data,
             success: true,
@@ -200,7 +204,7 @@ const AdminCategoryList: React.FC = () => {
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} trên ${total} danh mục`,
+            `${range[0]}-${range[1]} trên ${total} thương hiệu`,
         }}
         search={{
           labelWidth: "auto",
@@ -209,18 +213,18 @@ const AdminCategoryList: React.FC = () => {
           reload: true,
           density: true,
         }}
-        headerTitle="Danh sách danh mục"
+        headerTitle="Danh sách thương hiệu"
         dateFormatter="string"
         toolBarRender={() => [
           <Button
             key="button"
             icon={<PlusOutlined />}
             onClick={() => {
-              setOpenModalCategoryCreate(true);
+              setOpenModalBrandCreate(true);
             }}
             type="primary"
           >
-            Thêm danh mục mới
+            Thêm thương hiệu mới
           </Button>,
           <Button
             key="button"
@@ -228,30 +232,30 @@ const AdminCategoryList: React.FC = () => {
             onClick={() => {}}
             type="primary"
           >
-            <CSVLink data={exportBook} filename="export.csv">
+            <CSVLink data={exportData} filename="export_brands.csv">
               Export
             </CSVLink>
           </Button>,
         ]}
       />
-      <CreateCategory
-        isOpen={openModalCategoryCreate}
-        setIsOpen={setOpenModalCategoryCreate}
+      <CreateBrand
+        isOpen={openModalBrandCreate}
+        setIsOpen={setOpenModalBrandCreate}
         actionRef={actionRef}
       />
-      <UpdateCategory
-        isOpen={openModalCategoryUpdate}
-        setIsOpen={setOpenModalCategoryUpdate}
+      <UpdateBrand
+        isOpen={openModalBrandUpdate}
+        setIsOpen={setOpenModalBrandUpdate}
         actionRef={actionRef}
-        category={category as Category}
+        brand={brand as Brand}
       />
-      <DetailCategory
-        isOpen={openModalCategoryDetail}
-        setIsOpen={setOpenModalCategoryDetail}
-        category={category as Category}
+      <DetailBrand
+        isOpen={openModalBrandDetail}
+        setIsOpen={setOpenModalBrandDetail}
+        brand={brand as Brand}
       />
     </>
   );
 };
 
-export default AdminCategoryList;
+export default AdminBrand;

@@ -20,7 +20,6 @@ import {
   SwitcherOutlined,
   PhoneOutlined,
   ContainerOutlined,
-  MenuOutlined,
   RollbackOutlined,
 } from "@ant-design/icons";
 import logo from "@/assets/logoNickFashion.svg";
@@ -250,7 +249,7 @@ export const AdminLayout: React.FC = () => {
           <div className="outlet">
             <Outlet />
           </div>
-          <FooterAdmin />
+          
         </div>
       </div>
     </>

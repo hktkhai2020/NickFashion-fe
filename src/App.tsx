@@ -1,8 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ConfigProvider } from "antd";
+import enUS from "antd/locale/en_US";
 import { AppRoutes, AdminRoutes, AuthRoutes } from "@/routes";
-
+import useAuthInit from "@/hooks/useAuthInit";
+import { Flex, Spin  } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 function App() {
+  const { loading } = useAuthInit();
+
+  if (loading) {
+    return (
+      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+      </Flex>
+    );
+  }
+
   return (
     <ConfigProvider
       theme={{
@@ -10,6 +23,7 @@ function App() {
           colorPrimary: "#1677ff",
         },
       }}
+      locale={enUS}
     >
       <BrowserRouter>
         <Routes>
