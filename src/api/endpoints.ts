@@ -15,11 +15,17 @@ export const endpoints = {
   resetPassword: "/auth/reset-password",
   me: "/auth/me",
   // Products
-  products: "/products",
+  getProducts: "/products",
   productDetail: (id: string) => `/products/${id}`,
-  productReviews: (id: string) => `/products/${id}/reviews`,
-  featuredProducts: "/products/featured",
-  newProducts: "/products/new",
+  createProduct: "/products",
+  updateProduct: (id: string) => `/products/${id}`,
+  deleteProduct: (id: string) => `/products/${id}`,
+  getProductBySlug: (slug: string) => `/products/slug/${slug}`,
+
+  //upload
+  uploadSingle: "/upload/single",
+  uploadMultiple: "/upload/multiple",
+  uploadDelete: "/upload/delete",
 
   // Categories
   categories: "/category",
@@ -44,6 +50,12 @@ export const endpoints = {
   createSize: "/size",
   updateSize: (id: string) => `/size/${id}`,
   deleteSize: (id: string) => `/size/${id}`,
+
+  // Colors
+  colors: "/color",
+  createColor: "/color",
+  updateColor: (id: string) => `/color/${id}`,
+  deleteColor: (id: string) => `/color/${id}`,
 
   // Cart
   cart: "/cart",
@@ -88,4 +100,10 @@ export const endpoints = {
 
   //admin
   adminDashboard: "/admin/statistical",
+
+  // Variants
+  variants: "/variant",
+  createVariant: "/variant",
+  updateVariant: (id: string) => `/variant/${id}`,
+  deleteVariant: (id: string) => `/variant/${id}`,
 };

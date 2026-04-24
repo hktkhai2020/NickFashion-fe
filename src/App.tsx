@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App as AntApp } from "antd";
 import enUS from "antd/locale/en_US";
 import { AppRoutes, AdminRoutes, AuthRoutes } from "@/routes";
 import useAuthInit from "@/hooks/useAuthInit";
 import { Flex, Spin  } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+
 function App() {
   const { loading } = useAuthInit();
 
@@ -25,13 +26,15 @@ function App() {
       }}
       locale={enUS}
     >
-      <BrowserRouter>
-        <Routes>
-          <Route path="/nickfashion/*" element={<AppRoutes />} />
-          <Route path="/buyer/*" element={<AuthRoutes />} />
-          <Route path="/admin/*" element={<AdminRoutes />} />
-        </Routes>
-      </BrowserRouter>
+      <AntApp>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/nickfashion/*" element={<AppRoutes />} />
+            <Route path="/buyer/*" element={<AuthRoutes />} />
+            <Route path="/admin/*" element={<AdminRoutes />} />
+          </Routes>
+        </BrowserRouter>
+      </AntApp>
     </ConfigProvider>
   );
 }

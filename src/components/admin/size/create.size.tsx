@@ -1,8 +1,9 @@
 import { ActionType } from "@ant-design/pro-components";
-import { Form, Input, message, Modal } from "antd";
+import { Form, Input, message, Modal, Select } from "antd";
 import sizeService from "@/services/sizeService";
-import { SizeFormValues } from "@/types";
-
+import { Category, SizeFormValues } from "@/types";
+import  {useEffect, useState} from "react";
+import categoryService from "@/services/categoryService";
 const CreateSize = (props: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -10,7 +11,15 @@ const CreateSize = (props: {
 }) => {
   const { isOpen, setIsOpen, actionRef } = props;
   const [form] = Form.useForm();
+  const [categories, setCategories] = useState<Category[]>([]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await categoryService.getCategories();
+      setCategories(response.data);
+    };
+    fetchCategories();
+  }, []);
   const onFinish = async (values: SizeFormValues) => {
     try {
       const response = await sizeService.createSize(values);
@@ -52,7 +61,12 @@ const CreateSize = (props: {
           name="type"
           rules={[{ required: true, message: "Vui lòng nhập ID danh mục" }]}
         >
-          <Input placeholder="Nhập ID danh mục" />
+          <Select
+            placeholder="Nhập ID danh mục"
+            options={categories.map((category: Category) => ({
+              label: category.name,
+              value: category._id,
+            }))} />
         </Form.Item>
       </Form>
     </Modal>

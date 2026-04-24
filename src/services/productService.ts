@@ -1,63 +1,54 @@
-// Product Service
-import { apiClient, endpoints } from '@/api';
-import { Product, ProductFilter, ProductReview, PaginatedResponse } from '@/types';
+import { apiClient, endpoints } from "@/api";
+import {
+  ProductFormValues,
+  GetProductsParams,
+  ProductResponse,
+  Product,
+} from "@/types";
 
-export const productService = {
-  getProducts: async (params?: {
-    page?: number;
-    limit?: number;
-    filter?: ProductFilter;
-  }) => {
-    const response = await apiClient.get<PaginatedResponse<Product>>(endpoints.products, {
-      params: {
-        page: params?.page ?? 1,
-        limit: params?.limit ?? 12,
-        ...params?.filter,
-      },
-    });
+const productService = {
+  getProducts: async (params?: GetProductsParams) => {
+    const searchParams = new URLSearchParams();
+    if (params?.current) searchParams.set("current", String(params.current));
+    if (params?.pageSize) searchParams.set("pageSize", String(params.pageSize));
+    if (params?.search) searchParams.set("search", params.search);
+    if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
+    if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
+
+    const query = searchParams.toString();
+    const url = query ? `${endpoints.getProducts}?${query}` : endpoints.getProducts;
+    const response = await apiClient.get<ProductResponse>(url as string);
     return response.data;
   },
-  
+
+  getProductById: async (id: string) => {
+    const response = await apiClient.get<{ success: boolean; data: Product }>(
+      endpoints.productDetail(id)
+    );
+    return response.data;
+  },
+
   getProductBySlug: async (slug: string) => {
-    const response = await apiClient.get<Product>(endpoints.productDetail(slug));
+    const response = await apiClient.get<{ success: boolean; data: Product }>(
+      endpoints.getProductBySlug(slug)
+    );
     return response.data;
   },
-  
-  getFeaturedProducts: async (limit?: number) => {
-    const response = await apiClient.get<Product[]>(endpoints.featuredProducts, {
-      params: { limit },
-    });
+
+  createProduct: async (data: ProductFormValues) => {
+    const response = await apiClient.post(endpoints.createProduct, data);
     return response.data;
   },
-  
-  getNewProducts: async (limit?: number) => {
-    const response = await apiClient.get<Product[]>(endpoints.newProducts, {
-      params: { limit },
-    });
+
+  updateProduct: async (id: string, data: ProductFormValues) => {
+    const response = await apiClient.put(endpoints.updateProduct(id), data);
     return response.data;
   },
-  
-  getProductReviews: async (productId: string) => {
-    const response = await apiClient.get<ProductReview[]>(endpoints.productReviews(productId));
-    return response.data;
-  },
-  
-  createReview: async (productId: string, data: {
-    rating: number;
-    comment: string;
-    images?: string[];
-  }) => {
-    const response = await apiClient.post(endpoints.createReview, {
-      productId,
-      ...data,
-    });
-    return response.data;
-  },
-  
-  searchProducts: async (query: string, page?: number, limit?: number) => {
-    const response = await apiClient.get<PaginatedResponse<Product>>(endpoints.search, {
-      params: { q: query, page, limit },
-    });
+
+  deleteProduct: async (id: string) => {
+    const response = await apiClient.delete(endpoints.deleteProduct(id));
     return response.data;
   },
 };
+
+export default productService;

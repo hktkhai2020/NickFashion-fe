@@ -7,4 +7,7 @@ export * from './category';
 export * from './supplier';
 export * from './brand';
 export * from './size';
+export * from './color';
+export * from './product';
+export * from './variant';
 export * from './admin';
