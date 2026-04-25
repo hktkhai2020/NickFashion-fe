@@ -167,8 +167,11 @@ const UpdateVariant = (props: {
         };
 
         const newList = [...fileListImages, uploadFile];
-        setFileListImages(newList);
-        form.setFieldsValue({ images: newList });
+        setFileListImages((prev) => {
+          const updated = [...prev, uploadFile];
+          form.setFieldsValue({ images: updated });
+          return updated;
+        });
 
         onSuccess?.(res);
         message.success("Upload ảnh thành công!");

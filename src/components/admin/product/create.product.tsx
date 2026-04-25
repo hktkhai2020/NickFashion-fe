@@ -147,12 +147,17 @@ const CreateProduct = (props: {
         };
 
         if (type === "thumbnail") {
-          setFileListThumb([...fileListThumb, uploadFile]);
-          form.setFieldsValue({ thumbnail: [...fileListThumb, uploadFile] });
-          
+          setFileListThumb((prev) => {
+            const updated = [...prev, uploadFile];
+            form.setFieldsValue({ thumbnail: updated });
+            return updated;
+          });
         } else {
-          setFileListSlides([...fileListSlides, uploadFile]);
-          form.setFieldsValue({ slides: [...fileListSlides, uploadFile] });
+          setFileListSlides((prev) => {
+            const updated = [...prev, uploadFile];
+            form.setFieldsValue({ slides: updated });
+            return updated;
+          });
         }
 
         onSuccess?.(res);

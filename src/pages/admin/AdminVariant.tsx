@@ -1,9 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import variantService from "@/services/variantService";
 import {
   ProTable,
@@ -145,9 +141,7 @@ const AdminVariant: React.FC = () => {
             />
           );
         }
-        return (
-          <Badge status="success" text={<span>{record.stock}</span>} />
-        );
+        return <Badge status="success" text={<span>{record.stock}</span>} />;
       },
     },
     {

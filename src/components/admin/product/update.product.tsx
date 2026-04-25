@@ -50,26 +50,6 @@ const UpdateProduct = (props: {
   const [isDiscounted, setIsDiscounted] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      const fetchRefs = async () => {
-        try {
-          const [catRes, brandRes, supplierRes] = await Promise.all([
-            categoryService.getCategories({ pageSize: 100 }),
-            brandService.getBrands({ pageSize: 100 }),
-            supplierService.getSuppliers({ pageSize: 100 }),
-          ]);
-          if (catRes.success) setCategories(catRes.data);
-          if (brandRes.success) setBrands(brandRes.data);
-          if (supplierRes.success) setSuppliers(supplierRes.data);
-        } catch (e) {
-          console.error(e);
-        }
-      };
-      fetchRefs();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
     if (isOpen && product) {
       const thumbFile: UploadFile = {
         uid: `thumb-${product._id}`,
@@ -93,26 +73,26 @@ const UpdateProduct = (props: {
         setFileListThumb([thumbFile]);
         setFileListSlides(slideFiles);
         form.setFieldsValue({
-        name: product.name,
-        description: product.description,
-        category: product.category?.map((c: { _id: string }) => c._id),
-        brand: product.brand?._id,
-        supplier: product.supplier?._id,
-        priceSell: product.priceSell,
-        costPrice: product.costPrice,
-        material: product.material,
-        weight: product.weight,
-        tags: product.tags,
-        gender: product.gender,
-        isActive: product.is?.active,
-        isFeatured: product.is?.featured,
-        isNew: product.is?.new,
-        isBestSeller: product.is?.bestSeller,
-        saleDiscountType: product.sale?.discountType || "percentage",
-        saleDiscountValue: product.sale?.discountValue || 0,
-        thumbnail: [thumbFile],
-        slides: slideFiles,
-      });
+          name: product.name,
+          description: product.description,
+          category: product.category?.map((c: { _id: string }) => c._id),
+          brand: product.brand?._id,
+          supplier: product.supplier?._id,
+          priceSell: product.priceSell,
+          costPrice: product.costPrice,
+          material: product.material,
+          weight: product.weight,
+          tags: product.tags,
+          gender: product.gender,
+          isActive: product.is?.active,
+          isFeatured: product.is?.featured,
+          isNew: product.is?.new,
+          isBestSeller: product.is?.bestSeller,
+          saleDiscountType: product.sale?.discountType || "percentage",
+          saleDiscountValue: product.sale?.discountValue || 0,
+          thumbnail: [thumbFile],
+          slides: slideFiles,
+        });
         setIsDiscounted(product.is?.discounted || false);
       });
     }
@@ -149,6 +129,25 @@ const UpdateProduct = (props: {
     };
   }, [isOpen, form]);
 
+  useEffect(() => {
+    if (isOpen) {
+      const fetchRefs = async () => {
+        try {
+          const [catRes, brandRes, supplierRes] = await Promise.all([
+            categoryService.getCategories({ pageSize: 100 }),
+            brandService.getBrands({ pageSize: 100 }),
+            supplierService.getSuppliers({ pageSize: 100 }),
+          ]);
+          if (catRes.success) setCategories(catRes.data);
+          if (brandRes.success) setBrands(brandRes.data);
+          if (supplierRes.success) setSuppliers(supplierRes.data);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchRefs();
+    }
+  }, [isOpen]);
   const validateFile = (file: File): boolean => {
     const MAX_FILE_SIZE = 10 * 1024 * 1024;
     if (!file.type.startsWith("image/")) {
@@ -196,14 +195,19 @@ const UpdateProduct = (props: {
           status: "done",
           url: res.data.url,
         };
-
+        
         if (type === "thumbnail") {
-          setFileListThumb([uploadFile]);
-          form.setFieldsValue({ thumbnail: [uploadFile] });
+          setFileListThumb(() => {
+            const updated = [uploadFile];
+            form.setFieldsValue({ thumbnail: updated });
+            return updated;
+          });
         } else {
-          const newList = [...fileListSlides, uploadFile];
-          setFileListSlides(newList);
-          form.setFieldsValue({ slides: newList });
+          setFileListSlides((prev) => {
+            const updated = [...prev, uploadFile];
+            form.setFieldsValue({ slides: updated });
+            return updated;
+          });
         }
 
         onSuccess?.(res);
