@@ -59,6 +59,8 @@ const AdminCoupon: React.FC = () => {
     {
       title: "Mã coupon",
       dataIndex: "code",
+      sorter: true,
+      sortDirections: ["ascend", "descend"],
       width: 140,
       render: (_, record) => (
         <a
@@ -75,6 +77,8 @@ const AdminCoupon: React.FC = () => {
     {
       title: "Tên coupon",
       dataIndex: "name",
+      sorter: true,
+      sortDirections: ["ascend", "descend"],
       width: 180,
       hideInSearch: true,
       render: (_, record) => (
@@ -118,6 +122,8 @@ const AdminCoupon: React.FC = () => {
     {
       title: "Lượt dùng",
       dataIndex: "usedCount",
+      sorter: true,
+      sortDirections: ["ascend", "descend"],
       width: 110,
       hideInSearch: true,
       align: "center",
@@ -260,6 +266,14 @@ const AdminCoupon: React.FC = () => {
           if (sort.code) {
             sortBy = "code";
             sortOrder = sort.code === "ascend" ? "asc" : "desc";
+          }
+          if (sort.name) {
+            sortBy = "name";
+            sortOrder = sort.name === "ascend" ? "asc" : "desc";
+          }
+          if (sort.usedCount) {
+            sortBy = "usedCount";
+            sortOrder = sort.usedCount === "ascend" ? "asc" : "desc";
           }
           if (sort.createdAt) {
             sortBy = "createdAt";
