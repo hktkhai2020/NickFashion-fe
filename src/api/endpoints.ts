@@ -102,8 +102,15 @@ export const endpoints = {
   adminDashboard: "/admin/statistical",
 
   // Variants
-  variants: "/variant",
-  createVariant: "/variant",
-  updateVariant: (id: string) => `/variant/${id}`,
-  deleteVariant: (id: string) => `/variant/${id}`,
+  variants: "/variants",
+  createVariant: "/variants",
+  updateVariant: (id: string) => `/variants/${id}`,
+  deleteVariant: (id: string) => `/variants/${id}`,
+
+  // Coupons
+  coupons: "/coupon",
+  createCoupon: "/coupon",
+  updateCoupon: (id: string) => `/coupon/${id}`,
+  deleteCoupon: (id: string) => `/coupon/${id}`,
+  toggleCouponStatus: (id: string) => `/coupon/${id}/toggle`,
 };

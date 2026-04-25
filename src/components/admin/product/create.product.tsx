@@ -74,14 +74,16 @@ const CreateProduct = (props: {
       const thumbFiles = form.getFieldValue("thumbnail");
       if (Array.isArray(thumbFiles)) {
         thumbFiles.forEach((file: UploadFile) => {
-          if (file?.thumbUrl?.startsWith("blob:")) URL.revokeObjectURL(file.thumbUrl);
+          if (file?.thumbUrl?.startsWith("blob:"))
+            URL.revokeObjectURL(file.thumbUrl);
           if (file?.url?.startsWith("blob:")) URL.revokeObjectURL(file.url);
         });
       }
       const slideFiles = form.getFieldValue("slides");
       if (Array.isArray(slideFiles)) {
         slideFiles.forEach((file: UploadFile) => {
-          if (file?.thumbUrl?.startsWith("blob:")) URL.revokeObjectURL(file.thumbUrl);
+          if (file?.thumbUrl?.startsWith("blob:"))
+            URL.revokeObjectURL(file.thumbUrl);
           if (file?.url?.startsWith("blob:")) URL.revokeObjectURL(file.url);
         });
       }
@@ -90,7 +92,8 @@ const CreateProduct = (props: {
       const thumbFiles = form.getFieldValue("thumbnail");
       if (Array.isArray(thumbFiles)) {
         thumbFiles.forEach((file: UploadFile) => {
-          if (file?.thumbUrl?.startsWith("blob:")) URL.revokeObjectURL(file.thumbUrl);
+          if (file?.thumbUrl?.startsWith("blob:"))
+            URL.revokeObjectURL(file.thumbUrl);
           if (file?.url?.startsWith("blob:")) URL.revokeObjectURL(file.url);
         });
       }
@@ -147,8 +150,8 @@ const CreateProduct = (props: {
         };
 
         if (type === "thumbnail") {
-          setFileListThumb((prev) => {
-            const updated = [...prev, uploadFile];
+          setFileListThumb(() => {
+            const updated = [uploadFile];
             form.setFieldsValue({ thumbnail: updated });
             return updated;
           });
@@ -187,7 +190,11 @@ const CreateProduct = (props: {
     return fileList.map((file) => {
       if (file.thumbUrl || file.url) return file;
       if (file.originFileObj) {
-        return { ...file, thumbUrl: URL.createObjectURL(file.originFileObj), url: URL.createObjectURL(file.originFileObj) };
+        return {
+          ...file,
+          thumbUrl: URL.createObjectURL(file.originFileObj),
+          url: URL.createObjectURL(file.originFileObj),
+        };
       }
       return file;
     });
@@ -201,7 +208,7 @@ const CreateProduct = (props: {
       const payload: ProductFormValues = {
         name: values.name,
         description: values.description || "",
-        category: values.category ,
+        category: values.category,
         brand: values.brand || "",
         supplier: values.supplier || "",
         priceSell: values.priceSell ?? 0,
@@ -223,9 +230,13 @@ const CreateProduct = (props: {
         sale: isDiscounted
           ? {
               discountType: values.saleDiscountType || "percentage",
-              discountValue: values.saleDiscountValue ,
-              startDate: values.startDate ? dayjs(values.startDate).format("YYYY-MM-DDTHH:mm:ss") : "",
-              endDate: values.endDate ? dayjs(values.endDate).format("YYYY-MM-DDTHH:mm:ss") : "",
+              discountValue: values.saleDiscountValue,
+              startDate: values.startDate
+                ? dayjs(values.startDate).format("YYYY-MM-DDTHH:mm:ss")
+                : "",
+              endDate: values.endDate
+                ? dayjs(values.endDate).format("YYYY-MM-DDTHH:mm:ss")
+                : "",
             }
           : {
               discountType: "percentage",
@@ -299,7 +310,13 @@ const CreateProduct = (props: {
         >
           <Row gutter={16}>
             <Col span={16}>
-              <Form.Item label="Tên sản phẩm" name="name" rules={[{ required: true, message: "Vui lòng nhập tên sản phẩm" }]}>
+              <Form.Item
+                label="Tên sản phẩm"
+                name="name"
+                rules={[
+                  { required: true, message: "Vui lòng nhập tên sản phẩm" },
+                ]}
+              >
                 <Input placeholder="Nhập tên sản phẩm" />
               </Form.Item>
             </Col>
@@ -310,34 +327,60 @@ const CreateProduct = (props: {
             </Col>
           </Row>
 
-          <Form.Item label="Mô tả" name="description" rules={[{ required: true, message: "Vui lòng nhập mô tả" }]}>
+          <Form.Item
+            label="Mô tả"
+            name="description"
+            rules={[{ required: true, message: "Vui lòng nhập mô tả" }]}
+          >
             <TextArea placeholder="Nhập mô tả sản phẩm" rows={3} />
           </Form.Item>
 
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Danh mục" name="category" rules={[{ required: true, message: "Vui lòng chọn danh mục" }]}>
+              <Form.Item
+                label="Danh mục"
+                name="category"
+                rules={[{ required: true, message: "Vui lòng chọn danh mục" }]}
+              >
                 <Select mode="multiple" placeholder="Chọn danh mục" allowClear>
                   {categories.map((c) => (
-                    <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
+                    <Select.Option key={c._id} value={c._id}>
+                      {c.name}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Thương hiệu" name="brand" rules={[{ required: true, message: "Vui lòng chọn thương hiệu" }]}>
+              <Form.Item
+                label="Thương hiệu"
+                name="brand"
+                rules={[
+                  { required: true, message: "Vui lòng chọn thương hiệu" },
+                ]}
+              >
                 <Select placeholder="Chọn thương hiệu" allowClear>
                   {brands.map((b) => (
-                    <Select.Option key={b._id} value={b._id}>{b.name}</Select.Option>
+                    <Select.Option key={b._id} value={b._id}>
+                      {b.name}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Nhà cung cấp" name="supplier" rules={[{ required: true, message: "Vui lòng chọn nhà cung cấp" }]}>
+              <Form.Item
+                label="Nhà cung cấp"
+                name="supplier"
+                rules={[
+                  { required: true, message: "Vui lòng chọn nhà cung cấp" },
+                ]}
+              >
                 <Select placeholder="Chọn nhà cung cấp" allowClear>
                   {suppliers.map((s) => (
-                    <Select.Option key={s._id} value={s._id}>{s.name}</Select.Option>
+                    <Select.Option key={s._id} value={s._id}>
+                      {s.name}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -346,24 +389,40 @@ const CreateProduct = (props: {
 
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Giá bán" name="priceSell" rules={[{ required: true, message: "Vui lòng nhập giá bán" }]}>
+              <Form.Item
+                label="Giá bán"
+                name="priceSell"
+                rules={[{ required: true, message: "Vui lòng nhập giá bán" }]}
+              >
                 <InputNumber
                   min={0}
                   style={{ width: "100%" }}
-                  formatter={(value) => `${value ?? ""}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  parser={(value) => Number(value?.replace(/,/g, "") || 0) as unknown as 0}
+                  formatter={(value) =>
+                    `${value ?? ""}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) =>
+                    Number(value?.replace(/,/g, "") || 0) as unknown as 0
+                  }
                   addonAfter="VND"
                   placeholder="0"
                 />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Giá vốn" name="costPrice" rules={[{ required: true, message: "Vui lòng nhập giá vốn" }]}>
+              <Form.Item
+                label="Giá vốn"
+                name="costPrice"
+                rules={[{ required: true, message: "Vui lòng nhập giá vốn" }]}
+              >
                 <InputNumber
                   min={0}
                   style={{ width: "100%" }}
-                  formatter={(value) => `${value ?? ""}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  parser={(value) => Number(value?.replace(/,/g, "") || 0) as unknown as 0}
+                  formatter={(value) =>
+                    `${value ?? ""}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) =>
+                    Number(value?.replace(/,/g, "") || 0) as unknown as 0
+                  }
                   addonAfter="VND"
                   placeholder="0"
                 />
@@ -379,7 +438,11 @@ const CreateProduct = (props: {
           <Row gutter={16}>
             <Col span={8}>
               <Form.Item label="Cân nặng (gram)" name="weight">
-                <InputNumber min={0} style={{ width: "100%" }} placeholder="0" />
+                <InputNumber
+                  min={0}
+                  style={{ width: "100%" }}
+                  placeholder="0"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -404,14 +467,21 @@ const CreateProduct = (props: {
 
           <Row gutter={16}>
             <Col xs={12} sm={12} md={12}>
-              <Form.Item label="Ảnh slides" name="slides" valuePropName="fileList" getValueFromEvent={normFile}>
+              <Form.Item
+                label="Ảnh slides"
+                name="slides"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
                 <Upload
                   multiple
                   listType="picture-card"
                   beforeUpload={beforeUpload}
                   onRemove={(file) => onRemove(file, "slides")}
                   onPreview={onPreview}
-                  customRequest={(options) => handleUploadFile(options, "slides")}
+                  customRequest={(options) =>
+                    handleUploadFile(options, "slides")
+                  }
                   fileList={fileListSlides}
                 >
                   {fileListSlides.length >= 4 ? null : uploadButton}
@@ -419,13 +489,20 @@ const CreateProduct = (props: {
               </Form.Item>
             </Col>
             <Col xs={12} sm={12} md={12}>
-              <Form.Item label="Ảnh đại diện" name="thumbnail" valuePropName="fileList" getValueFromEvent={normFile}>
+              <Form.Item
+                label="Ảnh đại diện"
+                name="thumbnail"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
                 <Upload
                   listType="picture-card"
                   beforeUpload={beforeUpload}
                   onRemove={(file) => onRemove(file, "thumbnail")}
                   onPreview={onPreview}
-                  customRequest={(options) => handleUploadFile(options, "thumbnail")}
+                  customRequest={(options) =>
+                    handleUploadFile(options, "thumbnail")
+                  }
                   fileList={fileListThumb}
                 >
                   {fileListThumb.length >= 1 ? null : uploadButton}
@@ -438,22 +515,38 @@ const CreateProduct = (props: {
 
           <Row gutter={16}>
             <Col span={6}>
-              <Form.Item label="Hoạt động" name="isActive" valuePropName="checked">
+              <Form.Item
+                label="Hoạt động"
+                name="isActive"
+                valuePropName="checked"
+              >
                 <Switch />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label="Sản phẩm mới" name="isNew" valuePropName="checked">
+              <Form.Item
+                label="Sản phẩm mới"
+                name="isNew"
+                valuePropName="checked"
+              >
                 <Switch />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label="Nổi bật" name="isFeatured" valuePropName="checked">
+              <Form.Item
+                label="Nổi bật"
+                name="isFeatured"
+                valuePropName="checked"
+              >
                 <Switch />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label="Bán chạy" name="isBestSeller" valuePropName="checked">
+              <Form.Item
+                label="Bán chạy"
+                name="isBestSeller"
+                valuePropName="checked"
+              >
                 <Switch />
               </Form.Item>
             </Col>
@@ -472,7 +565,9 @@ const CreateProduct = (props: {
                 <Col span={6}>
                   <Form.Item label="Loại giảm" name="saleDiscountType">
                     <Select>
-                      <Select.Option value="percentage">Phần trăm (%)</Select.Option>
+                      <Select.Option value="percentage">
+                        Phần trăm (%)
+                      </Select.Option>
                       <Select.Option value="fixed">Cố định (VND)</Select.Option>
                     </Select>
                   </Form.Item>

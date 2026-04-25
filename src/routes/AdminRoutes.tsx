@@ -7,6 +7,8 @@ import AdminBrand from "@/pages/admin/AdminBrand";
 import AdminSize from "@/pages/admin/AdminSize";
 import AdminColor from "@/pages/admin/AdminColor";
 import AdminVariant from "@/pages/admin/AdminVariant";
+import AdminCoupon from "@/pages/admin/AdminCoupon";
+
 const AdminRoutes = () => {
   return (
     <Routes>
@@ -19,21 +21,7 @@ const AdminRoutes = () => {
         <Route path={ADMIN_ROUTES.SIZE} element={<AdminSize />} />
         <Route path={ADMIN_ROUTES.COLOR} element={<AdminColor />} />
         <Route path={ADMIN_ROUTES.VARIANTS} element={<AdminVariant />} />
-        {/* <Route path={ADMIN_ROUTES.IMPORTGOODS} element={<AdminImportGoods />} />
-        <Route path={ADMIN_ROUTES.VARIANTS} element={<AdminVariants />} />
-        <Route path={ADMIN_ROUTES.USER} element={<AdminUser />} />
         <Route path={ADMIN_ROUTES.COUPON} element={<AdminCoupon />} />
-        <Route path={ADMIN_ROUTES.BLOG} element={<AdminBlog />} />
-        <Route path={ADMIN_ROUTES.CHAT} element={<AdminChat />} />
-        <Route
-          path={ADMIN_ROUTES.SELLINVOICE}
-          element={<AdminSellInvoiceList />}
-        />
-        <Route
-          path={ADMIN_ROUTES.GOODSRECEIPT}
-          element={<AdminGoodsReceiptList />}
-        />
-        <Route path={ADMIN_ROUTES.STATISTICAL} element={<AdminStatistical />} /> */}
       </Route>
     </Routes>
   );
