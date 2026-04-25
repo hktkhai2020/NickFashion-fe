@@ -64,11 +64,12 @@ export const endpoints = {
   removeFromCart: (id: string) => `/cart/${id}`,
   clearCart: "/cart/clear",
 
-  // Orders
-  orders: "/orders",
-  orderDetail: (id: string) => `/orders/${id}`,
-  orderHistory: "/orders/history",
-  cancelOrder: (id: string) => `/orders/${id}/cancel`,
+  // Orders (admin)
+  adminOrders: "/order",
+  getOrderByUserId: (userId: string) => `/order/user/${userId}`,
+  createOrder: "/order",
+  updateOrder: (id: string) => `/order/${id}`,
+  deleteOrder: (id: string) => `/order/${id}`,
 
   // User
   userProfile: "/users/profile",

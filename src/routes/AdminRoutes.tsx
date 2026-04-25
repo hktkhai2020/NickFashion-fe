@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ADMIN_ROUTES } from "@/constants/routes";
-import { Dashboard, AdminProduct, AdminCategoryList } from "@/pages/admin";
+import { Dashboard, AdminProduct, AdminCategoryList, AdminSellInvoice } from "@/pages/admin";
 import { AdminLayout } from "@/components/layout";
 import AdminSupplier from "@/pages/admin/AdminSupplier";
 import AdminBrand from "@/pages/admin/AdminBrand";
@@ -22,6 +22,14 @@ const AdminRoutes = () => {
         <Route path={ADMIN_ROUTES.COLOR} element={<AdminColor />} />
         <Route path={ADMIN_ROUTES.VARIANTS} element={<AdminVariant />} />
         <Route path={ADMIN_ROUTES.COUPON} element={<AdminCoupon />} />
+        <Route path={ADMIN_ROUTES.SELLINVOICE} element={<AdminSellInvoice />} />
+        {/* <Route path={ADMIN_ROUTES.IMPORTGOODS} element={<AdminImportGoods />} />
+        <Route path={ADMIN_ROUTES.GOODSRECEIPT} element={<AdminGoodsReceiptList />} />
+        <Route path={ADMIN_ROUTES.VARIANTS} element={<AdminVariants />} />
+        <Route path={ADMIN_ROUTES.USER} element={<AdminUser />} />
+        <Route path={ADMIN_ROUTES.BLOG} element={<AdminBlog />} />
+        <Route path={ADMIN_ROUTES.CHAT} element={<AdminChat />} />
+        <Route path={ADMIN_ROUTES.STATISTICAL} element={<AdminStatistical />} /> */}
       </Route>
     </Routes>
   );

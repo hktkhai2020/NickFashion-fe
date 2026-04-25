@@ -1,27 +1,46 @@
-// Order Service
-import { apiClient, endpoints } from '@/api';
-import { Order, CreateOrderPayload, PaginatedResponse } from '@/types';
+import { apiClient, endpoints } from "@/api";
+import { Order, OrderResponse, GetOrdersParams } from "@/types";
 
-export const orderService = {
-  createOrder: async (data: CreateOrderPayload) => {
-    const response = await apiClient.post<Order>(endpoints.orders, data);
+const orderService = {
+  getOrders: async (params?: GetOrdersParams) => {
+    const searchParams = new URLSearchParams();
+    if (params?.current) searchParams.set("current", String(params.current));
+    if (params?.pageSize) searchParams.set("pageSize", String(params.pageSize));
+    if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
+    if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
+    if (params?.status) searchParams.set("status", params.status);
+    if (params?.paymentMethod) searchParams.set("paymentMethod", params.paymentMethod);
+    if (params?.paymentStatus) searchParams.set("paymentStatus", params.paymentStatus);
+    if (params?.startDate) searchParams.set("startDate", params.startDate);
+    if (params?.endDate) searchParams.set("endDate", params.endDate);
+    if (params?.customerName) searchParams.set("customerName", params.customerName);
+    if (params?.search) searchParams.set("search", params.search);
+
+    const query = searchParams.toString();
+    const url = query ? `${endpoints.adminOrders}?${query}` : endpoints.adminOrders;
+    const response = await apiClient.get<OrderResponse>(url);
     return response.data;
   },
-  
-  getOrders: async (params?: { page?: number; limit?: number }) => {
-    const response = await apiClient.get<PaginatedResponse<Order>>(endpoints.orderHistory, {
-      params,
-    });
+
+  getOrderById: async (id: string) => {
+    const response = await apiClient.get<{ success: boolean; data: Order }>(
+      `${endpoints.adminOrders}/${id}`,
+    );
     return response.data;
   },
-  
-  getOrderById: async (orderId: string) => {
-    const response = await apiClient.get<Order>(endpoints.orderDetail(orderId));
+
+  updateOrder: async (id: string, data: Record<string, unknown>) => {
+    const response = await apiClient.put(
+      endpoints.updateOrder(id),
+      data,
+    );
     return response.data;
   },
-  
-  cancelOrder: async (orderId: string) => {
-    const response = await apiClient.post<Order>(endpoints.cancelOrder(orderId));
+
+  deleteOrder: async (id: string) => {
+    const response = await apiClient.delete(endpoints.deleteOrder(id));
     return response.data;
   },
 };
+
+export default orderService;

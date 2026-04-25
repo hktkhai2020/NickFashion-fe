@@ -4,3 +4,4 @@ export { default as AdminCategoryList } from './AdminCategoryList';
 export { default as AdminBrand } from './AdminBrand';
 export { default as AdminVariant } from './AdminVariant';
 export { default as AdminCoupon } from './AdminCoupon';
+export { default as AdminSellInvoice } from './AdminSellInvoice';
