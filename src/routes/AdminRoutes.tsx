@@ -8,12 +8,14 @@ import AdminSize from "@/pages/admin/AdminSize";
 import AdminColor from "@/pages/admin/AdminColor";
 import AdminVariant from "@/pages/admin/AdminVariant";
 import AdminCoupon from "@/pages/admin/AdminCoupon";
+import AdminSellingData from "@/pages/admin/AdminSellingData";
 
 const AdminRoutes = () => {
   return (
     <Routes>
       <Route path={"/"} element={<AdminLayout />}>
         <Route path={ADMIN_ROUTES.DASHBOARD} element={<Dashboard />} />
+        <Route path={ADMIN_ROUTES.SELLING_DATA} element={<AdminSellingData />} />
         <Route path={ADMIN_ROUTES.PRODUCTS} element={<AdminProduct />} />
         <Route path={ADMIN_ROUTES.CATEGORIES} element={<AdminCategoryList />} />
         <Route path={ADMIN_ROUTES.SUPPLIER} element={<AdminSupplier />} />

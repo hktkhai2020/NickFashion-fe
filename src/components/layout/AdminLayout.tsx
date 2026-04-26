@@ -35,7 +35,7 @@ export const AdminLayout: React.FC = () => {
       setActiveMenu("dashboard");
       setOpenKeys(["statistical"]);
     }
-    if (location.pathname === "/admin/statistical") {
+    if (location.pathname === "/admin/selling-data") {
       setActiveMenu("sellData");
       setOpenKeys(["statistical"]);
     }
@@ -106,7 +106,7 @@ export const AdminLayout: React.FC = () => {
           icon: <LineChartOutlined />,
         },
         {
-          label: <Link to="/admin/statistical">Bán hàng</Link>,
+          label: <Link to="/admin/selling-data">Bán hàng</Link>,
           key: "sellData",
           icon: <RiseOutlined />,
         },

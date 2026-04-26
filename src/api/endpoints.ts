@@ -100,7 +100,7 @@ export const endpoints = {
   search: "/search",
 
   //admin
-  adminDashboard: "/admin/dashboard",
+  adminDashboard: "/admin/statistical",
   getTopSellingVariants: "/admin/top-selling-variants",
   getTopRevenueVariants: "/admin/top-revenue-variants",
   getMonthlyRevenue: "/admin/monthly-revenue",
