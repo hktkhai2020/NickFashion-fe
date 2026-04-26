@@ -100,13 +100,19 @@ export const endpoints = {
   search: "/search",
 
   //admin
-  adminDashboard: "/admin/statistical",
+  adminDashboard: "/admin/dashboard",
+  getTopSellingVariants: "/admin/top-selling-variants",
+  getTopRevenueVariants: "/admin/top-revenue-variants",
+  getMonthlyRevenue: "/admin/monthly-revenue",
+  getDailyRevenue: "/admin/daily-revenue",
+  
+
 
   // Variants
-  variants: "/variants",
-  createVariant: "/variants",
-  updateVariant: (id: string) => `/variants/${id}`,
-  deleteVariant: (id: string) => `/variants/${id}`,
+  variants: "/variant",
+  createVariant: "/variant",
+  updateVariant: (id: string) => `/variant/${id}`,
+  deleteVariant: (id: string) => `/variant/${id}`,
 
   // Coupons
   coupons: "/coupon",

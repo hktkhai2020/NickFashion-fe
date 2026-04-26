@@ -19,7 +19,6 @@ interface DetailOrderProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   order: Order | null;
-  onEdit: () => void;
 }
 
 const formatCurrency = (value: number) =>
@@ -54,7 +53,6 @@ const DetailOrder: React.FC<DetailOrderProps> = ({
   isOpen,
   setIsOpen,
   order,
-  onEdit,
 }) => {
   if (!order) return null;
 
@@ -137,24 +135,7 @@ const DetailOrder: React.FC<DetailOrderProps> = ({
       width={800}
       open={isOpen}
       onClose={() => setIsOpen(false)}
-      extra={
-        <button
-          onClick={onEdit}
-          style={{
-            border: "none",
-            background: "orange",
-            color: "#fff",
-            padding: "4px 12px",
-            borderRadius: 4,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-          }}
-        >
-          <EditOutlined /> Cập nhật
-        </button>
-      }
+      
     >
       <Row gutter={16}>
         <Col span={12}>

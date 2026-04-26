@@ -1,4 +1,4 @@
-// ─── Nested types ────────────────────────────────────────────────────────────
+// ─── Nested / Item types ────────────────────────────────────────────────────────
 
 export interface TransactionItem {
   productId: string;
@@ -9,52 +9,55 @@ export interface TransactionItem {
 }
 
 export interface RevenueDetail {
-  _id: string;
-  items: TransactionItem[];
-  totalQuantity: number;
+  transactionId: string;
+  orderId: string;
+  date: string;
   totalAmount: number;
   totalCost: number;
   totalProfit: number;
+  totalQuantity: number;
   couponDiscount: number;
-  date: string;
-  type: "sale" | "return" | "adjustment";
+  items: TransactionItem[];
 }
 
 export interface InventoryDetail {
   variantId: string;
   productId: string;
-  productName: string;
+  productName: string | null;
+  color: string | null;
+  size: string | null;
   stock: number;
   costPrice: number;
   inventoryValue: number;
-  color?: string;
-  size?: string;
 }
 
 export interface SoldDetail {
   variantId: string;
   productId: string;
-  productName: string;
+  productName: string | null;
   soldQuantity: number;
   costPrice: number;
   soldValue: number;
-  soldProfit: number;
-  color?: string;
-  size?: string;
 }
 
-export interface OrderStatusCount {
-  _id: string;
-  label: string;
-  count: number;
+export interface ProductChartItem {
+  productName: string;
+  inventoryValue: number;
+  soldValue: number;
 }
 
-// ─── Top-level data groups ───────────────────────────────────────────────────
+// ─── Top-level data groups ────────────────────────────────────────────────────
 
 export interface UsersStats {
   total: number;
   active: number;
   inactive: number;
+}
+
+export interface OrderStatusCount {
+  status: string;
+  label: string;
+  count: number;
 }
 
 export interface OrdersStats {
@@ -138,7 +141,7 @@ export interface WishlistCartStats {
   carts: number;
 }
 
-// ─── Root response ───────────────────────────────────────────────────────────
+// ─── Root response ────────────────────────────────────────────────────────────
 
 export interface DashboardData {
   users: UsersStats;
@@ -155,10 +158,73 @@ export interface DashboardData {
   suppliers: SupplierStats;
   coupons: CouponStats;
   blogs: BlogStats;
-  wishlists_carts: WishlistCartStats;
+  wishlists: number;
+  carts: number;
+  productChart: ProductChartItem[];
 }
 
 export interface DashboardResponse {
   success: boolean;
   data: DashboardData;
+}
+
+// ─── Top-selling variants ──────────────────────────────────────────────────────
+
+export interface TopVariantBase {
+  _id: string;
+  totalQuantity: number;
+  variantId: string | null;
+  productId: string | null;
+  productName: string | null;
+  color: string | null;
+  size: string | null;
+  stock: number;
+}
+
+export interface TopSellingVariant extends TopVariantBase {
+  soldCount: number;
+}
+
+export interface TopRevenueVariant extends TopVariantBase {
+  totalRevenue: number;
+}
+
+export interface TopSellingVariantsResponse {
+  success: boolean;
+  data: TopSellingVariant[];
+}
+
+export interface TopRevenueVariantsResponse {
+  success: boolean;
+  data: TopRevenueVariant[];
+}
+
+// ─── Monthly / Daily revenue ──────────────────────────────────────────────────
+
+export interface MonthlyRevenueItem {
+  month: number;
+  monthName: string;
+  revenue: number;
+  cost: number;
+  profit: number;
+  orderCount: number;
+}
+
+export interface DailyRevenueItem {
+  day: number;
+  date: string;
+  revenue: number;
+  cost: number;
+  profit: number;
+  orderCount: number;
+}
+
+export interface MonthlyRevenueResponse {
+  success: boolean;
+  data: MonthlyRevenueItem[];
+}
+
+export interface DailyRevenueResponse {
+  success: boolean;
+  data: DailyRevenueItem[];
 }

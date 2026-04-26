@@ -225,7 +225,7 @@ const AdminSellInvoice: React.FC = () => {
       ],
     },
   ];
-
+  console.log(document.cookie);
   return (
     <>
       <div className="admin-page-header">
@@ -302,10 +302,7 @@ const AdminSellInvoice: React.FC = () => {
         isOpen={openDrawerDetail}
         setIsOpen={setOpenDrawerDetail}
         order={order}
-        onEdit={() => {
-          setOpenDrawerDetail(false);
-          setOpenModalUpdate(true);
-        }}
+       
       />
       <UpdateOrder
         isOpen={openModalUpdate}

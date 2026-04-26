@@ -11,7 +11,6 @@ import {
   UserOutlined,
   DollarOutlined,
   RiseOutlined,
-  FallOutlined,
   StockOutlined,
   StarOutlined,
   EyeOutlined,
@@ -20,6 +19,8 @@ import {
   CheckCircleOutlined,
   StopOutlined,
 } from "@ant-design/icons";
+
+import { DualAxes } from "@ant-design/charts";
 
 const AnimatedNumber: React.FC<{ value: number; suffix?: string }> = ({
   value,
@@ -87,19 +88,6 @@ const StatCard: React.FC<{
           },
         }}
       >
-        <motion.div
-          className="stat-card__accent-bar"
-          style={{ backgroundColor: accentColor }}
-          variants={{
-            hover: {
-              scaleX: 1,
-              transition: { duration: 0.25, ease: "easeOut" },
-            },
-          }}
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ delay: index * 0.06 + 0.3, duration: 0.4 }}
-        />
         <div className="stat-card__inner">
           <motion.div
             className="stat-card__icon"
@@ -168,7 +156,46 @@ const Dashboard: React.FC = () => {
 
   if (!data) return null;
 
-  const { users, orders, financial, monthlyFinancial, products, reviews } = data;
+  const {
+    users,
+    orders,
+    financial,
+    monthlyFinancial,
+    products,
+    reviews,
+    productChart,
+  } = data;
+
+  const config = {
+    xField: "productName", // Trục X hiển thị tên sản phẩm
+    data: productChart,
+    legend: {
+      color: {
+        itemMarker: (v: string | number) => {
+          if (v === "soldValue") return "rect";
+          return "smooth";
+        },
+      },
+    },
+
+    children: [
+      {
+        type: "interval", // Dạng cột
+        yField: "soldValue",
+        style: {
+          fill: "#1890ff", // Màu xanh cho doanh số
+        },
+      },
+      {
+        type: "line", // Dạng đường
+        yField: "inventoryValue",
+        shapeField: "smooth",
+        scale: {
+          color: { relations: [["inventoryValue", "#2ca02c"]] }, // Màu xanh lá cho tồn kho
+        },
+      },
+    ],
+  };
 
   const statCards = [
     {
@@ -243,8 +270,7 @@ const Dashboard: React.FC = () => {
     },
     {
       title: "Đánh giá TB",
-      value:
-        reviews.avgRating > 0 ? Number(reviews.avgRating.toFixed(1)) : 0,
+      value: reviews.avgRating > 0 ? Number(reviews.avgRating.toFixed(1)) : 0,
       icon: <StarOutlined />,
       accentColor: "#fa8c16",
     },
@@ -268,6 +294,9 @@ const Dashboard: React.FC = () => {
         {statCards.map((card, index) => (
           <StatCard key={card.title} {...card} index={index} />
         ))}
+      </div>
+      <div className="dashboard__charts !mt-[2rem]">
+        <DualAxes {...config} />
       </div>
     </div>
   );
