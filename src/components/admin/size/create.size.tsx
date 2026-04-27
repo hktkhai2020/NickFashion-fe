@@ -15,7 +15,7 @@ const CreateSize = (props: {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await categoryService.getCategories();
+      const response = await categoryService.getCategories({ pageSize: 100 });
       setCategories(response.data);
     };
     fetchCategories();
@@ -54,7 +54,7 @@ const CreateSize = (props: {
           name="name"
           rules={[{ required: true, message: "Vui lòng nhập tên size" }]}
         >
-          <Input placeholder="VD: S, M, L, XL" />
+          <Input placeholder="VD: S, M, L, XL, ..." />
         </Form.Item>
         <Form.Item
           label="Loại danh mục (Category ID)"

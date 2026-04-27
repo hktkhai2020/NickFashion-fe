@@ -128,7 +128,6 @@ const CreateVariant = (props: {
           url: res.data.url,
         };
 
-        const newList = [...fileListImages, uploadFile];
         setFileListImages((prev) => {
           const updated = [...prev, uploadFile];
           form.setFieldsValue({ images: updated });
@@ -296,20 +295,12 @@ const CreateVariant = (props: {
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                label="Tồn kho"
-                name="stock"
-                rules={[
-                  {
-                    required: true,
-                    message: "Vui lòng nhập số lượng tồn kho",
-                  },
-                ]}
-              >
+              <Form.Item label="Tồn kho" name="stock">
                 <InputNumber
                   min={0}
                   style={{ width: "100%" }}
                   placeholder="0"
+                  disabled
                 />
               </Form.Item>
             </Col>

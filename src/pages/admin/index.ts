@@ -5,3 +5,5 @@ export { default as AdminBrand } from './AdminBrand';
 export { default as AdminVariant } from './AdminVariant';
 export { default as AdminCoupon } from './AdminCoupon';
 export { default as AdminSellInvoice } from './AdminSellInvoice';
+export { default as AdminSellingData } from './AdminSellingData';
+export { default as AdminGoodsReceipt } from './AdminGoodsReceipt';

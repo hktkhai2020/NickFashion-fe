@@ -1,6 +1,7 @@
 // Variant Types
 
-import { Variant } from "./product";
+import { Variant as VariantType } from "./product";
+export type Variant = VariantType;
 
 export interface VariantFormValues {
   productId: string;

@@ -120,4 +120,9 @@ export const endpoints = {
   updateCoupon: (id: string) => `/coupon/${id}`,
   deleteCoupon: (id: string) => `/coupon/${id}`,
   toggleCouponStatus: (id: string) => `/coupon/${id}/toggle`,
+
+  // Receipts (Goods Import)
+  receipts: "/receipt",
+  createReceipt: "/receipt",
+  deleteReceipt: (id: string) => `/receipt/${id}`,
 };

@@ -197,7 +197,7 @@ const AdminCategoryList: React.FC = () => {
         }}
         pagination={{
           pageSize: 10,
-          pageSizeOptions: ["5", "10", "20", "50"],
+          pageSizeOptions: [5, 10, 15, 20],
           showSizeChanger: true,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} trên ${total} danh mục`,

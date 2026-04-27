@@ -60,11 +60,7 @@ const CreateColor = (props: {
         >
           <Input placeholder="VD: #FF0000" />
         </Form.Item>
-        <Form.Item
-          label="Mô tả"
-          name="description"
-          rules={[{ required: true, message: "Vui lòng nhập mô tả" }]}
-        >
+        <Form.Item label="Mô tả" name="description">
           <Input.TextArea placeholder="Nhập mô tả màu" rows={3} />
         </Form.Item>
       </Form>

@@ -81,18 +81,7 @@ const AdminSupplier: React.FC = () => {
       width: 130,
       hideInSearch: true,
     },
-    {
-      title: "Công nợ",
-      dataIndex: "debt",
-      width: 120,
-      hideInSearch: true,
-      align: "right",
-      render: (_, record) => (
-        <span style={{ color: record.debt > 0 ? "#ff4d4f" : "#52c41a", fontWeight: 600 }}>
-          {record.debt.toLocaleString()} đ
-        </span>
-      ),
-    },
+    
     {
       title: "Hoạt động",
       dataIndex: "isActive",
