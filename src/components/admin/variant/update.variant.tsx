@@ -150,8 +150,7 @@ const UpdateVariant = (props: {
   const handleUploadFile = async (option: RcCustomRequestOptions) => {
     const { onSuccess, onError, file } = option;
     try {
-      const fileToUpload =
-        (file as UploadFile).originFileObj || (file as File);
+      const fileToUpload = (file as UploadFile).originFileObj || (file as File);
       const res = await uploadService.uploadSingle(
         fileToUpload as File,
         "slides",
@@ -166,7 +165,6 @@ const UpdateVariant = (props: {
           url: res.data.url,
         };
 
-        const newList = [...fileListImages, uploadFile];
         setFileListImages((prev) => {
           const updated = [...prev, uploadFile];
           form.setFieldsValue({ images: updated });
@@ -277,9 +275,7 @@ const UpdateVariant = (props: {
               <Form.Item
                 label="Sản phẩm"
                 name="productId"
-                rules={[
-                  { required: true, message: "Vui lòng chọn sản phẩm" },
-                ]}
+                rules={[{ required: true, message: "Vui lòng chọn sản phẩm" }]}
               >
                 <Select
                   showSearch
@@ -289,6 +285,7 @@ const UpdateVariant = (props: {
                     value: p._id,
                     label: p.name,
                   }))}
+                  disabled
                 />
               </Form.Item>
             </Col>
@@ -299,9 +296,7 @@ const UpdateVariant = (props: {
               <Form.Item
                 label="Màu sắc"
                 name="color"
-                rules={[
-                  { required: true, message: "Vui lòng chọn màu sắc" },
-                ]}
+                rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}
               >
                 <Select placeholder="Chọn màu sắc">
                   {colors.map((c) => (
@@ -347,6 +342,7 @@ const UpdateVariant = (props: {
                   min={0}
                   style={{ width: "100%" }}
                   placeholder="0"
+                  disabled
                 />
               </Form.Item>
             </Col>
@@ -368,12 +364,6 @@ const UpdateVariant = (props: {
             name="images"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng upload ít nhất 1 ảnh",
-              },
-            ]}
           >
             <Upload
               multiple

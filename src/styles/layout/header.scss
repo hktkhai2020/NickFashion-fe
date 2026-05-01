@@ -1,0 +1,13 @@
+.header-sub {
+  .ant-carousel {
+    .slick-prev,
+    .slick-next {
+      color: #333f48;
+      font-size: 18px;
+
+      &::before {
+        color: #333f48;
+      }
+    }
+  }
+}

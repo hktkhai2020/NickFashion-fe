@@ -228,3 +228,38 @@ export interface DailyRevenueResponse {
   success: boolean;
   data: DailyRevenueItem[];
 }
+
+// Import Statistics
+
+export interface ImportStatisticsItem {
+  _id: string;
+  totalImportValue: number;
+  receiptCount: number;
+  supplierName: string;
+  supplierCode: string;
+}
+export interface ImportStatisticsResponse {
+  success: boolean;
+  data: {
+    suppliers: ImportStatisticsItem[];
+    grandTotal: number;
+    grandReceiptCount: number;
+  };
+}
+
+export interface ImportQuantityResponse {
+  success: boolean;
+  data: {
+    suppliers: ImportQuantityItem[];
+    grandTotalQuantity: number;
+    grandTotalReceipts: number;
+  };
+}
+export interface ImportQuantityItem {
+  _id: string;
+  totalQuantity: number;
+  totalReceipts: number;
+  supplierName: string;
+  supplierCode: string;
+  uniqueProductCount: number;
+}

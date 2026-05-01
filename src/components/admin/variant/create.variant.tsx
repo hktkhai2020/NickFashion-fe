@@ -322,12 +322,7 @@ const CreateVariant = (props: {
             name="images"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng upload ít nhất 1 ảnh",
-              },
-            ]}
+            
           >
             <Upload
               multiple

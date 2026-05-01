@@ -3,7 +3,7 @@ import { ConfigProvider, App as AntApp } from "antd";
 import enUS from "antd/locale/en_US";
 import { AppRoutes, AdminRoutes, AuthRoutes } from "@/routes";
 import useAuthInit from "@/hooks/useAuthInit";
-import { Flex, Spin  } from "antd";
+import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 function App() {

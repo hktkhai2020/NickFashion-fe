@@ -10,7 +10,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="w-full">
         {children || <Outlet />}
       </main>
       <Footer />

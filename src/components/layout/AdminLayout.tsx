@@ -39,8 +39,8 @@ export const AdminLayout: React.FC = () => {
       setActiveMenu("sellData");
       setOpenKeys(["statistical"]);
     }
-    if (location.pathname === "/admin/import-goods") {
-      setActiveMenu("importData");
+    if (location.pathname === "/admin/import-statistics") {
+      setActiveMenu("importStatistics");
       setOpenKeys(["statistical"]);
     }
 
@@ -111,7 +111,7 @@ export const AdminLayout: React.FC = () => {
           icon: <RiseOutlined />,
         },
         {
-          label: <Link to="/admin/import-goods">Nhập hàng</Link>,
+          label: <Link to="/admin/import-statistics">Nhập hàng</Link>,
           key: "importData",
           icon: <StockOutlined />,
         },
@@ -249,7 +249,6 @@ export const AdminLayout: React.FC = () => {
           <div className="outlet">
             <Outlet />
           </div>
-          
         </div>
       </div>
     </>

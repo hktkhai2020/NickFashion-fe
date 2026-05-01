@@ -87,6 +87,8 @@ export interface GetProductsParams {
   search?: string;
   sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt";
   sortOrder?: "asc" | "desc";
+  gender?: "all" | "female" | "man" | "girl" | "boy" | "unisex";
+  discounted?: boolean;
 }
 
 export interface ProductFormValues {

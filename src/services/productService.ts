@@ -14,7 +14,8 @@ const productService = {
     if (params?.search) searchParams.set("search", params.search);
     if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
     if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
-
+    if (params?.gender) searchParams.set("gender", params.gender);
+    if (params?.discounted === true) searchParams.set("discounted", "true");
     const query = searchParams.toString();
     const url = query ? `${endpoints.getProducts}?${query}` : endpoints.getProducts;
     const response = await apiClient.get<ProductResponse>(url as string);

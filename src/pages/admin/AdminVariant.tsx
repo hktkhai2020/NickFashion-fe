@@ -166,6 +166,7 @@ const AdminVariant: React.FC = () => {
     },
     {
       title: "Ngày tạo",
+      sorter: true,
       dataIndex: "createdAt",
       width: 150,
       hideInSearch: true,
@@ -229,31 +230,19 @@ const AdminVariant: React.FC = () => {
             sortBy = "createdAt";
             sortOrder = sort.createdAt === "ascend" ? "asc" : "desc";
           }
-
           const res = await variantService.getVariants({
             current: params.current,
             pageSize: params.pageSize,
             sortBy,
             sortOrder,
-            search: params.name,
+            search: params?.productId?.name,
           });
 
           if (!res.success) {
             return { data: [], success: false, total: 0 };
           }
 
-          let data = res.data;
-
-          // filter by productId if provided from search
-          if (params.productId) {
-            data = data.filter((v: Variant) => {
-              const pid =
-                typeof v.productId === "object"
-                  ? (v.productId as { _id: string })._id
-                  : v.productId;
-              return pid === params.productId;
-            });
-          }
+          const data = res.data;
 
           return {
             data,
@@ -262,8 +251,8 @@ const AdminVariant: React.FC = () => {
           };
         }}
         pagination={{
-          pageSize: 10,
-          pageSizeOptions: ["5", "10", "20", "50"],
+          pageSize: 20,
+          pageSizeOptions: [20, 25, 30, 40],
           showSizeChanger: true,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} trên ${total} biến thể`,

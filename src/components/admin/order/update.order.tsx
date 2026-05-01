@@ -198,7 +198,6 @@ const UpdateOrder: React.FC<UpdateOrderProps> = ({
             <Form.Item
               label="Số điện thoại"
               name="customerPhone"
-              rules={[{ required: true, message: "Vui lòng nhập SĐT" }]}
             >
               <Input placeholder="Số điện thoại" />
             </Form.Item>

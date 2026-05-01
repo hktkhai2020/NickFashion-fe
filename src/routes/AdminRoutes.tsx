@@ -10,7 +10,7 @@ import AdminVariant from "@/pages/admin/AdminVariant";
 import AdminCoupon from "@/pages/admin/AdminCoupon";
 import AdminSellingData from "@/pages/admin/AdminSellingData";
 import AdminGoodsReceipt from "@/pages/admin/AdminGoodsReceipt";
-
+import AdminImportStatistics from "@/pages/admin/AdminImportStatistics";
 const AdminRoutes = () => {
   return (
     <Routes>
@@ -27,7 +27,7 @@ const AdminRoutes = () => {
         <Route path={ADMIN_ROUTES.COUPON} element={<AdminCoupon />} />
         <Route path={ADMIN_ROUTES.SELLINVOICE} element={<AdminSellInvoice />} />
         <Route path={ADMIN_ROUTES.GOODSRECEIPT} element={<AdminGoodsReceipt />} />
-        
+        <Route path={ADMIN_ROUTES.IMPORTSTATISTICS} element={<AdminImportStatistics />} />
       </Route>
     </Routes>
   );

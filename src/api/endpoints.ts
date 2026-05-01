@@ -105,7 +105,8 @@ export const endpoints = {
   getTopRevenueVariants: "/admin/top-revenue-variants",
   getMonthlyRevenue: "/admin/monthly-revenue",
   getDailyRevenue: "/admin/daily-revenue",
-  
+  getImportStatistics: "/admin/import-stats",
+  getImportQuantity: "/admin/import-quantity",
 
 
   // Variants

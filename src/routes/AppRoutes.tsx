@@ -21,7 +21,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path={ROUTES.HOME} element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path={ROUTES.SHOP} element={<ShopPage />} />
+        {/* <Route path={ROUTES.SHOP} element={<ShopPage />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetailPage />} />
         <Route path={ROUTES.CART} element={<CartPage />} />
         <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
@@ -31,7 +31,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.WISHLIST} element={<WishlistPage />} />
         <Route path={ROUTES.CONTACT} element={<ContactPage />} />
         <Route path={ROUTES.ABOUT} element={<AboutPage />} />
-        <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />
+        <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} /> */}
       </Route>
     </Routes>
   );

@@ -27,6 +27,41 @@ import { ReceiptFormItem } from "@/types/receipt";
 import useUserStore from "@/store/useUserStore";
 const { Text } = Typography;
 
+// Safe accessor for any possible variant color/size shape
+const getColorName = (color: unknown): string => {
+  if (!color) return "";
+  if (typeof color === "object") {
+    const c = color as Record<string, unknown>;
+    if (typeof c.name === "string") return c.name;
+    if (typeof c._id === "string" || typeof c.hexCode === "string") {
+      return String(c._id || c.hexCode || "");
+    }
+  }
+  if (typeof color === "string") return color;
+  return "";
+};
+
+const getSizeName = (size: unknown): string => {
+  if (!size) return "";
+  if (typeof size === "object") {
+    const s = size as Record<string, unknown>;
+    if (typeof s.name === "string") return s.name;
+    if (typeof s._id === "string") return s._id;
+  }
+  if (typeof size === "string") return size;
+  return "";
+};
+
+const getVariantProductId = (productId: unknown): string => {
+  if (!productId) return "";
+  if (typeof productId === "string") return productId;
+  if (typeof productId === "object") {
+    const p = productId as Record<string, unknown>;
+    if (typeof p._id === "string") return p._id;
+  }
+  return "";
+};
+
 interface CreateReceiptProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -60,10 +95,7 @@ const CreateReceipt: React.FC<CreateReceiptProps> = ({
   const filteredVariants = useMemo(() => {
     if (!selectedProduct) return variants;
     return variants.filter((v) => {
-      const pid =
-        typeof v.productId === "string"
-          ? v.productId
-          : ((v.productId as unknown as { _id: string })?._id ?? "");
+      const pid = getVariantProductId(v.productId);
       return pid === selectedProduct;
     });
   }, [variants, selectedProduct]);
@@ -93,7 +125,7 @@ const CreateReceipt: React.FC<CreateReceiptProps> = ({
 
   const loadVariants = useCallback(async () => {
     try {
-      const res = await variantService.getVariants({ pageSize: 100 });
+      const res = await variantService.getVariants({ pageSize: 400 });
       if (res.success) {
         setVariants(res.data);
       }
@@ -155,14 +187,8 @@ const CreateReceipt: React.FC<CreateReceiptProps> = ({
         if (field === "variantId") {
           const variant = filteredVariants.find((v) => v._id === value);
           if (variant) {
-            const colorName =
-              typeof variant.color === "object"
-                ? ((variant.color as { name: string })?.name ?? "")
-                : "";
-            const sizeName =
-              typeof variant.size === "object"
-                ? ((variant.size as { name: string })?.name ?? "")
-                : "";
+            const colorName = getColorName(variant.color);
+            const sizeName = getSizeName(variant.size);
             updated.variantName =
               [colorName, sizeName].filter(Boolean).join(" / ") || null;
             updated.stock = variant.stock;
@@ -294,21 +320,12 @@ const CreateReceipt: React.FC<CreateReceiptProps> = ({
           }
           options={filteredVariants
             .filter((v) => {
-              const pid =
-                typeof v.productId === "string"
-                  ? v.productId
-                  : ((v.productId as unknown as { _id: string })?._id ?? "");
+              const pid = getVariantProductId(v.productId);
               return pid === record.productId;
             })
             .map((v) => {
-              const colorName =
-                typeof v.color === "object"
-                  ? ((v.color as { name: string })?.name ?? "")
-                  : "";
-              const sizeName =
-                typeof v.size === "object"
-                  ? ((v.size as { name: string })?.name ?? "")
-                  : "";
+              const colorName = getColorName(v.color);
+              const sizeName = getSizeName(v.size);
               return {
                 value: v._id,
                 label: `${colorName} / ${sizeName} (stock: ${v.stock})`,
@@ -334,6 +351,7 @@ const CreateReceipt: React.FC<CreateReceiptProps> = ({
             handleItemChange(record.key, "costPrice", val ?? 0)
           }
           placeholder="Giá nhập"
+          disabled
         />
       ),
     },

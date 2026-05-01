@@ -60,13 +60,13 @@ const AdminSellingData: React.FC = () => {
       sold: variant.totalQuantity,
     })),
     legend: {
-        color: {
-          position: 'top',
-          layout: {
-            justifyContent: 'flex-start', // Top-aligned
-          },
+      color: {
+        position: "top",
+        layout: {
+          justifyContent: "flex-start", // Top-aligned
         },
       },
+    },
     // scale: { y: { domainMax: 500 } }, // Bỏ comment nếu cần giới hạn trục Y
     scale: {
       color: {
@@ -140,13 +140,13 @@ const AdminSellingData: React.FC = () => {
       revenue: variant.totalRevenue,
     })),
     legend: {
-        color: {
-          position: 'top',
-          layout: {
-            justifyContent: 'flex-start', // Top-aligned
-          },
+      color: {
+        position: "top",
+        layout: {
+          justifyContent: "flex-start", // Top-aligned
         },
       },
+    },
     // scale: { y: { domainMax: 500 } }, // Bỏ comment nếu cần giới hạn trục Y
     children: [
       {
@@ -204,7 +204,7 @@ const AdminSellingData: React.FC = () => {
       month: item.month,
       revenue: item.revenue,
     })),
-        legend: false,
+    legend: false,
     children: [
       {
         type: "interval",
@@ -326,7 +326,6 @@ const AdminSellingData: React.FC = () => {
         labelFontWeight: 500,
       },
     },
-   
   };
   const items: TabsProps["items"] = [
     {
