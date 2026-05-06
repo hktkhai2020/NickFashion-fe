@@ -1,30 +1,88 @@
 // Cart Service
-import { apiClient, endpoints } from '@/api';
-import { Cart, AddToCartPayload } from '@/types';
+import { apiClient, endpoints } from "@/api";
+import { CartResponse } from "@/types";
 
 export const cartService = {
-  getCart: async () => {
-    const response = await apiClient.get<Cart>(endpoints.cart);
+  getCart: async (userId: string) => {
+    const response = await apiClient.get<CartResponse>(
+      endpoints.getCart(userId),
+    );
     return response.data;
   },
-  
-  addToCart: async (data: AddToCartPayload) => {
-    const response = await apiClient.post<Cart>(endpoints.addToCart, data);
+  addToCart: async (
+    userId: string,
+    productId: string,
+    variantId: string,
+    quantity: number,
+    price: number,
+  ) => {
+    const response = await apiClient.post(endpoints.addToCart, {
+      userId,
+      productId,
+      variantId,
+      quantity,
+      price,
+    });
     return response.data;
   },
-  
-  updateCartItem: async (itemId: string, quantity: number) => {
-    const response = await apiClient.put<Cart>(endpoints.updateCart(itemId), { quantity });
+  removeItemFromCart: async (userId: string, variantId: string) => {
+    const response = await apiClient.delete(endpoints.removeFromCart, {
+      data: {
+        userId,
+        variantId,
+      },
+    });
     return response.data;
   },
-  
-  removeFromCart: async (itemId: string) => {
-    const response = await apiClient.delete<Cart>(endpoints.removeFromCart(itemId));
+  toggleCartItem: async (userId: string, variantId: string) => {
+    const response = await apiClient.post(endpoints.toggleCartItem, {
+      userId,
+      variantId,
+    });
     return response.data;
   },
-  
-  clearCart: async () => {
-    const response = await apiClient.delete<Cart>(endpoints.clearCart);
+  selectAllCartItems: async (userId: string) => {
+    const response = await apiClient.post(endpoints.selectAllCartItems, {
+      userId,
+    });
+    return response.data;
+  },
+  unselectAllCartItems: async (userId: string) => {
+    const response = await apiClient.post(endpoints.unselectAllCartItems, {
+      userId,
+    });
+    return response.data;
+  },
+  updateCartItemQuantity: async (
+    userId: string,
+    variantId: string,
+    quantity: number,
+  ) => {
+    const response = await apiClient.put(endpoints.updateCartItemQuantity, {
+      userId,
+      variantId,
+      quantity,
+    });
+    return response.data;
+  },
+  applyCoupon: async (
+    userId: string,
+    code: string,
+    value: number,
+    type: "percentage" | "fixed",
+  ) => {
+    const response = await apiClient.post(endpoints.applyCouponToCart, {
+      userId,
+      code,
+      value,
+      type,
+    });
+    return response.data;
+  },
+  clearCart: async (userId: string) => {
+    const response = await apiClient.post(endpoints.clearCart, {
+      userId,
+    });
     return response.data;
   },
 };

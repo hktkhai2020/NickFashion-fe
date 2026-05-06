@@ -21,6 +21,7 @@ const useCoupon = () => {
     fetchCoupons();
   }, []);
 
+  
   return { coupons, loading };
 };
 

@@ -13,3 +13,7 @@ export { default as ContactPage } from "./ContactPage";
 export { default as AboutPage } from "./AboutPage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as ForgotPasswordPage } from "./ForgotPasswordPage";
+export { default as ProductFemale } from "./ProductFemale";
+export { default as ProductMale } from "./ProductMale";
+export { default as ProductGirl } from "./ProductGirl";
+export { default as ProductBoy } from "./ProductBoy";

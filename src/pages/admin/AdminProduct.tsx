@@ -282,6 +282,7 @@ const AdminProduct: React.FC = () => {
               | "name"
               | "createdAt"
               | "updatedAt"
+              
               | undefined,
             sortOrder: sortOrder as "asc" | "desc" | undefined,
           });

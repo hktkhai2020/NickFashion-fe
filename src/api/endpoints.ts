@@ -20,7 +20,7 @@ export const endpoints = {
   createProduct: "/products",
   updateProduct: (id: string) => `/products/${id}`,
   deleteProduct: (id: string) => `/products/${id}`,
-  getProductBySlug: (slug: string) => `/products/slug/${slug}`,
+  getProductBySlug: (slug: string) => `/products/client/${slug}`,
 
   //upload
   uploadSingle: "/upload/single",
@@ -58,11 +58,16 @@ export const endpoints = {
   deleteColor: (id: string) => `/color/${id}`,
 
   // Cart
-  cart: "/cart",
+  getCart: (userId: string) => `/cart/${userId}`,
   addToCart: "/cart/add",
-  updateCart: (id: string) => `/cart/${id}`,
-  removeFromCart: (id: string) => `/cart/${id}`,
-  clearCart: "/cart/clear",
+  removeFromCart: `/cart/delete-item`,
+  toggleCartItem: `cart/toggle-item-selection`,
+  selectAllCartItems: `cart/select-all`,
+  unselectAllCartItems: `cart/unselect-all`,
+  updateCartItemQuantity: `cart/update-quantity`,
+  applyCouponToCart: `cart/apply-coupon`,
+  clearCart: `cart/clear`,
+
 
   // Orders (admin)
   adminOrders: "/order",
@@ -108,7 +113,6 @@ export const endpoints = {
   getImportStatistics: "/admin/import-stats",
   getImportQuantity: "/admin/import-quantity",
 
-
   // Variants
   variants: "/variant",
   createVariant: "/variant",
@@ -121,9 +125,13 @@ export const endpoints = {
   updateCoupon: (id: string) => `/coupon/${id}`,
   deleteCoupon: (id: string) => `/coupon/${id}`,
   toggleCouponStatus: (id: string) => `/coupon/${id}/toggle`,
+  applyCoupon: "/coupon/apply",
 
   // Receipts (Goods Import)
   receipts: "/receipt",
   createReceipt: "/receipt",
   deleteReceipt: (id: string) => `/receipt/${id}`,
+
+  // Payment
+  createPayment: "/payment",
 };

@@ -13,6 +13,10 @@ import {
   ContactPage,
   AboutPage,
   NotFoundPage,
+  ProductFemale,
+  ProductMale,
+  ProductGirl,
+  ProductBoy,
 } from '@/pages';
 import { MainLayout } from '@/components/layout';
 
@@ -21,10 +25,14 @@ const AppRoutes = () => {
     <Routes>
       <Route path={ROUTES.HOME} element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        {/* <Route path={ROUTES.SHOP} element={<ShopPage />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetailPage />} />
+        <Route path={ROUTES.PRODUCT_FEMALE} element={<ProductFemale />} />
+        <Route path={ROUTES.PRODUCT_MALE} element={<ProductMale />} />
+        <Route path={ROUTES.PRODUCT_GIRL} element={<ProductGirl />} />
+        <Route path={ROUTES.PRODUCT_BOY} element={<ProductBoy />} />
+        {/* <Route path={ROUTES.PRODUCT_NEW} element={<ProductNew />} /> */}
+        {/* <Route path={ROUTES.SHOP} element={<ShopPage />} />
         <Route path={ROUTES.CART} element={<CartPage />} />
-        <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
         <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
         <Route path={ROUTES.ORDER_HISTORY} element={<OrderHistoryPage />} />
         <Route path={ROUTES.ORDER_DETAIL} element={<OrderHistoryPage />} />

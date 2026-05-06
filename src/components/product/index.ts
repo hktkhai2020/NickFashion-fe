@@ -1,8 +1,3 @@
-export { ProductCard } from './ProductCard';
-export { ProductList } from './ProductList';
-export { ProductGrid } from './ProductGrid';
-export { ProductDetail } from './ProductDetail';
-export { ProductFilter } from './ProductFilter';
-export { ProductSort } from './ProductSort';
-export { SizeSelector } from './SizeSelector';
-export { ColorSelector } from './ColorSelector';
+
+export { default as ProductListByFillter } from "./ProductListByFillter";
+export { default as Filter } from "./Filter";

@@ -1,36 +1,39 @@
+import { Product, Variant } from "./product";
+
 // Cart Types
 export interface CartItem {
-  id: string;
-  productId: string;
-  product: {
-    id: string;
-    name: string;
-    slug: string;
-    images: string[];
-    price: number;
-    originalPrice?: number;
-  };
+  variantId: Variant;
+  productId: Product;
   quantity: number;
-  selectedColor?: string;
-  selectedSize?: string;
   price: number;
+  selected: boolean;
+  addedAt: string;
 }
 
 export interface Cart {
-  id: string;
-  userId?: string;
-  sessionId?: string;
+  selectedItemCount: number;
+  appliedCoupon: {
+    code: string;
+    discountValue: number;
+    discountType: "percentage" | "fixed";
+  };
+  _id: string;
+  userId: string;
+  __v: number;
   items: CartItem[];
   subtotal: number;
-  discount: number;
-  shippingFee: number;
   total: number;
-  couponCode?: string;
+  totalSelectedItems: number;
+  updatedAt: string;
+  version: number;
+  isEmpty: boolean;
+  totalItems: number;
+  itemCount: number;
+  selectedItemsCount: number;
+  unselectedItemsCount: number;
 }
 
-export interface AddToCartPayload {
-  productId: string;
-  quantity: number;
-  selectedColor?: string;
-  selectedSize?: string;
+export interface CartResponse {
+  success: boolean;
+  data: Cart;
 }

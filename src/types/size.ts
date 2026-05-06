@@ -29,6 +29,7 @@ export interface GetSizesParams {
   search?: string;
   sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt";
   sortOrder?: "asc" | "desc";
+  typeId?: string[];
 }
 
 export interface SizeFormValues {

@@ -14,6 +14,11 @@ export const ROUTES = {
   CONTACT: "contact",
   ABOUT: "about",
   NOT_FOUND: "*",
+  PRODUCT_FEMALE: "nu/:category",
+  PRODUCT_MALE: "nam/:category",
+  PRODUCT_GIRL: "be-gai/:category",
+  PRODUCT_BOY: "be-trai/:category",
+  PRODUCT_NEW: "san-pham-moi/:category",
 };
 
 export const ADMIN_ROUTES = {

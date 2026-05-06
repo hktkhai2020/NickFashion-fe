@@ -1,4 +1,7 @@
 // Product Types
+import { Category } from "./category";
+import { Brand } from "./brand";
+
 
 export interface ProductFlags {
   active: boolean;
@@ -85,10 +88,17 @@ export interface GetProductsParams {
   current?: number;
   pageSize?: number;
   search?: string;
-  sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt";
+  sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt" | "finalPrice" ;
   sortOrder?: "asc" | "desc";
-  gender?: "all" | "female" | "man" | "girl" | "boy" | "unisex";
+  gender?: "all" | "woman" | "man" | "girl" | "boy" | "unisex";
   discounted?: boolean;
+  categoryId?: string;
+  colors?: string[];
+  sizes?: string[];
+  priceMin?: number;
+  priceMax?: number;
+  discountMin?: number;
+  discountMax?: number;
 }
 
 export interface ProductFormValues {
@@ -111,4 +121,54 @@ export interface ProductFormValues {
   meta?: ProductMeta;
   tags?: string[];
   gender?: string[];
+}
+
+
+
+// detail product by slug
+export interface ColorGroup {
+  color: {
+    _id: string;
+    name: string;
+    hexCode: string;
+  };
+  images: string[];
+  sizes: {
+    _id: string;
+    size: {
+      _id: string;
+      name: string;
+    };
+    stock: number;
+    soldCount: number;
+  }[];
+}
+
+export interface ProductDetailBySlug {
+  _id: string;
+  name: string;
+  description: string;
+  category: Category[];
+  brand: Brand;
+  supplier: string;
+  priceSell: number;
+  costPrice: number;
+  material: string;
+  weight: number;
+  thumbnail: string;
+  slides: string[];
+  video: string | null;
+  is: ProductFlags;
+  sale: ProductSale;
+  stats: ProductStats;
+  meta: ProductMeta;
+  tags: string[];
+  gender: string[];
+  createdAt: string;
+  updatedAt: string;
+  sku: string;
+  slug: string;
+  finalPrice: number;
+  colorGroups: ColorGroup[];
+  __v: number;
 }

@@ -9,7 +9,7 @@ const sizeService = {
     if (params?.search) searchParams.set("search", params.search);
     if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
     if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
-
+    if (params?.typeId) searchParams.set("typeId", params.typeId.join(","));
     const query = searchParams.toString();
     const url = query ? `${endpoints.sizes}?${query}` : endpoints.sizes;
     const response = await apiClient.get<SizeResponse>(url);

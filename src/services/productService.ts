@@ -4,6 +4,7 @@ import {
   GetProductsParams,
   ProductResponse,
   Product,
+  ProductDetailBySlug,
 } from "@/types";
 
 const productService = {
@@ -16,6 +17,15 @@ const productService = {
     if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
     if (params?.gender) searchParams.set("gender", params.gender);
     if (params?.discounted === true) searchParams.set("discounted", "true");
+    if (params?.categoryId) searchParams.set("categoryId", params.categoryId);
+    if (params?.colors) searchParams.set("colors", params.colors?.join(",") || "");
+    if (params?.sizes) searchParams.set("sizes", params.sizes?.join(",") || "");
+    if (params?.priceMin) searchParams.set("priceMin", String(params.priceMin));
+    if (params?.priceMax) searchParams.set("priceMax", String(params.priceMax));
+    if (params?.discountMin)
+      searchParams.set("discountMin", String(params.discountMin));
+    if (params?.discountMax)
+      searchParams.set("discountMax", String(params.discountMax));
     const query = searchParams.toString();
     const url = query ? `${endpoints.getProducts}?${query}` : endpoints.getProducts;
     const response = await apiClient.get<ProductResponse>(url as string);
@@ -30,7 +40,7 @@ const productService = {
   },
 
   getProductBySlug: async (slug: string) => {
-    const response = await apiClient.get<{ success: boolean; data: Product }>(
+    const response = await apiClient.get<{ success: boolean; data: ProductDetailBySlug }>(
       endpoints.getProductBySlug(slug)
     );
     return response.data;

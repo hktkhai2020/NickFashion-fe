@@ -7,6 +7,7 @@ export interface GetCategoriesParams {
   search?: string;
   sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt";
   sortOrder?: "asc" | "desc";
+  slug?: string;
 }
 
 const categoryService = {
@@ -17,7 +18,7 @@ const categoryService = {
     if (params?.search) searchParams.set("search", params.search);
     if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
     if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
-    
+    if (params?.slug) searchParams.set("slug", params.slug);
     const query = searchParams.toString();
     const url = query ? `${endpoints.categories}?${query}` : endpoints.categories;
     const response = await apiClient.get<CategoryResponse>(url);

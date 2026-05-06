@@ -9,7 +9,7 @@ import { QRCode } from "antd";
 const HomePage: React.FC = () => {
   const { coupons } = useCoupon();
   const [activeTab, setActiveTab] = useState<
-    "all" | "female" | "man" | "girl" | "boy" | "unisex"
+    "woman" | "all" | "man" | "girl" | "boy" | "unisex" | undefined
   >("all");
   const { products } = useProduct({ gender: activeTab });
   const { products: productsDiscounted } = useProduct({ discounted: true });
@@ -71,8 +71,8 @@ const HomePage: React.FC = () => {
               TẤT CẢ
             </div>
             <div
-              className={`cursor-pointer text-[#333f48] font-bold border-[1px]! border-solid! lg:min-w-[100px] min-w-[80px]! py-[10px]! flex justify-center transition-all duration-300 ${activeTab === "female" ? "text-white bg-[#333f48]" : "hover:bg-[#ebeff1]"}`}
-              onClick={() => setActiveTab("female")}
+              className={`cursor-pointer text-[#333f48] font-bold border-[1px]! border-solid! lg:min-w-[100px] min-w-[80px]! py-[10px]! flex justify-center transition-all duration-300 ${activeTab === "woman" ? "text-white bg-[#333f48]" : "hover:bg-[#ebeff1]"}`}
+              onClick={() => setActiveTab("woman")}
             >
               NỮ
             </div>
@@ -220,7 +220,7 @@ const HomePage: React.FC = () => {
 
         {/*  */}
 
-        <div className="w-full flex flex-col lg:flex-row my-[10px]!">
+        <div className="w-full flex flex-col lg:flex-row mt-[10px]!">
           <div className="w-full lg:w-1/2">
             <img
               src="https://nickfashion-db.s3.ap-southeast-1.amazonaws.com/products/banner/Gemini_Generated_Image_ihs5usihs5usihs5.png"

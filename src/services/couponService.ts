@@ -31,10 +31,7 @@ const couponService = {
   },
 
   updateCoupon: async (id: string, data: Record<string, unknown>) => {
-    const response = await apiClient.put(
-      endpoints.updateCoupon(id),
-      data,
-    );
+    const response = await apiClient.put(endpoints.updateCoupon(id), data);
     return response.data;
   },
 
@@ -44,9 +41,25 @@ const couponService = {
   },
 
   toggleCouponStatus: async (id: string) => {
-    const response = await apiClient.patch(
-      endpoints.toggleCouponStatus(id),
-    );
+    const response = await apiClient.patch(endpoints.toggleCouponStatus(id));
+    return response.data;
+  },
+  applyCoupon: async (
+    code: string,
+    orderAmount: number,
+    orderProducts: {
+      productId: string;
+      variantId: string;
+      quantity: number;
+    }[],
+    userId: string,
+  ) => {
+    const response = await apiClient.post(endpoints.applyCoupon, {
+      code,
+      orderAmount,
+      orderProducts,
+      userId,
+    });
     return response.data;
   },
 };
