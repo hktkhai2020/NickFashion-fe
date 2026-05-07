@@ -1,16 +1,72 @@
-# React + Vite
+# NickFashion Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NickFashion is a modern, high-performance e-commerce web application specialized in fashion. This project provides a seamless shopping experience for customers and a robust management system for administrators.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Customer Experience
+- **Elegant Homepage**: Featured collections, promotional banners, and trending products.
+- **Dynamic Product Filtering**: Filter by category (Male, Female, Boy, Girl), price range, color, size, and discounts.
+- **Product Details**: Detailed views with variants selection and smooth image transitions.
+- **Cart & Checkout**: Streamlined shopping cart and secure checkout process.
+- **User Account**:
+  - Secure Authentication (JWT, Google OAuth).
+  - Profile Management.
+  - Order History & Tracking.
+  - Wishlist.
+- **Multilingual Support**: Vietnamese and English support via i18next.
 
-## React Compiler
+### Admin Dashboard
+- **Comprehensive Analytics**: Visual charts for sales and user growth.
+- **Product Management**: Create, update, and manage inventory.
+- **Order Management**: Track and update shipping statuses.
+- **User Management**: Manage customer accounts and permissions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Core**: [React 19](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/)
+- **UI/UX**: 
+  - [Ant Design](https://ant.design/) & [Pro Components](https://procomponents.ant.design/)
+  - [TailwindCSS 4](https://tailwindcss.com/) & [Sass](https://sass-lang.com/)
+  - [Framer Motion](https://www.framer.com/motion/) & [React Spring](https://www.react-spring.dev/) for animations
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Routing**: [React Router Dom 7](https://reactrouter.com/)
+- **API Calls**: [Axios](https://axios-http.com/)
+- **Date Handling**: [Dayjs](https://day.js.org/)
+- **Internationalization**: [i18next](https://www.i18next.com/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/hktkhai2020/NickFashion-fe.git
+   cd NickFashion-fe
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**:
+   Create a `.env.development` file in the root directory and add:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   VITE_GOOGLE_CLIENT_ID=your_google_client_id
+   ```
+
+4. **Run development server**:
+   ```bash
+   npm run dev
+   ```
+
+## 📜 Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the application for production.
+- `npm run lint`: Runs ESLint for code quality checks.
+- `npm run preview`: Locally previews the production build.
+
+## 📄 License
+
+This project is licensed under the MIT License.
