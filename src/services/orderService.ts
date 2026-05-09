@@ -29,6 +29,13 @@ const orderService = {
     return response.data;
   },
 
+  getOrdersByUserId: async (userId: string) => {
+    const response = await apiClient.get<{ success: boolean; data: Order[] }>(
+      endpoints.getOrderByUserId(userId),
+    );
+    return response.data;
+  },
+
   updateOrder: async (id: string, data: Record<string, unknown>) => {
     const response = await apiClient.put(
       endpoints.updateOrder(id),

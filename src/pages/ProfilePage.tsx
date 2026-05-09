@@ -14,7 +14,7 @@ type FieldType = {
   address?: string;
 };
 const ProfilePage: React.FC = () => {
-  const { user ,setUser} = useUserStore();
+  const { user, setUser } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm<FieldType>();
   const [isFieldsValidating, setIsFieldsValidating] = useState(false);
@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
     });
   }, [user]);
   return (
-    <div className="w-[70%]! border-[1px] border-[#e5eaf0] rounded-1! p-[2rem]!">
+    <div className="lg:w-[70%]! w-full! border-[1px] border-[#e5eaf0] rounded-1! lg:p-[2rem]! p-[1rem]!">
       {contextHolder}
       <div className="w-full flex flex-col gap-[1rem]">
         <h1 className="text-[24px] font-bold  text-[#333f48]">
@@ -66,7 +66,7 @@ const ProfilePage: React.FC = () => {
             <div className="flex gap-[1rem]  text-[15px] text-[#74869b]">
               <span>Ngày sinh:</span>{" "}
               <span className="text-[#333f48]">
-                {formatDate(user?.dateOfBirth || "-")}
+                {user?.dateOfBirth ? formatDate(user?.dateOfBirth) : "-"}
               </span>
             </div>
 

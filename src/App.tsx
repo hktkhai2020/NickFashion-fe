@@ -5,7 +5,7 @@ import { AppRoutes, AdminRoutes, AuthRoutes } from "@/routes";
 import useAuthInit from "@/hooks/useAuthInit";
 import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import { CheckoutPage } from "@/pages";
+import { CheckoutPage, NotFoundPage } from "@/pages";
 function App() {
   const { loading } = useAuthInit();
   
@@ -33,7 +33,7 @@ function App() {
             <Route path="/buyer/*" element={<AuthRoutes />} />
             <Route path="/admin/*" element={<AdminRoutes />} />
             <Route path="/checkout" element={<CheckoutPage />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </AntApp>

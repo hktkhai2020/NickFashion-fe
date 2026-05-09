@@ -5,15 +5,17 @@ export interface User {
   name: string;
   phone?: string;
   avatar?: string;
-  role: "customer" | "admin";
+  role: 'customer' | 'admin' | 'user' | 'moderator';
   addresses: Address[];
   defaultAddressId?: string;
   createdAt: string;
   updatedAt: string;
-  gender?: "male" | "female" | "other";
+  gender?: 'male' | 'female' | 'other';
   dateOfBirth?: string;
   address?: string;
   userId: string;
+  isActive?: boolean;
+  isDeleted?: boolean;
 }
 export interface GoogleLoginResponse {
   accessToken: string;
@@ -103,4 +105,16 @@ export interface RefreshTokenResponse {
   success: boolean;
   message: string;
   accessToken: string;
+}
+
+export interface UserListResponse {
+  success: boolean;
+  message: string;
+  users: User[];
+  pagination: {
+    current: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
 }

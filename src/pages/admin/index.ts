@@ -7,3 +7,4 @@ export { default as AdminCoupon } from './AdminCoupon';
 export { default as AdminSellInvoice } from './AdminSellInvoice';
 export { default as AdminSellingData } from './AdminSellingData';
 export { default as AdminGoodsReceipt } from './AdminGoodsReceipt';
+export { default as AdminUsers } from './AdminUsers';

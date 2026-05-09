@@ -21,6 +21,7 @@ import {
   PhoneOutlined,
   ContainerOutlined,
   RollbackOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import logo from "@/assets/logoNickFashion.svg";
 import { motion } from "framer-motion";
@@ -84,6 +85,10 @@ export const AdminLayout: React.FC = () => {
       setActiveMenu("chat");
       setOpenKeys(["manager"]);
     }
+    if (location.pathname === "/admin/users") {
+      setActiveMenu("users");
+      setOpenKeys(["manager"]);
+    }
 
     if (location.pathname === "/admin/sell-invoice") {
       setActiveMenu("sellInvoice");
@@ -93,6 +98,7 @@ export const AdminLayout: React.FC = () => {
       setActiveMenu("goodsReceipt");
       setOpenKeys(["invoice"]);
     }
+    
   }, [location.pathname]);
 
   const items: MenuProps["items"] = [
@@ -171,6 +177,11 @@ export const AdminLayout: React.FC = () => {
           label: <Link to="/admin/chat">Trò chuyện</Link>,
           key: " chat",
           icon: <PhoneOutlined />,
+        },
+        {
+          label: <Link to="/admin/users">Người dùng</Link>,
+          key: "users",
+          icon: <UserOutlined />,
         },
       ],
     },

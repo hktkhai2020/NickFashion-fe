@@ -68,10 +68,9 @@ export const endpoints = {
   applyCouponToCart: `cart/apply-coupon`,
   clearCart: `cart/clear`,
 
-
   // Orders (admin)
   adminOrders: "/order",
-  getOrderByUserId: (userId: string) => `/order/user/${userId}`,
+  getOrderByUserId: (userId: string) => `/order/${userId}`,
   createOrder: "/order",
   updateOrder: (id: string) => `/order/${id}`,
   deleteOrder: (id: string) => `/order/${id}`,
@@ -79,23 +78,26 @@ export const endpoints = {
   // User
   userProfile: "/users/profile",
   updateProfile: "/user",
-  changePassword: "/users/change-password",
-  addresses: "/users/addresses",
-  addAddress: "/users/addresses",
-  updateAddress: (id: string) => `/users/addresses/${id}`,
-  deleteAddress: (id: string) => `/users/addresses/${id}`,
-  setDefaultAddress: (id: string) => `/users/addresses/${id}/default`,
+  getUsers: "/user",
+  updateUserByAdmin: (id: string) => `/user/admin/${id}`,
+  deleteUser: (id: string) => `/user/${id}`,
+  updateImageUser: (id: string) => `/user/${id}/avatar`,
 
   // Wishlist
   wishlist: "/wishlist",
   addToWishlist: "/wishlist/add",
   removeFromWishlist: (id: string) => `/wishlist/${id}`,
 
-  // Reviews
-  reviews: "/reviews",
-  createReview: "/reviews",
-  updateReview: (id: string) => `/reviews/${id}`,
-  deleteReview: (id: string) => `/reviews/${id}`,
+  // Reviews - public
+  getReviews: (productId: string) => `/review/product/${productId}`,
+  getStatsReviews: (productId: string) => `/review/product/${productId}/stats`,
+  getMyReview: (productId: string, userId: string) => `/review/product/${productId}/me/${userId}`,
+  // Reviews - user (auth required)
+  createReview: "/review",
+  updateReview: (reviewId: string) => `/review/${reviewId}`,
+  deleteReview: (reviewId: string) => `/review/${reviewId}`,
+
+
 
   // Payment
   paymentMethods: "/payments/methods",

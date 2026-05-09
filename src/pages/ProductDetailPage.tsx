@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useProductDetail from "@/hooks/useProductDetail";
 import CardProductList from "@/components/home/CardProductList";
 import useProduct from "@/hooks/useProduct";
@@ -7,16 +7,20 @@ import { formatPrice } from "@/utils";
 import { PlusOutlined, ScissorOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import useUserStore from "@/store/useUserStore";
-
+import { useNavigate } from "react-router-dom";
+import Reviews from "@/components/product/Reviews";
 const ProductDetailPage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     product,
+    productId,
     activeColor,
     setActiveColor,
     setSelectedVariant,
     selectedVariant,
     contextHolder,
     handleAddToCart,
+    _api,
   } = useProductDetail();
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [isMaterialOpen, setIsMaterialOpen] = useState(false);
@@ -38,6 +42,9 @@ const ProductDetailPage: React.FC = () => {
   const currentImages =
     product?.colorGroups?.find((item) => item.color._id === activeColor)
       ?.images || [];
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [product]);
 
   return (
     <>
@@ -216,18 +223,49 @@ const ProductDetailPage: React.FC = () => {
               <button
                 className="w-full h-[40px] bg-[#ff0000] text-[#ffffff] text-[15px] font-bold rounded-[5px] cursor-pointer"
                 onClick={() => {
-                  handleAddToCart({
-                    userId: user?._id || "",
-                    productId: product?._id || "",
-                    variantId: selectedVariant || "",
-                    quantity: 1,
-                    price: product?.finalPrice ?? 0,
-                  });
+                  if (user) {
+                    handleAddToCart({
+                      userId: user?._id || "",
+                      productId: product?._id || "",
+                      variantId: selectedVariant || "",
+                      quantity: 1,
+                      price: product?.finalPrice ?? 0,
+                    });
+                  } else {
+                    _api.error({
+                      message: "Vui lòng đăng nhập",
+                      description:
+                        "Vui lòng đăng nhập để sử dụng chức năng này",
+                    });
+                  }
                 }}
               >
                 Thêm vào giỏ hàng
               </button>
-              <button className="w-full h-[40px] bg-[#ffffff] text-[#333f48] text-[15px] font-bold cursor-pointer border border-[#333f48] border-solid ">
+              <button
+                className="w-full h-[40px] bg-[#ffffff] text-[#333f48] text-[15px] font-bold cursor-pointer border border-[#333f48] border-solid "
+                onClick={() => {
+                  if (user) {
+                    handleAddToCart({
+                      userId: user?._id || "",
+                      productId: product?._id || "",
+                      variantId: selectedVariant || "",
+                      quantity: 1,
+                      price: product?.finalPrice ?? 0,
+                    });
+
+                    setTimeout(() => {
+                      navigate("/checkout");
+                    }, 2000);
+                  } else {
+                    _api.error({
+                      message: "Vui lòng đăng nhập",
+                      description:
+                        "Vui lòng đăng nhập để sử dụng chức năng này",
+                    });
+                  }
+                }}
+              >
                 Mua ngay
               </button>
             </div>
@@ -316,11 +354,19 @@ const ProductDetailPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold mt-[40px]!">
-          SẢN PHẨM GẦN ĐÂY
+        {/* reviews */}
+        <div className="w-full flex flex-col gap-[10px] mt-[40px]!">
+          <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold ">Đánh giá</div>
+          <div className="w-full ">
+            <Reviews productId={productId} />
+            
+          </div>
         </div>
 
         {/* related products */}
+        <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold mt-[40px]!">
+          SẢN PHẨM GẦN ĐÂY
+        </div>
         {products && products.length > 0 && (
           <CardProductList products={products} />
         )}
