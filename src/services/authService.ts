@@ -60,6 +60,7 @@ export const authService = {
 
   logout: async () => {
     const response = await apiClient.post(endpoints.logout);
+    localStorage.removeItem("accessToken");
     return response.data;
   },
 

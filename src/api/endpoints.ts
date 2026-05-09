@@ -78,7 +78,7 @@ export const endpoints = {
 
   // User
   userProfile: "/users/profile",
-  updateProfile: "/users/profile",
+  updateProfile: "/user",
   changePassword: "/users/change-password",
   addresses: "/users/addresses",
   addAddress: "/users/addresses",

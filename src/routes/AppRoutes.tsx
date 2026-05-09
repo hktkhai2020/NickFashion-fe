@@ -19,6 +19,7 @@ import {
   ProductBoy,
 } from '@/pages';
 import { MainLayout } from '@/components/layout';
+import CustomerLayout from '@/components/layout/CustomerLayout';
 
 const AppRoutes = () => {
   return (
@@ -30,6 +31,12 @@ const AppRoutes = () => {
         <Route path={ROUTES.PRODUCT_MALE} element={<ProductMale />} />
         <Route path={ROUTES.PRODUCT_GIRL} element={<ProductGirl />} />
         <Route path={ROUTES.PRODUCT_BOY} element={<ProductBoy />} />
+        {/* customer */}
+        <Route path={"customer/"}  element={<CustomerLayout />}>
+        <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+
+        </Route>
+
         {/* <Route path={ROUTES.PRODUCT_NEW} element={<ProductNew />} /> */}
         {/* <Route path={ROUTES.SHOP} element={<ShopPage />} />
         <Route path={ROUTES.CART} element={<CartPage />} />

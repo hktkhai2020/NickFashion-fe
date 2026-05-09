@@ -10,6 +10,10 @@ export interface User {
   defaultAddressId?: string;
   createdAt: string;
   updatedAt: string;
+  gender?: "male" | "female" | "other";
+  dateOfBirth?: string;
+  address?: string;
+  userId: string;
 }
 export interface GoogleLoginResponse {
   accessToken: string;

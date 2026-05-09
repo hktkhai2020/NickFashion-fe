@@ -106,9 +106,9 @@ const Header = () => {
               className="account cursor-pointer flex flex-col items-center"
               onClick={() => {
                 if (user?._id && user?.role) {
-                  navigate("/nickfashion/account");
+                  navigate("/nickfashion/customer/account");
                 } else {
-                  navigate("/nickfashion/login");
+                  navigate("/buyer/login");
                   api.error({
                     message: "Vui lòng đăng nhập",
                     description: "Vui lòng đăng nhập để sử dụng chức năng này",
@@ -126,7 +126,7 @@ const Header = () => {
                 if (user?._id && user?.role) {
                   setIsShowCart(true);
                 } else {
-                  navigate("/nickfashion/login");
+                  navigate("/buyer/login");
                   api.error({
                     message: "Vui lòng đăng nhập",
                     description: "Vui lòng đăng nhập để sử dụng chức năng này",
