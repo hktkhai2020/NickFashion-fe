@@ -118,7 +118,7 @@ export const AdminLayout: React.FC = () => {
         },
         {
           label: <Link to="/admin/import-statistics">Nhập hàng</Link>,
-          key: "importData",
+          key: "importStatistics",
           icon: <StockOutlined />,
         },
       ],

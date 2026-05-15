@@ -12,7 +12,7 @@ const ProductListByFillter = ({ products }: ProductListByFillterProps) => {
         <div key={product._id} className="flex flex-col gap-2">
           <div
             className="w-full cursor-pointer overflow-hidden"
-            onClick={() => navigate(`/nickfashion/product/${product.slug}`)}
+            onClick={() => navigate(`/product/${product.slug}`)}
           >
             <img src={product.thumbnail} alt={product.name} className="hover:scale-115 transition-transform duration-300 ease-in-out"/>
           </div>
@@ -23,7 +23,7 @@ const ProductListByFillter = ({ products }: ProductListByFillterProps) => {
                   <div
                     key={index}
                     className="w-[45px] h-[55px] shrink-0 cursor-pointer" 
-                    onClick={() => navigate(`/nickfashion/product/${product.slug}`)}
+                    onClick={() => navigate(`/product/${product.slug}`)}
                   >
                     <img
                       src={slide}
@@ -34,7 +34,7 @@ const ProductListByFillter = ({ products }: ProductListByFillterProps) => {
                 ),
             )}
           </div>
-          <div className="w-full text-[#333f48] text-[14px] cursor-pointer hover:text-[#d80c0c] transition-all duration-300 line-clamp-1" onClick={() => navigate(`/nickfashion/product/${product.slug}`)}>
+          <div className="w-full text-[#333f48] text-[14px] cursor-pointer hover:text-[#d80c0c] transition-all duration-300 line-clamp-1" onClick={() => navigate(`/product/${product.slug}`)}>
             {product.name}
           </div>
           <div className="w-full">

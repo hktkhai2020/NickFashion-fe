@@ -264,7 +264,7 @@ const ProfilePage: React.FC = () => {
                     }
                   }}
                 >
-                  THANH TOÁN
+                  LƯU THÔNG TIN
                 </button>
               </div>
               <div className="w-[30%] flex items-center justify-between">

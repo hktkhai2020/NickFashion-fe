@@ -359,7 +359,6 @@ const ProductDetailPage: React.FC = () => {
           <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold ">Đánh giá</div>
           <div className="w-full ">
             <Reviews productId={productId} />
-            
           </div>
         </div>
 

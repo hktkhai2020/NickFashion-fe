@@ -40,7 +40,7 @@ const ProductGirl = () => {
           <Breadcrumb
             items={[
               {
-                title: <a href="/nickfashion/">Trang chủ</a>,
+                title: <a href="/">Trang chủ</a>,
               },
               {
                 title: <a href="">Nữ</a>,

@@ -31,10 +31,10 @@ const CustomerLayout = () => {
           <Breadcrumb
             items={[
               {
-                title: <Link to={"/nickfashion"}>Trang chủ</Link>,
+                title: <Link to={"/"}>Trang chủ</Link>,
               },
               {
-                title: <Link to={"/nickfashion/customer"}>Tài khoản</Link>,
+                title: <Link to={"/customer"}>Tài khoản</Link>,
               },
 
               {
@@ -239,7 +239,7 @@ const CustomerLayout = () => {
                     removeUser();
                     removeCart();
                     setTimeout(() => {
-                      navigate("/nickfashion");
+                      navigate("/");
                     }, 1500);
                     setIsOpen(false);
                   } else {

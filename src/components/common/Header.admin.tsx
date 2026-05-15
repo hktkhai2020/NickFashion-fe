@@ -1,26 +1,59 @@
 import useUserStore from "@/store/useUserStore";
 import {
   BellOutlined,
+  HomeOutlined,
   LogoutOutlined,
   MenuOutlined,
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Badge, Button, Dropdown } from "antd";
-
+import { useNavigate } from "react-router-dom";
+import { authService } from "@/services";
 const HeaderAdmin: React.FC<{
   setIsSidebarOpen: (isSidebarOpen: boolean) => void;
 }> = (props) => {
+  const navigate = useNavigate();
   const { setIsSidebarOpen } = props;
   const item = [
     {
       key: "1",
-      label: "Profile",
-      icon: <UserOutlined />,
+      label: (
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Home
+        </div>
+      ),
+      icon: <HomeOutlined />,
     },
     {
       key: "2",
-      label: "Logout",
+      label: (
+        <div
+          onClick={() => {
+            navigate("/customer/account");
+          }}
+        >
+          Profile
+        </div>
+      ),
+      icon: <UserOutlined />,
+    },
+    {
+      key: "3",
+      label: (
+        <div
+          onClick={() => {
+            authService.logout();
+            navigate("/");
+          }}
+        >
+          Logout
+        </div>
+      ),
       icon: <LogoutOutlined />,
     },
   ];
@@ -28,10 +61,10 @@ const HeaderAdmin: React.FC<{
   return (
     <header className="header">
       <Button
-          icon={<MenuOutlined />}
-          onClick={() => setIsSidebarOpen(true)}
-          className="toggle-sidebar"
-        />
+        icon={<MenuOutlined />}
+        onClick={() => setIsSidebarOpen(true)}
+        className="toggle-sidebar"
+      />
       <div className="header-left">
         <SearchOutlined />
         <input type="text" placeholder="Search for something ... " />
@@ -53,11 +86,7 @@ const HeaderAdmin: React.FC<{
                 src={
                   <img
                     draggable={false}
-                    src={
-                      user?.avatar
-                        ? user?.avatar
-                        : "https://lh3.googleusercontent.com/a/ACg8ocJ2zOcb5kg0OGBjWqX6MK22slxz4YcGPbZwKLWsceaihXtmdF1n=s96-c"
-                    }
+                    src={user?.avatar ? user?.avatar : ""}
                     alt="avatar"
                   />
                 }

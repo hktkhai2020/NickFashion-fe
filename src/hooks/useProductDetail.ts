@@ -72,11 +72,13 @@ const useProductDetail = () => {
 
   return {
     product,
+    productId: product?._id || "",
     activeColor,
     setActiveColor,
     selectedVariant,
     setSelectedVariant,
     handleAddToCart,
+    _api,
     contextHolder,
   };
 };

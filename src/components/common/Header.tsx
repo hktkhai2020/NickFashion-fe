@@ -14,14 +14,14 @@ import React, { useState } from "react";
 import useCartStore from "@/store/useCartStore";
 import CartDrawer from "@/components/cart/CartDrawer";
 import useUserStore from "@/store/useUserStore";
-import useGlobal  from "@/hooks/useGlobal";
+import useGlobal from "@/hooks/useGlobal";
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#333f48",
 };
 
 const Header = () => {
-  const  {api} = useGlobal();
+  const { api } = useGlobal();
   const navigate = useNavigate();
   const location = useLocation();
   const { width } = useWindowSize();
@@ -70,7 +70,7 @@ const Header = () => {
           <div
             className="logo flex items-center cursor-pointer"
             onClick={() => {
-              navigate("/nickfashion");
+              navigate("/");
             }}
           >
             <img
@@ -106,14 +106,13 @@ const Header = () => {
               className="account cursor-pointer flex flex-col items-center"
               onClick={() => {
                 if (user?._id && user?.role) {
-                  navigate("/nickfashion/customer/account");
+                  navigate("/customer/account");
                 } else {
                   navigate("/buyer/login");
                   api.error({
                     message: "Vui lòng đăng nhập",
                     description: "Vui lòng đăng nhập để sử dụng chức năng này",
                   });
-
                 }
               }}
             >
@@ -131,7 +130,6 @@ const Header = () => {
                     message: "Vui lòng đăng nhập",
                     description: "Vui lòng đăng nhập để sử dụng chức năng này",
                   });
-
                 }
               }}
             >
@@ -188,49 +186,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/ao-phong-ao-thun`)
-                        }
+                        onClick={() => navigate(`/nu/ao-phong-ao-thun`)}
                       >
                         Áo phông / Áo thun
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/ao-polo`)}
+                        onClick={() => navigate(`/nu/ao-polo`)}
                       >
                         Áo polo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/chong-nang`)}
+                        onClick={() => navigate(`/nu/chong-nang`)}
                       >
                         Áo chống nắng
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/quan-ao-the-thao`)
-                        }
+                        onClick={() => navigate(`/nu/quan-ao-the-thao`)}
                       >
                         Quần áo thể thao
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/quan-shorts`)}
+                        onClick={() => navigate(`/nu/quan-shorts`)}
                       >
                         Quần shorts
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/quan-dai-and-quan-jeans`)
-                        }
+                        onClick={() => navigate(`/nu/quan-dai-and-quan-jeans`)}
                       >
                         Quần dài & Quần jeans
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/vay`)}
+                        onClick={() => navigate(`/nu/vay`)}
                       >
                         Váy
                       </li>
@@ -244,49 +236,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/bo-quan-ao`)}
+                        onClick={() => navigate(`/nu/bo-quan-ao`)}
                       >
                         Bộ quần áo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/do-mac-nha-and-do-ngu`)
-                        }
+                        onClick={() => navigate(`/nu/do-mac-nha-and-do-ngu`)}
                       >
                         Đồ mặc nhà đồ ngủ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/ao-len`)}
+                        onClick={() => navigate(`/nu/ao-len`)}
                       >
                         Áo len
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/ao-ni-and-quan-ni`)
-                        }
+                        onClick={() => navigate(`/nu/ao-ni-and-quan-ni`)}
                       >
                         Áo nỉ & Quần nỉ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/ao-khoac-and-giu-nhiet`)
-                        }
+                        onClick={() => navigate(`/nu/ao-khoac-and-giu-nhiet`)}
                       >
                         Áo khoác
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/do-lot`)}
+                        onClick={() => navigate(`/nu/do-lot`)}
                       >
                         Đồ lót
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/tat-vo`)}
+                        onClick={() => navigate(`/nu/tat-vo`)}
                       >
                         Tất / vớ
                       </li>
@@ -300,45 +286,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/chan`)}
+                        onClick={() => navigate(`/nu/chan`)}
                       >
                         Chăn
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/khan-mat`)}
+                        onClick={() => navigate(`/nu/khan-mat`)}
                       >
                         Khăn mặt
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/khan-tam`)}
+                        onClick={() => navigate(`/nu/khan-tam`)}
                       >
                         Khăn tắm
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nu/khan-quang-co`)
-                        }
+                        onClick={() => navigate(`/nu/khan-quang-co`)}
                       >
                         Khăn quàng cổ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/mu`)}
+                        onClick={() => navigate(`/nu/mu`)}
                       >
                         Mũ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/khau-trang`)}
+                        onClick={() => navigate(`/nu/khau-trang`)}
                       >
                         Khẩu trang
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nu/tui-xach`)}
+                        onClick={() => navigate(`/nu/tui-xach`)}
                       >
                         Túi xách
                       </li>
@@ -397,43 +381,37 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/ao-phong-ao-thun`)
-                        }
+                        onClick={() => navigate(`/nam/ao-phong-ao-thun`)}
                       >
                         Áo phông / Áo thun
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/ao-polo`)}
+                        onClick={() => navigate(`/nam/ao-polo`)}
                       >
                         Áo polo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/chong-nang`)}
+                        onClick={() => navigate(`/nam/chong-nang`)}
                       >
                         Áo chống nắng
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/quan-ao-the-thao`)
-                        }
+                        onClick={() => navigate(`/nam/quan-ao-the-thao`)}
                       >
                         Quần áo thể thao
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/quan-shorts`)}
+                        onClick={() => navigate(`/nam/quan-shorts`)}
                       >
                         Quần shorts
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/quan-dai-and-quan-jeans`)
-                        }
+                        onClick={() => navigate(`/nam/quan-dai-and-quan-jeans`)}
                       >
                         Quần dài & Quần jeans
                       </li>
@@ -447,49 +425,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/bo-quan-ao`)}
+                        onClick={() => navigate(`/nam/bo-quan-ao`)}
                       >
                         Bộ quần áo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/do-mac-nha-and-do-ngu`)
-                        }
+                        onClick={() => navigate(`/nam/do-mac-nha-and-do-ngu`)}
                       >
                         Đồ mặc nhà đồ ngủ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/ao-len`)}
+                        onClick={() => navigate(`/nam/ao-len`)}
                       >
                         Áo len
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/ao-ni-and-quan-ni`)
-                        }
+                        onClick={() => navigate(`/nam/ao-ni-and-quan-ni`)}
                       >
                         Áo nỉ & Quần nỉ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/ao-khoac-and-giu-nhiet`)
-                        }
+                        onClick={() => navigate(`/nam/ao-khoac-and-giu-nhiet`)}
                       >
                         Áo khoác
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/do-lot`)}
+                        onClick={() => navigate(`/nam/do-lot`)}
                       >
                         Đồ lót
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/tat-vo`)}
+                        onClick={() => navigate(`/nam/tat-vo`)}
                       >
                         Tất / vớ
                       </li>
@@ -503,45 +475,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/chan`)}
+                        onClick={() => navigate(`/nam/chan`)}
                       >
                         Chăn
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/khan-mat`)}
+                        onClick={() => navigate(`/nam/khan-mat`)}
                       >
                         Khăn mặt
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/khan-tam`)}
+                        onClick={() => navigate(`/nam/khan-tam`)}
                       >
                         Khăn tắm
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/nam/khan-quang-co`)
-                        }
+                        onClick={() => navigate(`/nam/khan-quang-co`)}
                       >
                         Khăn quàng cổ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/mu`)}
+                        onClick={() => navigate(`/nam/mu`)}
                       >
                         Mũ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/khau-trang`)}
+                        onClick={() => navigate(`/nam/khau-trang`)}
                       >
                         Khẩu trang
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/nam/tui-xach`)}
+                        onClick={() => navigate(`/nam/tui-xach`)}
                       >
                         Túi xách
                       </li>
@@ -600,55 +570,45 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/ao-phong-ao-thun`)
-                        }
+                        onClick={() => navigate(`/be-gai/ao-phong-ao-thun`)}
                       >
                         Áo phông / Áo thun
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/ao-polo`)}
+                        onClick={() => navigate(`/be-gai/ao-polo`)}
                       >
                         Áo polo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/chong-nang`)
-                        }
+                        onClick={() => navigate(`/be-gai/chong-nang`)}
                       >
                         Áo chống nắng
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/quan-ao-the-thao`)
-                        }
+                        onClick={() => navigate(`/be-gai/quan-ao-the-thao`)}
                       >
                         Quần áo thể thao
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/quan-shorts`)
-                        }
+                        onClick={() => navigate(`/be-gai/quan-shorts`)}
                       >
                         Quần shorts
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(
-                            `/nickfashion/be-gai/quan-dai-and-quan-jeans`,
-                          )
+                          navigate(`/be-gai/quan-dai-and-quan-jeans`)
                         }
                       >
                         Quần dài & Quần jeans
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/vay`)}
+                        onClick={() => navigate(`/be-gai/vay`)}
                       >
                         Váy
                       </li>
@@ -662,51 +622,47 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/bo-quan-ao`)
-                        }
+                        onClick={() => navigate(`/be-gai/bo-quan-ao`)}
                       >
                         Bộ quần áo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(`/nickfashion/be-gai/do-mac-nha-and-do-ngu`)
+                          navigate(`/be-gai/do-mac-nha-and-do-ngu`)
                         }
                       >
                         Đồ mặc nhà đồ ngủ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/ao-len`)}
+                        onClick={() => navigate(`/be-gai/ao-len`)}
                       >
                         Áo len
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/ao-ni-and-quan-ni`)
-                        }
+                        onClick={() => navigate(`/be-gai/ao-ni-and-quan-ni`)}
                       >
                         Áo nỉ & Quần nỉ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(`/nickfashion/be-gai/ao-khoac-and-giu-nhiet`)
+                          navigate(`/be-gai/ao-khoac-and-giu-nhiet`)
                         }
                       >
                         Áo khoác
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/do-lot`)}
+                        onClick={() => navigate(`/be-gai/do-lot`)}
                       >
                         Đồ lót
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/tat-vo`)}
+                        onClick={() => navigate(`/be-gai/tat-vo`)}
                       >
                         Tất / vớ
                       </li>
@@ -720,47 +676,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/chan`)}
+                        onClick={() => navigate(`/be-gai/chan`)}
                       >
                         Chăn
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/khan-mat`)}
+                        onClick={() => navigate(`/be-gai/khan-mat`)}
                       >
                         Khăn mặt
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/khan-tam`)}
+                        onClick={() => navigate(`/be-gai/khan-tam`)}
                       >
                         Khăn tắm
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/khan-quang-co`)
-                        }
+                        onClick={() => navigate(`/be-gai/khan-quang-co`)}
                       >
                         Khăn quàng cổ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/mu`)}
+                        onClick={() => navigate(`/be-gai/mu`)}
                       >
                         Mũ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-gai/khau-trang`)
-                        }
+                        onClick={() => navigate(`/be-gai/khau-trang`)}
                       >
                         Khẩu trang
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-gai/tui-xach`)}
+                        onClick={() => navigate(`/be-gai/tui-xach`)}
                       >
                         Túi xách
                       </li>
@@ -819,48 +771,38 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/ao-phong-ao-thun`)
-                        }
+                        onClick={() => navigate(`/be-trai/ao-phong-ao-thun`)}
                       >
                         Áo phông / Áo thun
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/ao-polo`)}
+                        onClick={() => navigate(`/be-trai/ao-polo`)}
                       >
                         Áo polo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/chong-nang`)
-                        }
+                        onClick={() => navigate(`/be-trai/chong-nang`)}
                       >
                         Áo chống nắng
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/quan-ao-the-thao`)
-                        }
+                        onClick={() => navigate(`/be-trai/quan-ao-the-thao`)}
                       >
                         Quần áo thể thao
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/quan-shorts`)
-                        }
+                        onClick={() => navigate(`/be-trai/quan-shorts`)}
                       >
                         Quần shorts
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(
-                            `/nickfashion/be-trai/quan-dai-and-quan-jeans`,
-                          )
+                          navigate(`/be-trai/quan-dai-and-quan-jeans`)
                         }
                       >
                         Quần dài & Quần jeans
@@ -875,53 +817,47 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/bo-quan-ao`)
-                        }
+                        onClick={() => navigate(`/be-trai/bo-quan-ao`)}
                       >
                         Bộ quần áo
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(`/nickfashion/be-trai/do-mac-nha-and-do-ngu`)
+                          navigate(`/be-trai/do-mac-nha-and-do-ngu`)
                         }
                       >
                         Đồ mặc nhà đồ ngủ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/ao-len`)}
+                        onClick={() => navigate(`/be-trai/ao-len`)}
                       >
                         Áo len
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/ao-ni-and-quan-ni`)
-                        }
+                        onClick={() => navigate(`/be-trai/ao-ni-and-quan-ni`)}
                       >
                         Áo nỉ & Quần nỉ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
                         onClick={() =>
-                          navigate(
-                            `/nickfashion/be-trai/ao-khoac-and-giu-nhiet`,
-                          )
+                          navigate(`/be-trai/ao-khoac-and-giu-nhiet`)
                         }
                       >
                         Áo khoác
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/do-lot`)}
+                        onClick={() => navigate(`/be-trai/do-lot`)}
                       >
                         Đồ lót
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/tat-vo`)}
+                        onClick={() => navigate(`/be-trai/tat-vo`)}
                       >
                         Tất / vớ
                       </li>
@@ -935,53 +871,43 @@ const Header = () => {
                     <ul className="flex flex-col gap-3 font-normal text-[#4d575f] text-[14px]">
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/chan`)}
+                        onClick={() => navigate(`/be-trai/chan`)}
                       >
                         Chăn
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/khan-mat`)
-                        }
+                        onClick={() => navigate(`/be-trai/khan-mat`)}
                       >
                         Khăn mặt
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/khan-tam`)
-                        }
+                        onClick={() => navigate(`/be-trai/khan-tam`)}
                       >
                         Khăn tắm
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/khan-quang-co`)
-                        }
+                        onClick={() => navigate(`/be-trai/khan-quang-co`)}
                       >
                         Khăn quàng cổ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() => navigate(`/nickfashion/be-trai/mu`)}
+                        onClick={() => navigate(`/be-trai/mu`)}
                       >
                         Mũ
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/khau-trang`)
-                        }
+                        onClick={() => navigate(`/be-trai/khau-trang`)}
                       >
                         Khẩu trang
                       </li>
                       <li
                         className="hover:text-red-500 hover:translate-x-1 transition-transform"
-                        onClick={() =>
-                          navigate(`/nickfashion/be-trai/tui-xach`)
-                        }
+                        onClick={() => navigate(`/be-trai/tui-xach`)}
                       >
                         Túi xách
                       </li>
@@ -1065,7 +991,7 @@ const Header = () => {
         </div>
 
         {/* banner carousel */}
-        {location.pathname === "/nickfashion" && (
+        {location.pathname === "/" && (
           <div className="header-banner-carousel w-full">
             <Carousel
               dots={width > 1024 ? true : false}

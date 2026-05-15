@@ -8,7 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { CheckoutPage, NotFoundPage } from "@/pages";
 function App() {
   const { loading } = useAuthInit();
-  
+
   if (loading) {
     return (
       <Flex justify="center" align="center" style={{ height: "100vh" }}>
@@ -29,7 +29,7 @@ function App() {
       <AntApp>
         <BrowserRouter>
           <Routes>
-            <Route path="/nickfashion/*" element={<AppRoutes />} />
+            <Route path="/*" element={<AppRoutes />} />
             <Route path="/buyer/*" element={<AuthRoutes />} />
             <Route path="/admin/*" element={<AdminRoutes />} />
             <Route path="/checkout" element={<CheckoutPage />} />

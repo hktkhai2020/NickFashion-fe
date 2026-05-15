@@ -1,6 +1,24 @@
 import React, { useState } from "react";
-import { Image, Spin, Button, Modal, Tooltip, Upload, UploadFile, message } from "antd";
-import { StarFilled, StarOutlined, EditOutlined, DeleteOutlined, DownOutlined, CheckOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  Image,
+  Spin,
+  Button,
+  Modal,
+  Tooltip,
+  Upload,
+  UploadFile,
+  message,
+} from "antd";
+import {
+  StarFilled,
+  StarOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  DownOutlined,
+  CheckOutlined,
+  PlusOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import useReview from "@/hooks/useReview";
 import useUserStore from "@/store/useUserStore";
 import uploadService from "@/services/uploadService";
@@ -75,7 +93,7 @@ const ReviewCard: React.FC<{
     : null;
 
   return (
-    <div className="flex gap-3 p-4 rounded-xl border border-[#e5eaf0] hover:border-[#61a678]/40 transition-all duration-200 bg-white">
+    <div className="flex gap-3 p-4! rounded-xl border border-[#e5eaf0] hover:border-[#61a678]/40 transition-all duration-200 bg-white">
       {/* Avatar */}
       <div className="shrink-0">
         {avatarSrc ? (
@@ -133,17 +151,21 @@ const ReviewCard: React.FC<{
 
         {review.images && review.images.length > 0 && (
           <div className="flex gap-2 flex-wrap">
-            {review.images.filter((img): img is string => typeof img === "string").map((img, i) => (
-              <Image
-                key={i}
-                src={img.startsWith("http") ? img : `http://localhost:5000${img}`}
-                fallback="https://via.placeholder.com/80"
-                width={72}
-                height={72}
-                className="rounded-lg object-cover border border-[#e5eaf0]"
-                style={{ objectFit: "cover" }}
-              />
-            ))}
+            {review.images
+              .filter((img): img is string => typeof img === "string")
+              .map((img, i) => (
+                <Image
+                  key={i}
+                  src={
+                    img.startsWith("http") ? img : `http://localhost:5000${img}`
+                  }
+                  fallback="https://via.placeholder.com/80"
+                  width={72}
+                  height={72}
+                  className="rounded-lg object-cover border border-[#e5eaf0]"
+                  style={{ objectFit: "cover" }}
+                />
+              ))}
           </div>
         )}
       </div>
@@ -232,7 +254,10 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
     const { onSuccess, onError, file } = options;
     try {
       const fileToUpload = (file as UploadFile).originFileObj || (file as File);
-      const res = await uploadService.uploadSingle(fileToUpload as File, "review");
+      const res = await uploadService.uploadSingle(
+        fileToUpload as File,
+        "review",
+      );
 
       if (res.success && res.data.url) {
         const uploadFile: UploadFile = {
@@ -338,12 +363,12 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
     <>
       {contextHolder}
       <div className="w-full flex flex-col gap-6">
-
         {/* ─── Stats Summary ─── */}
         {stats && stats.totalReviews > 0 && (
-          <div className="flex flex-col sm:flex-row gap-6 p-5 bg-[#fafafa] rounded-2xl border border-[#e5eaf0]">
+          <div className="flex flex-col sm:flex-row gap-6 p-5 bg-[#fafafa] rounded-2xl border border-[#e5eaf0] p-2! sm:p-6!">
             {/* Average score */}
-            <div className="flex flex-col items-center justify-center gap-2 sm:border-r sm:border-[#e5eaf0] sm:pr-6 shrink-0">
+
+            <div className="flex flex-col items-center justify-center gap-2 sm:border-r sm:border-[#e5eaf0] sm:pr-6 shrink-0 pr-2! sm:pr-6!">
               <span className="text-[48px] font-black leading-none text-[#1a1a1a]">
                 {avgRating.toFixed(1)}
               </span>
@@ -371,20 +396,21 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
           </div>
         )}
 
-        {/* ─── Write / Edit Review Button ─── */}
+        {/* ─── Sort and Write Review Button ─── */}
         {!writeMode && !editMode && (
           <div className="flex items-center justify-between gap-4 flex-wrap">
             {/* Sort dropdown */}
             <div className="relative">
               <button
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#e5eaf0] bg-white text-[13px] font-medium text-[#374151] hover:border-[#61a678]/50 transition-colors cursor-pointer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#e5eaf0] bg-white text-[13px] font-medium text-[#374151] hover:border-[#61a678]/50 transition-colors cursor-pointer py-2! px-5! sm:py-2.5! sm:px-5!"
                 onClick={() => setSortOpen((o) => !o)}
               >
-                {SORT_OPTIONS.find((o) => o.value === sortOption)?.label || "Sắp xếp"}
+                {SORT_OPTIONS.find((o) => o.value === sortOption)?.label ||
+                  "Sắp xếp"}
                 <DownOutlined style={{ fontSize: 10, color: "#9ca3af" }} />
               </button>
               {sortOpen && (
-                <div className="absolute top-full left-0 mt-1 w-44 bg-white border border-[#e5eaf0] rounded-xl shadow-lg z-10 overflow-hidden">
+                <div className="absolute top-full left-0 mt-1 w-44 bg-white border border-[#e5eaf0] rounded-xl shadow-lg z-10 overflow-hidden flex flex-col gap-2! p-1!">
                   {SORT_OPTIONS.map((opt) => (
                     <button
                       key={opt.value}
@@ -410,7 +436,7 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
 
             {user && !myReview && (
               <button
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#61a678] text-white text-[13px] font-semibold hover:bg-[#4f9c6a] transition-colors cursor-pointer border border-transparent"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#61a678] text-white text-[13px] font-semibold hover:bg-[#4f9c6a] transition-colors cursor-pointer border border-transparent py-2! px-5! sm:py-2.5! sm:px-5!"
                 onClick={startWrite}
               >
                 <StarOutlined style={{ fontSize: 14 }} />
@@ -422,13 +448,13 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
 
         {/* ─── Write / Edit Review Form ─── */}
         {(writeMode || editMode) && (
-          <div className="p-5 rounded-2xl border-2 border-[#61a678]/40 bg-[#f0fdf4] flex flex-col gap-4">
+          <div className="p-5! rounded-2xl border-2 border-[#61a678]/40 bg-[#f0fdf4] flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <span className="text-[15px] font-bold text-[#1a1a1a]">
                 {editMode ? "Chỉnh sửa đánh giá" : "Viết đánh giá của bạn"}
               </span>
               <button
-                className="text-[13px] text-[#6b7280] hover:text-[#374151] border-none bg-transparent cursor-pointer"
+                className="text-[13px] text-[#6b7280] hover:text-[#374151] border-none bg-transparent cursor-pointer py-2! px-5! sm:py-2.5! sm:px-5!"
                 onClick={cancelForm}
               >
                 Hủy
@@ -438,12 +464,16 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
             {/* Rating */}
             <div className="flex items-center gap-3">
               <span className="text-[13px] text-[#6b7280]">Đánh giá:</span>
-              <StarRating value={formRating} onChange={setFormRating} size={24} />
+              <StarRating
+                value={formRating}
+                onChange={setFormRating}
+                size={24}
+              />
             </div>
 
             {/* Comment */}
             <textarea
-              className="w-full min-h-[100px] p-3 rounded-xl border border-[#e5eaf0] text-[13px] text-[#374151] resize-none outline-none focus:border-[#61a678]/60 transition-colors bg-white"
+              className="w-full min-h-[100px] p-3! rounded-xl border border-[#e5eaf0] text-[13px] text-[#374151] resize-none outline-none focus:border-[#61a678]/60 transition-colors bg-white"
               placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."
               value={formComment}
               onChange={(e) => setFormComment(e.target.value)}
@@ -477,17 +507,26 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
             {/* Submit */}
             <div className="flex justify-end gap-3">
               <button
-                className="px-5 py-2 rounded-full border border-[#e5eaf0] text-[13px] font-medium text-[#374151] hover:bg-[#f9fafb] transition-colors cursor-pointer bg-white"
+                className="px-5! py-2! rounded-full border border-[#e5eaf0] text-[13px] font-medium text-[#374151] hover:bg-[#f9fafb] transition-colors cursor-pointer bg-white"
                 onClick={cancelForm}
               >
                 Hủy
               </button>
               <button
-                className="px-6 py-2 rounded-full bg-[#61a678] text-white text-[13px] font-semibold hover:bg-[#4f9c6a] transition-colors cursor-pointer border border-transparent disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6! py-2! rounded-full bg-[#61a678] text-white text-[13px] font-semibold hover:bg-[#4f9c6a] transition-colors cursor-pointer border border-transparent disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 py-2! px-6! sm:py-2.5! sm:px-6!"
                 onClick={handleSubmit}
                 disabled={formRating === 0 || submitting}
               >
-                {submitting && <Spin indicator={<LoadingOutlined style={{ fontSize: 14, color: "white" }} spin />} />}
+                {submitting && (
+                  <Spin
+                    indicator={
+                      <LoadingOutlined
+                        style={{ fontSize: 14, color: "white" }}
+                        spin
+                      />
+                    }
+                  />
+                )}
                 {editMode ? "Lưu thay đổi" : "Gửi đánh giá"}
               </button>
             </div>
@@ -498,7 +537,9 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
         <div className="flex flex-col gap-3">
           {loading && reviews.length === 0 ? (
             <div className="flex items-center justify-center py-12">
-              <Spin indicator={<LoadingOutlined style={{ fontSize: 28 }} spin />} />
+              <Spin
+                indicator={<LoadingOutlined style={{ fontSize: 28 }} spin />}
+              />
             </div>
           ) : filteredReviews.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-3">
@@ -562,7 +603,8 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
         okButtonProps={{ danger: true }}
       >
         <p className="text-[14px] text-[#374151]">
-          Bạn có chắc muốn xóa đánh giá này không? Hành động này không thể hoàn tác.
+          Bạn có chắc muốn xóa đánh giá này không? Hành động này không thể hoàn
+          tác.
         </p>
       </Modal>
     </>

@@ -8,7 +8,7 @@ const CardProductList = ({ products }: { products: Product[] }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const handleNavigate = (slug: string) => {
-    navigate(`/nickfashion/product/${slug}`);
+    navigate(`/product/${slug}`);
   };
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {

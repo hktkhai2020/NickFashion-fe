@@ -91,7 +91,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-phong-ao-thun`);
+              navigate(`/${gender}/ao-phong-ao-thun`);
             }}
           >
             Áo phông / Áo thun
@@ -105,7 +105,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-polo`);
+              navigate(`/${gender}/ao-polo`);
             }}
           >
             Áo polo
@@ -119,7 +119,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-so-mi`);
+              navigate(`/${gender}/ao-so-mi`);
             }}
           >
             Áo sơ mi & Áo kiểu
@@ -133,7 +133,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/quan-ao-the-thao`);
+              navigate(`/${gender}/quan-ao-the-thao`);
             }}
           >
             Quần áo thể thao
@@ -147,7 +147,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/quan-shorts`);
+              navigate(`/${gender}/quan-shorts`);
             }}
           >
             Quần short
@@ -161,7 +161,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/quan-dai-and-quan-jeans`);
+              navigate(`/${gender}/quan-dai-and-quan-jeans`);
             }}
           >
             Quần dài & Quần Jeans
@@ -176,7 +176,7 @@ const Filter = ({
                 setPriceMax(0);
                 setDiscountMin(0);
                 setDiscountMax(0);
-                navigate(`/nickfashion/${gender}/vay`);
+                navigate(`/${gender}/vay`);
               }}
             >
               Váy
@@ -191,7 +191,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/bo-quan-ao`);
+              navigate(`/${gender}/bo-quan-ao`);
             }}
           >
             Bộ quần áo
@@ -206,7 +206,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/do-mac-nha-and-do-ngu`);
+              navigate(`/${gender}/do-mac-nha-and-do-ngu`);
             }}
           >
             Đồ mặc nhà & Đồ ngủ
@@ -220,7 +220,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-len`);
+              navigate(`/${gender}/ao-len`);
             }}
           >
             Áo len
@@ -234,7 +234,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-ni-and-quan-ni`);
+              navigate(`/${gender}/ao-ni-and-quan-ni`);
             }}
           >
             Áo nỉ & Quần nỉ
@@ -248,7 +248,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/ao-khoac-and-giu-nhiet`);
+              navigate(`/${gender}/ao-khoac-and-giu-nhiet`);
             }}
           >
             Áo khoác & Giữ nhiệt
@@ -262,7 +262,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/do-lot`);
+              navigate(`/${gender}/do-lot`);
             }}
           >
             Đồ lót
@@ -276,7 +276,7 @@ const Filter = ({
               setPriceMax(0);
               setDiscountMin(0);
               setDiscountMax(0);
-              navigate(`/nickfashion/${gender}/tat-vo`);
+              navigate(`/${gender}/tat-vo`);
             }}
           >
             Tất / vớ
