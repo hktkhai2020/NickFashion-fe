@@ -138,7 +138,6 @@ const LoginPage: React.FC = () => {
             <div className="">
               <GoogleOAuthProvider
                 clientId={
-                  
                   "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
                 }
               >
