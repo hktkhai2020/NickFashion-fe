@@ -344,7 +344,7 @@ const RegisterPage: React.FC = () => {
             <div className="">
               <GoogleOAuthProvider
                 clientId={
-                  "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
+                  import.meta.env.VITE_GOOGLE_CLIENT_ID || "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
                 }
               >
                 <GoogleLogin
