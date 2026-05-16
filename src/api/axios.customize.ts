@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL || "https://api.nickfashion.asia";  // newsnews
+  import.meta.env.VITE_BACKEND_URL || "https://api.nickfashion.asia/api/v1"; // newsnews
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
