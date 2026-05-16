@@ -3,7 +3,7 @@ import "styles/auth/loginPage.scss";
 import { Button, Form, Input, Divider } from "antd";
 import type { FormProps } from "antd";
 import { useTranslation } from "react-i18next";
-// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { authService, cartService } from "@/services";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
@@ -135,7 +135,7 @@ const LoginPage: React.FC = () => {
               </Form.Item>
             </Form>
             <Divider className="!text-white !border-amber-50 ">or</Divider>
-            {/* <div className="">
+            <div className="">
               <GoogleOAuthProvider
                 clientId={
                   "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
@@ -180,7 +180,7 @@ const LoginPage: React.FC = () => {
                   }}
                 />
               </GoogleOAuthProvider>
-            </div> */}
+            </div>
             <div className=" text-center !pt-[2rem] text-[1rem]">
               {i18n.language == "vi"
                 ? "Bạn chưa có tài khoản? "
