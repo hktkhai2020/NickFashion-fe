@@ -137,7 +137,10 @@ const LoginPage: React.FC = () => {
             <Divider className="!text-white !border-amber-50 ">or</Divider>
             <div className="">
               <GoogleOAuthProvider
-                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID as string}
+                clientId={
+                  (import.meta.env.VITE_GOOGLE_CLIENT_ID as string) ||
+                  "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
+                }
               >
                 <GoogleLogin
                   onSuccess={async (event) => {

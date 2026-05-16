@@ -19,7 +19,6 @@ type FieldType = {
   gender?: string;
 };
 const RegisterPage: React.FC = () => {
-
   const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
   const [form] = Form.useForm<FieldType>();
@@ -197,7 +196,7 @@ const RegisterPage: React.FC = () => {
                               error?.response?.data?.message ||
                               t("register.otpSendFailed"),
                           });
-                        } 
+                        }
                       }}
                     >
                       {otpCountdown > 0
@@ -344,7 +343,10 @@ const RegisterPage: React.FC = () => {
             {/* Sign up with Google */}
             <div className="">
               <GoogleOAuthProvider
-                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID as string}
+                clientId={
+                  (import.meta.env.VITE_GOOGLE_CLIENT_ID as string) ||
+                  "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
+                }
               >
                 <GoogleLogin
                   text={"signup_with"}
