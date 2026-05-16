@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
           setCart(cartResponse.data);
         }
         localStorage.setItem("accessToken", response.accessToken);
-        setUser(response.user as User);
+        setUser(response.user as unknown as User);
         setTimeout(() => {
           if (response.user.role === "admin") {
             navigate("/admin/dashboard");
@@ -155,7 +155,7 @@ const LoginPage: React.FC = () => {
                           "accessToken",
                           response.accessToken,
                         );
-                        setUser(response.user as User);
+                        setUser(response.user as unknown as User);
                         if (response.user.role === "admin") {
                           navigate("/admin/dashboard");
                         } else {

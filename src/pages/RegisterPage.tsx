@@ -19,6 +19,7 @@ type FieldType = {
   gender?: string;
 };
 const RegisterPage: React.FC = () => {
+
   const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
   const [form] = Form.useForm<FieldType>();
@@ -41,7 +42,7 @@ const RegisterPage: React.FC = () => {
     try {
       if (!allowSubmit) {
         api.error({
-          title: t("register.registerFailed"),
+          message: t("register.registerFailed"),
           description: t("register.otpVerifyFailed"),
         });
         return;
@@ -54,7 +55,7 @@ const RegisterPage: React.FC = () => {
       });
       if (response) {
         api.success({
-          title: t("register.registerSuccess"),
+          message: t("register.registerSuccess"),
           description: response.message,
         });
         navigate("/buyer/login");
@@ -70,7 +71,7 @@ const RegisterPage: React.FC = () => {
           : t("register.descriptionRegisterFailed");
 
       api.error({
-        title: t("register.registerFailed"),
+        message: t("register.registerFailed"),
         description,
       });
     }
@@ -176,7 +177,7 @@ const RegisterPage: React.FC = () => {
                           setOtpCountdown(60);
                           await authService.sendVerifyEmail(email);
                           api.success({
-                            title: t("register.otpSent"),
+                            message: t("register.otpSent"),
                             description: t("register.descriptionOtpSent"),
                           });
                           setShowInputOtp(true);
@@ -196,8 +197,7 @@ const RegisterPage: React.FC = () => {
                               error?.response?.data?.message ||
                               t("register.otpSendFailed"),
                           });
-                        } finally {
-                        }
+                        } 
                       }}
                     >
                       {otpCountdown > 0
@@ -341,6 +341,7 @@ const RegisterPage: React.FC = () => {
               </Form.Item>
             </Form>
             <Divider className="!text-white !border-amber-50 ">or</Divider>
+            {/* Sign up with Google */}
             <div className="">
               <GoogleOAuthProvider
                 clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID as string}
@@ -355,7 +356,7 @@ const RegisterPage: React.FC = () => {
                       );
                       if (response) {
                         api.success({
-                          title: t("login.loginSuccess"),
+                          message: t("login.loginSuccess"),
                           description: response.message,
                         });
                         navigate("/buyer/login");
@@ -363,14 +364,14 @@ const RegisterPage: React.FC = () => {
                     } catch (error) {
                       console.log("Error Login Google:", error);
                       api.error({
-                        title: t("login.loginFailed"),
+                        message: t("login.loginFailed"),
                         description: t("login.descriptionLoginFailed"),
                       });
                     }
                   }}
                   onError={() => {
                     api.error({
-                      title: t("login.loginFailed"),
+                      message: t("login.loginFailed"),
                       description: t("login.descriptionLoginFailed"),
                     });
                   }}
