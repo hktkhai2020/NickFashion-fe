@@ -4,12 +4,12 @@ import { Button, Form, Input, Divider } from "antd";
 import type { FormProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { authService ,cartService} from "@/services";
+import { authService, cartService } from "@/services";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
 import { User } from "@/types";
 import useCartStore from "@/store/useCartStore";
-import  useGlobal from "@/hooks/useGlobal";
+import useGlobal from "@/hooks/useGlobal";
 type FieldType = {
   username?: string;
   password?: string;
@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
   const { t, i18n } = useTranslation("translation");
   const setUser = useUserStore((state) => state.setUser);
   const setCart = useCartStore((state) => state.setCart);
-  const {api,contextHolder} = useGlobal();
+  const { api, contextHolder } = useGlobal();
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     try {
@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
 
       const response = await authService.login(payload);
       const cartResponse = await cartService.getCart(response.user._id);
-      
+
       if (response) {
         api.success({
           message: t("login.loginSuccess"),
@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
           if (response.user.role === "admin") {
             navigate("/admin/dashboard");
           } else {
-            navigate("/nickfashion");
+            navigate("/");
           }
         }, 1000);
       }
@@ -159,7 +159,7 @@ const LoginPage: React.FC = () => {
                         if (response.user.role === "admin") {
                           navigate("/admin/dashboard");
                         } else {
-                          navigate("/nickfashion");
+                          navigate("/");
                         }
                       }
                     } catch (error) {
