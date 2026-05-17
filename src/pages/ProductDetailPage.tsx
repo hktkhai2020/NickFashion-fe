@@ -224,13 +224,21 @@ const ProductDetailPage: React.FC = () => {
                 className="w-full h-[40px] bg-[#ff0000] text-[#ffffff] text-[15px] font-bold rounded-[5px] cursor-pointer"
                 onClick={() => {
                   if (user) {
-                    handleAddToCart({
-                      userId: user?._id || "",
-                      productId: product?._id || "",
-                      variantId: selectedVariant || "",
-                      quantity: 1,
-                      price: product?.finalPrice ?? 0,
-                    });
+                    if (selectedVariant) {
+                      handleAddToCart({
+                        userId: user?._id || "",
+                        productId: product?._id || "",
+                        variantId: selectedVariant || "",
+                        quantity: 1,
+                        price: product?.finalPrice ?? 0,
+                      });
+                    } else {
+                      _api.error({
+                        message: "Vui lòng chọn kích cỡ",
+                        description:
+                          "Vui lòng chọn kích cỡ để thêm vào giỏ hàng",
+                      });
+                    }
                   } else {
                     _api.error({
                       message: "Vui lòng đăng nhập",
@@ -246,17 +254,24 @@ const ProductDetailPage: React.FC = () => {
                 className="w-full h-[40px] bg-[#ffffff] text-[#333f48] text-[15px] font-bold cursor-pointer border border-[#333f48] border-solid "
                 onClick={() => {
                   if (user) {
-                    handleAddToCart({
-                      userId: user?._id || "",
-                      productId: product?._id || "",
-                      variantId: selectedVariant || "",
-                      quantity: 1,
-                      price: product?.finalPrice ?? 0,
-                    });
-
-                    setTimeout(() => {
-                      navigate("/checkout");
-                    }, 2000);
+                    if (selectedVariant) {
+                      handleAddToCart({
+                        userId: user?._id || "",
+                        productId: product?._id || "",
+                        variantId: selectedVariant || "",
+                        quantity: 1,
+                        price: product?.finalPrice ?? 0,
+                      });
+                      setTimeout(() => {
+                        navigate("/checkout");
+                      }, 2000);
+                    } else {
+                      _api.error({
+                        message: "Vui lòng chọn kích cỡ",
+                        description:
+                          "Vui lòng chọn kích cỡ để thêm vào giỏ hàng",
+                      });
+                    }
                   } else {
                     _api.error({
                       message: "Vui lòng đăng nhập",
@@ -356,7 +371,9 @@ const ProductDetailPage: React.FC = () => {
 
         {/* reviews */}
         <div className="w-full flex flex-col gap-[10px] mt-[40px]!">
-          <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold ">Đánh giá</div>
+          <div className="lg:text-[36px] text-[24px] text-[#333f48] font-bold ">
+            Đánh giá
+          </div>
           <div className="w-full ">
             <Reviews productId={productId} />
           </div>

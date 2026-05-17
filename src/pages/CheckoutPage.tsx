@@ -55,7 +55,12 @@ const CheckoutPage: React.FC = () => {
       {contextHolder}
       <div className="w-full relative   bg-[#f5f5f5] min-h-screen pb-[20px]! ">
         <header className=" header-checkout flex items-center justify-between lg:px-[5rem]! px-[1.5rem]! bg-white lg:fixed left-0 right-0 top-0 z-50 lg:mb-0! mb-[20px]! ">
-          <div className="header-checkout-left-logo">
+          <div
+            className="header-checkout-left-logo cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             <img src={logoNickFashion} alt="logo" />
           </div>
           <div className="lg:w-[50%]  hidden lg:block">
@@ -64,7 +69,7 @@ const CheckoutPage: React.FC = () => {
           <div
             className="lg:flex items-center  cursor-pointer lg:block hidden gap-[10px]"
             onClick={() => {
-              navigate("/nickfashion");
+              navigate("/");
             }}
           >
             <div className=" text-[15px] font-bold text-[#4d575f]">
