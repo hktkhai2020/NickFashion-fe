@@ -17,6 +17,8 @@ import {
   ProductMale,
   ProductGirl,
   ProductBoy,
+  RunawayCollection,
+  SearchPage,
 } from "@/pages";
 import { MainLayout } from "@/components/layout";
 import CustomerLayout from "@/components/layout/CustomerLayout";
@@ -31,6 +33,8 @@ const AppRoutes = () => {
         <Route path={ROUTES.PRODUCT_MALE} element={<ProductMale />} />
         <Route path={ROUTES.PRODUCT_GIRL} element={<ProductGirl />} />
         <Route path={ROUTES.PRODUCT_BOY} element={<ProductBoy />} />
+        <Route path={ROUTES.RUNAWAY_COLLECTION} element={<RunawayCollection />} />
+        <Route path={ROUTES.SEARCH} element={<SearchPage />} />
 
         {/* customer */}
         <Route path={"customer/"} element={<CustomerLayout />}>

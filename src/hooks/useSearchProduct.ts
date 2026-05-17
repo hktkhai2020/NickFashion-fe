@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import productService from "@/services/productService";
-import { Product, GetProductsParams } from "@/types/product";
+import { Product } from "@/types/product";
 
-const useProduct = (params?: GetProductsParams) => {
+const useSearchProduct = (query: string,sortBy:string,sortOrder:string) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -10,7 +10,7 @@ const useProduct = (params?: GetProductsParams) => {
       setProducts([]);
       setLoading(true);
       try {
-        const response = await productService.getProducts(params);
+        const response = await productService.searchProducts(query || "",sortBy,sortOrder);
         setProducts(response.data);
       } catch (error) {
         console.log(error);
@@ -19,9 +19,8 @@ const useProduct = (params?: GetProductsParams) => {
       }
     };
     fetchProducts();
-  }, [JSON.stringify(params)]);
+  }, [JSON.stringify(query+sortBy+sortOrder)]);
 
   return { products, loading };
 };
-
-export default useProduct;
+export default useSearchProduct;

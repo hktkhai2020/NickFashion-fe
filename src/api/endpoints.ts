@@ -21,7 +21,7 @@ export const endpoints = {
   updateProduct: (id: string) => `/products/${id}`,
   deleteProduct: (id: string) => `/products/${id}`,
   getProductBySlug: (slug: string) => `/products/client/${slug}`,
-
+  searchProducts: `/products/search`,
   //upload
   uploadSingle: "/upload/single",
   uploadMultiple: "/upload/multiple",

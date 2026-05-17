@@ -34,7 +34,6 @@ const Header = () => {
       setActiveMenu(activeMenu === menuName ? null : menuName);
     }
   };
-  console.log(user);
   return (
     <>
       <div className="header-main w-full flex flex-col relative lg:contents ">
@@ -45,7 +44,7 @@ const Header = () => {
           </p>
         </div>
         {/* info carousel */}
-        {location.pathname === "/nickfashion" && (
+        {location.pathname === "/" && (
           <div className="header-sub w-full bg-[#f4f6f9] hidden lg:block  lg:flex lg:justify-center lg:items-center lg:py-2!">
             <Carousel
               dots={false}
@@ -88,11 +87,16 @@ const Header = () => {
                 placeholder="Tìm kiếm"
                 prefix={<SearchOutlined style={{ color: "#4d575f" }} />}
                 className=" !outline-none text-[#4d575f] py-[0.7rem]!  pl-[20px]!"
+                onPressEnter={(e) => {
+                  const value = (e.target as HTMLInputElement).value;
+                  navigate(`/search?q=${value.trim()}`);
+                }}
               />
             </div>
             <div className="search  lg:hidden block">
               <SearchOutlined style={{ color: "#4d575f" }} />
             </div>
+            {/* shop */}
             <div
               className="shop cursor-pointer flex flex-col items-center"
               onClick={() => {
@@ -102,6 +106,7 @@ const Header = () => {
               <ShopOutlined style={{ fontSize: 25, color: "#4d575f" }} />
               <span className="hidden lg:block  text-center">Cửa hàng</span>
             </div>
+            {/* account */}
             <div
               className="account cursor-pointer flex flex-col items-center"
               onClick={() => {
@@ -119,6 +124,7 @@ const Header = () => {
               <UserOutlined style={{ fontSize: 25, color: "#4d575f" }} />
               <span className="hidden   lg:block  text-center">Tài khoản</span>
             </div>
+            {/* cart */}
             <div
               className="cart cursor-pointer flex flex-col items-center"
               onClick={() => {
@@ -145,7 +151,7 @@ const Header = () => {
         </div>
 
         {/* menu*/}
-        <div className="header-menu w-full bg-[#333f48] flex items-center shadow-sm lg:px-[5rem]! px-[0.5rem]! relative z-40 text-nowrap overflow-x-auto overflow-y-hidden lg:overflow-visible  lg:sticky lg:top-12">
+        <div className="header-menu w-full bg-[#333f48] flex items-center shadow-sm lg:px-[5rem]! px-[0.5rem]! relative z-40 text-nowrap overflow-x-auto overflow-y-hidden lg:overflow-visible  lg:sticky lg:top-12 [&::-webkit-scrollbar]:hidden">
           <ul className="flex items-center font-semibold text-white text-[13px] h-[45px]">
             <li className=" group h-full flex items-center cursor-pointer">
               <span className="hover:text-[#333f48] hover:bg-white transition-colors uppercase h-full flex items-center  px-[20px]!">
@@ -982,6 +988,7 @@ const Header = () => {
             <li
               className="group h-full flex items-center cursor-pointer"
               tabIndex={0}
+              onClick={() => navigate("/runawaycollection")}
             >
               <span className="hover:text-[#333f48] hover:bg-white transition-colors uppercase h-full flex items-center px-[20px]!">
                 RUNAWAY COLLECTION

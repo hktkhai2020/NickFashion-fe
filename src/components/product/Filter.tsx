@@ -65,7 +65,6 @@ const Filter = ({
     { label: "30% - 50%", min: 30, max: 50 },
     { label: "Trên 50%", min: 50, max: 0 },
   ];
-
   return (
     <div className="w-full flex flex-col gap-5 ">
       {/*Danh mục sản phẩm*/}

@@ -18,6 +18,8 @@ export const ROUTES = {
   PRODUCT_GIRL: "be-gai/:category",
   PRODUCT_BOY: "be-trai/:category",
   PRODUCT_NEW: "san-pham-moi/:category",
+  RUNAWAY_COLLECTION: "runawaycollection",
+  SEARCH: "search",
 };
 
 export const ADMIN_ROUTES = {

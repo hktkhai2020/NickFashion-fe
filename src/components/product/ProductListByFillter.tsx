@@ -8,7 +8,7 @@ const ProductListByFillter = ({ products }: ProductListByFillterProps) => {
   const navigate = useNavigate();
   return (
     <div className="w-full grid lg:grid-cols-3 grid-cols-2  gap-x-1! gap-y-[2rem]! ">
-      {products.map((product) => (
+      {products?.map((product) => (
         <div key={product._id} className="flex flex-col gap-2">
           <div
             className="w-full cursor-pointer overflow-hidden"
@@ -17,7 +17,7 @@ const ProductListByFillter = ({ products }: ProductListByFillterProps) => {
             <img src={product.thumbnail} alt={product.name} className="hover:scale-115 transition-transform duration-300 ease-in-out"/>
           </div>
           <div className="w-full flex gap-1">
-            {product.slides.map(
+            {product?.slides?.map(
               (slide, index) =>
                 index < 4 && (
                   <div

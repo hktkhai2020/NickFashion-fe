@@ -2,7 +2,6 @@
 import { Category } from "./category";
 import { Brand } from "./brand";
 
-
 export interface ProductFlags {
   active: boolean;
   featured: boolean;
@@ -88,7 +87,7 @@ export interface GetProductsParams {
   current?: number;
   pageSize?: number;
   search?: string;
-  sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt" | "finalPrice" ;
+  sortBy?: "sortOrder" | "name" | "createdAt" | "updatedAt" | "finalPrice";
   sortOrder?: "asc" | "desc";
   gender?: "all" | "woman" | "man" | "girl" | "boy" | "unisex";
   discounted?: boolean;
@@ -99,6 +98,7 @@ export interface GetProductsParams {
   priceMax?: number;
   discountMin?: number;
   discountMax?: number;
+  tags?: string[];
 }
 
 export interface ProductFormValues {
@@ -122,8 +122,6 @@ export interface ProductFormValues {
   tags?: string[];
   gender?: string[];
 }
-
-
 
 // detail product by slug
 export interface ColorGroup {

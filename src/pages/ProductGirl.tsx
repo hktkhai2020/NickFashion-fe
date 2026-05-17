@@ -12,7 +12,7 @@ const ProductGirl = () => {
     "sortOrder" | "name" | "createdAt" | "updatedAt" | "finalPrice" | undefined
   >("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>(
-    "desc"
+    "desc",
   );
   const [isDropdownSort, setIsDropdownSort] = useState(false);
   const [sizes, setSizes] = useState<string[]>([]);
@@ -59,7 +59,7 @@ const ProductGirl = () => {
           <div className="lg:w-2/6 w-full ">
             <Filter
               categoryId={[categories[0]?._id]}
-              gender={pathname.split("/")[2]}
+              gender={pathname.split("/")[1]}
               sizes={sizes}
               colors={colors}
               priceMin={priceMin}
@@ -163,9 +163,7 @@ const ProductGirl = () => {
                 <Spin size="large" />
               </div>
             ) : (
-              <ProductListByFillter
-                products={products}
-              />
+              <ProductListByFillter products={products} />
             )}
           </div>
         </div>

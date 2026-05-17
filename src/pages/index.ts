@@ -17,3 +17,5 @@ export { default as ProductFemale } from "./ProductFemale";
 export { default as ProductMale } from "./ProductMale";
 export { default as ProductGirl } from "./ProductGirl";
 export { default as ProductBoy } from "./ProductBoy";
+export { default as RunawayCollection } from "./RunawayCollectionPage";
+export { default as SearchPage } from "./SearchPage";

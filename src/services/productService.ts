@@ -18,7 +18,8 @@ const productService = {
     if (params?.gender) searchParams.set("gender", params.gender);
     if (params?.discounted === true) searchParams.set("discounted", "true");
     if (params?.categoryId) searchParams.set("categoryId", params.categoryId);
-    if (params?.colors) searchParams.set("colors", params.colors?.join(",") || "");
+    if (params?.colors)
+      searchParams.set("colors", params.colors?.join(",") || "");
     if (params?.sizes) searchParams.set("sizes", params.sizes?.join(",") || "");
     if (params?.priceMin) searchParams.set("priceMin", String(params.priceMin));
     if (params?.priceMax) searchParams.set("priceMax", String(params.priceMax));
@@ -26,23 +27,39 @@ const productService = {
       searchParams.set("discountMin", String(params.discountMin));
     if (params?.discountMax)
       searchParams.set("discountMax", String(params.discountMax));
+    if (params?.tags) searchParams.set("tags", params.tags?.join(",") || "");
     const query = searchParams.toString();
-    const url = query ? `${endpoints.getProducts}?${query}` : endpoints.getProducts;
+    const url = query
+      ? `${endpoints.getProducts}?${query}`
+      : endpoints.getProducts;
     const response = await apiClient.get<ProductResponse>(url as string);
     return response.data;
   },
 
+  searchProducts: async (query: string,sortBy:string,sortOrder:string) => {
+    const searchParams = new URLSearchParams();
+    if (query) searchParams.set("q", query);
+    if (sortBy) searchParams.set("sortBy", sortBy);
+    if (sortOrder) searchParams.set("sortOrder", sortOrder);
+    const queryParams = searchParams.toString();
+    const url = queryParams
+      ? `${endpoints.searchProducts}?${queryParams}`
+      : endpoints.searchProducts;
+    const response = await apiClient.get<ProductResponse>(url);
+    return response.data;
+  },
   getProductById: async (id: string) => {
     const response = await apiClient.get<{ success: boolean; data: Product }>(
-      endpoints.productDetail(id)
+      endpoints.productDetail(id),
     );
     return response.data;
   },
 
   getProductBySlug: async (slug: string) => {
-    const response = await apiClient.get<{ success: boolean; data: ProductDetailBySlug }>(
-      endpoints.getProductBySlug(slug)
-    );
+    const response = await apiClient.get<{
+      success: boolean;
+      data: ProductDetailBySlug;
+    }>(endpoints.getProductBySlug(slug));
     return response.data;
   },
 
