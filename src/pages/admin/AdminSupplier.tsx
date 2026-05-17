@@ -197,8 +197,7 @@ const AdminSupplier: React.FC = () => {
           };
         }}
         pagination={{
-          pageSize: 10,
-          pageSizeOptions: ["5", "10", "20", "50"],
+          pageSizeOptions: [5, 10, 20, 50],
           showSizeChanger: true,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} trên ${total} nhà cung cấp`,

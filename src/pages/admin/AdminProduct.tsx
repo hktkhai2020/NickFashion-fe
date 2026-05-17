@@ -27,6 +27,7 @@ const formatCurrency = (value: number) =>
   }).format(value);
 
 const AdminProduct: React.FC = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const actionRef = useRef<ActionType>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
@@ -37,10 +38,10 @@ const AdminProduct: React.FC = () => {
   const handleDeleteProduct = useCallback(async (id: string) => {
     try {
       await productService.deleteProduct(id);
-      message.success("Xóa sản phẩm thành công");
+      messageApi.success("Xóa sản phẩm thành công");
       actionRef.current?.reload();
     } catch {
-      message.error("Xóa sản phẩm thất bại");
+      messageApi.error("Xóa sản phẩm thất bại");
     }
   }, []);
 
@@ -100,7 +101,7 @@ const AdminProduct: React.FC = () => {
       hideInSearch: true,
       render: (_, record) =>
         record.category?.map((c) => (
-          <Tag key={c._id} color="blue" style={{marginBottom: 5}}>
+          <Tag key={c._id} color="blue" style={{ marginBottom: 5 }}>
             {c.name}
           </Tag>
         )),
@@ -245,6 +246,7 @@ const AdminProduct: React.FC = () => {
 
   return (
     <>
+      {contextHolder}
       <div className="admin-page-header">
         <h2 className="admin-page-title text-2xl font-bold text-red-500 mb-2!">
           Quản lý sản phẩm
@@ -277,13 +279,7 @@ const AdminProduct: React.FC = () => {
             current: params.current,
             pageSize: params.pageSize,
             search: params.name,
-            sortBy: sortBy as
-              | "sortOrder"
-              | "name"
-              | "createdAt"
-              | "updatedAt"
-              
-              | undefined,
+            sortBy: "createdAt",
             sortOrder: sortOrder as "asc" | "desc" | undefined,
           });
 
@@ -298,7 +294,7 @@ const AdminProduct: React.FC = () => {
           };
         }}
         pagination={{
-          pageSize: 20,
+
           pageSizeOptions: [20, 25, 30, 40],
           showSizeChanger: true,
           showTotal: (total, range) =>
@@ -344,11 +340,13 @@ const AdminProduct: React.FC = () => {
       />
 
       <CreateProduct
+        messageApi={messageApi}
         isOpen={openModalCreate}
         setIsOpen={setOpenModalCreate}
         actionRef={actionRef}
       />
       <UpdateProduct
+        messageApi={messageApi}
         isOpen={openModalUpdate}
         setIsOpen={setOpenModalUpdate}
         actionRef={actionRef}

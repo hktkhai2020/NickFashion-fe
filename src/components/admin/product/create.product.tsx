@@ -6,7 +6,6 @@ import {
   Image,
   Input,
   InputNumber,
-  message,
   Modal,
   Row,
   Select,
@@ -36,8 +35,10 @@ const CreateProduct = (props: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   actionRef: React.RefObject<ActionType | null>;
+  messageApi: any;
+  
 }) => {
-  const { isOpen, setIsOpen, actionRef } = props;
+  const { isOpen, setIsOpen, actionRef, messageApi } = props;
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -103,11 +104,11 @@ const CreateProduct = (props: {
   const validateFile = (file: File): boolean => {
     const MAX_FILE_SIZE = 10 * 1024 * 1024;
     if (!file.type.startsWith("image/")) {
-      message.error("Chỉ chấp nhận file ảnh (JPG, PNG, GIF, WEBP)");
+      messageApi.error("Chỉ chấp nhận file ảnh (JPG, PNG, GIF, WEBP)");
       return false;
     }
     if (file.size > MAX_FILE_SIZE) {
-      message.error("Kích thước file phải nhỏ hơn 10MB");
+      messageApi.error("Kích thước file phải nhỏ hơn 10MB");
       return false;
     }
     return true;
@@ -164,13 +165,13 @@ const CreateProduct = (props: {
         }
 
         onSuccess?.(res);
-        message.success("Upload ảnh thành công!");
+        messageApi.success("Upload ảnh thành công!");
       } else {
         throw new Error("Upload thất bại: phản hồi không hợp lệ");
       }
     } catch (err) {
       onError?.(err as Error);
-      message.error((err as Error)?.message || "Upload ảnh thất bại");
+      messageApi.error((err as Error)?.message || "Upload ảnh thất bại");
     }
   };
 
@@ -255,15 +256,15 @@ const CreateProduct = (props: {
         setFileListSlides([]);
         setIsDiscounted(false);
         setTimeout(() => {
-          message.success("Tạo sản phẩm thành công");
+          messageApi.success("Tạo sản phẩm thành công");
           actionRef.current?.reload?.();
         }, 150);
       } else {
-        message.error(response.message || "Tạo thất bại");
+        messageApi.error(response.message || "Tạo thất bại");
       }
     } catch (e: unknown) {
       const err = e as { response?: { data?: { message?: string } } };
-      message.error(err?.response?.data?.message || "Tạo sản phẩm thất bại");
+      messageApi.error(err?.response?.data?.message || "Tạo sản phẩm thất bại");
     } finally {
       setLoading(false);
     }
@@ -278,6 +279,7 @@ const CreateProduct = (props: {
 
   return (
     <>
+     
       <Modal
         title="Tạo sản phẩm"
         open={isOpen}

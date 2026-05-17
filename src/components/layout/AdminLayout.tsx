@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { HeaderAdmin, FooterAdmin } from "@/components/common";
 import "@/styles/admin/adminPage.scss";
 import { Button, Menu } from "antd";
 import type { MenuProps } from "antd";
+
 import {
   DollarCircleOutlined,
   LineChartOutlined,
@@ -31,6 +32,7 @@ export const AdminLayout: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     if (location.pathname === "/admin/dashboard") {
       setActiveMenu("dashboard");
@@ -98,7 +100,6 @@ export const AdminLayout: React.FC = () => {
       setActiveMenu("goodsReceipt");
       setOpenKeys(["invoice"]);
     }
-    
   }, [location.pathname]);
 
   const items: MenuProps["items"] = [
@@ -214,7 +215,7 @@ export const AdminLayout: React.FC = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="brand">
+            <div className="brand cursor-pointer" onClick={() => navigate("/")}>
               <div className="logo-container" style={{ marginBottom: "-15px" }}>
                 <img src={logo} alt="logo" />
               </div>
