@@ -148,6 +148,10 @@ const LoginPage: React.FC = () => {
                       const response = await authService.loginGoogle(
                         credential!,
                       );
+                      const cartResponse = await cartService.getCart(response.user._id);
+                      if (cartResponse) {
+                        setCart(cartResponse.data);
+                      }
                       if (response) {
                         api.success({
                           message: t("login.loginSuccess"),

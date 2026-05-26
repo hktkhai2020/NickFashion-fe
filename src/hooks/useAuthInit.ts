@@ -21,6 +21,7 @@ const useAuthInit = () => {
           setUser(response.user);
         }
         if (cartResponse) {
+          console.log("cartResponse", cartResponse);
           setCart(cartResponse.data);
         }
       } catch (error: any) {
