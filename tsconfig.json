@@ -31,7 +31,9 @@
       "services/*": ["./src/services/*"],
       "types/*": ["./src/types/*"],
       "utils/*": ["./src/utils/*"],
-      "validations/*": ["./src/validations/*"]
+      "validations/*": ["./src/validations/*"],
+      "store/*": ["./src/store/*"],
+      "providers/*": ["./src/providers/*"]
     }
   },
   "include": ["src"],

@@ -74,7 +74,7 @@ export const endpoints = {
   createOrder: "/order",
   updateOrder: (id: string) => `/order/${id}`,
   deleteOrder: (id: string) => `/order/${id}`,
-
+  getOrderDetails: (id: string) => `/order/${id}/details`,
   // User
   userProfile: "/users/profile",
   updateProfile: "/user",

@@ -7,10 +7,10 @@ import {
 } from "@ant-design/icons";
 import useOrder from "@/hooks/useOrder";
 import { OrderStatus, PaymentMethod, PaymentStatus } from "@/types";
-
+import { useNavigate } from "react-router-dom";
 const OrderHistoryPage: React.FC = () => {
   const { orders, loading } = useOrder();
-
+  const navigate = useNavigate();
   const getStatusConfig = (status: OrderStatus) => {
     const configs: Record<
       OrderStatus,
@@ -130,7 +130,7 @@ const OrderHistoryPage: React.FC = () => {
               <div
                 key={order._id}
                 className="bg-white border border-[#e5eaf0] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#61a678]/30 transition-all duration-300 cursor-pointer group  lg:p-[2rem]! p-[1rem]!"
-                // onClick={() => navigate(`${order._id}`)}
+                onClick={() => navigate(`/customer/order/${order._id}/detail`)}
               >
                 {/* Card Header */}
                 <div className="flex items-center justify-between px-5 py-4 bg-[#fafafa] border-b border-[#e5eaf0]">

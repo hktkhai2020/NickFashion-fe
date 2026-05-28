@@ -22,6 +22,7 @@ import {
 } from "@/pages";
 import { MainLayout } from "@/components/layout";
 import CustomerLayout from "@/components/layout/CustomerLayout";
+import OrderDetailPage from "@/pages/OrderDetailPage";
 
 const AppRoutes = () => {
   return (
@@ -40,6 +41,7 @@ const AppRoutes = () => {
         <Route path={"customer/"} element={<CustomerLayout />}>
           <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
           <Route path={ROUTES.ORDER_HISTORY} element={<OrderHistoryPage />} />
+          <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetailPage />} />
         </Route>
 
         {/* <Route path={ROUTES.PRODUCT_NEW} element={<ProductNew />} /> */}

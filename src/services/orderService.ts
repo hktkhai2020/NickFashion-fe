@@ -48,6 +48,12 @@ const orderService = {
     const response = await apiClient.delete(endpoints.deleteOrder(id));
     return response.data;
   },
+  getOrderDetails: async (id: string) => {
+    const response = await apiClient.get<{ success: boolean; data: Order }>(
+      endpoints.getOrderDetails(id),
+    );
+    return response.data;
+  },  
 };
 
 export default orderService;

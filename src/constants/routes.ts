@@ -9,6 +9,7 @@ export const ROUTES = {
   REGISTER: "register",
   PROFILE: "account",
   ORDER_HISTORY: "orders",
+  ORDER_DETAIL: "order/:id/detail",
   WISHLIST: "wishlist",
   CONTACT: "contact",
   ABOUT: "about",
