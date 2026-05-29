@@ -36,7 +36,7 @@ const productService = {
     return response.data;
   },
 
-  searchProducts: async (query: string,sortBy:string,sortOrder:string) => {
+  searchProducts: async (query: string, sortBy: string, sortOrder: string) => {
     const searchParams = new URLSearchParams();
     if (query) searchParams.set("q", query);
     if (sortBy) searchParams.set("sortBy", sortBy);
@@ -48,6 +48,7 @@ const productService = {
     const response = await apiClient.get<ProductResponse>(url);
     return response.data;
   },
+
   getProductById: async (id: string) => {
     const response = await apiClient.get<{ success: boolean; data: Product }>(
       endpoints.productDetail(id),

@@ -42,6 +42,7 @@ const AppRoutes = () => {
           <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
           <Route path={ROUTES.ORDER_HISTORY} element={<OrderHistoryPage />} />
           <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetailPage />} />
+          <Route path={ROUTES.WISHLIST} element={<WishlistPage />} />
         </Route>
 
         {/* <Route path={ROUTES.PRODUCT_NEW} element={<ProductNew />} /> */}

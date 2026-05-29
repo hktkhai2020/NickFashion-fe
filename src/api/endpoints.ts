@@ -84,10 +84,10 @@ export const endpoints = {
   updateImageUser: (id: string) => `/user/${id}/avatar`,
 
   // Wishlist
-  wishlist: "/wishlist",
-  addToWishlist: "/wishlist/add",
-  removeFromWishlist: (id: string) => `/wishlist/${id}`,
-
+  wishlist: (userId: string) => `/wishlist/${userId}`,
+  addToWishlist: "/wishlist",
+  removeFromWishlist: "/wishlist",
+  clearWishList: (userId: string) => `/wishlist/clear/${userId}`,
   // Reviews - public
   getReviews: (productId: string) => `/review/product/${productId}`,
   getStatsReviews: (productId: string) => `/review/product/${productId}/stats`,

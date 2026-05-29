@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import useProductDetail from "@/hooks/useProductDetail";
 import CardProductList from "@/components/home/CardProductList";
 import useProduct from "@/hooks/useProduct";
+import useWishlist from "@/hooks/useWishlist";
 import { Breadcrumb } from "antd";
 import { formatPrice } from "@/utils";
-import { PlusOutlined, ScissorOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, PlusOutlined, ScissorOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import useUserStore from "@/store/useUserStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Reviews from "@/components/product/Reviews";
 const ProductDetailPage: React.FC = () => {
   const navigate = useNavigate();
+  const { slug } = useParams();
   const {
     product,
     productId,
@@ -21,16 +23,22 @@ const ProductDetailPage: React.FC = () => {
     contextHolder,
     handleAddToCart,
     _api,
-  } = useProductDetail();
+    addToWishlistMutation,
+    removeFromWishlistMutation,
+  } = useProductDetail(slug);
+
+  const user = useUserStore((state) => state.user);
+  const { data: wishlistData } = useWishlist(user?._id || "");
+  const isInWishlist = wishlistData?.data?.some(
+    (item) => item.productId._id === product?._id,
+  );
+  const { products } = useProduct();
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [isMaterialOpen, setIsMaterialOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
-  const { products } = useProduct();
-  const user = useUserStore((state) => state.user);
-
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageContainerRef.current) return;
     const rect = imageContainerRef.current.getBoundingClientRect();
@@ -44,7 +52,10 @@ const ProductDetailPage: React.FC = () => {
       ?.images || [];
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [product]);
+    if (product?.colorGroups?.[0]?.color?._id) {
+      setActiveColor(product.colorGroups[0].color._id);
+    }
+  }, [product, setActiveColor]);
 
   return (
     <>
@@ -163,27 +174,68 @@ const ProductDetailPage: React.FC = () => {
               )?.color.name || ""}
             </div>
             {/* color image mini */}
-            <div className="w-full flex gap-[10px]">
-              {product?.colorGroups?.map((item) => (
-                <div
-                  key={item.color._id}
-                  className={`w-[50px] h-[65px] cursor-pointer rounded-[4px] overflow-hidden border-2 transition-all ${
-                    activeColor === item.color._id
-                      ? "border-[#d80c0c]"
-                      : "border-transparent opacity-70 hover:opacity-100"
-                  }`}
-                  onClick={() => {
-                    setActiveColor(item.color._id);
-                    setActiveImageIndex(0);
-                  }}
-                >
-                  <img
-                    src={item.images[1]}
-                    alt=""
-                    className="w-full h-full object-cover"
+            <div className="w-full flex justify-between">
+              <div className="flex gap-[10px]">
+                {product?.colorGroups?.map((item) => (
+                  <div
+                    key={item.color._id}
+                    className={`w-[50px] h-[65px] cursor-pointer rounded-[4px] overflow-hidden border-2 transition-all ${
+                      activeColor === item.color._id
+                        ? "border-[#d80c0c]"
+                        : "border-transparent opacity-70 hover:opacity-100"
+                    }`}
+                    onClick={() => {
+                      setActiveColor(item.color._id);
+                      setActiveImageIndex(0);
+                    }}
+                  >
+                    <img
+                      src={item.images[1]}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center justify-center">
+                {isInWishlist ? (
+                  <HeartFilled
+                    className="text-red-500! text-[20px] cursor-pointer"
+                    onClick={() => {
+                      if (user) {
+                        removeFromWishlistMutation.mutate({
+                          userId: user?._id || "",
+                          productId: product?._id || "",
+                        });
+                      } else {
+                        _api.warning({
+                          message: "Vui lòng đăng nhập",
+                          description: "Đăng nhập để sử dụng chức năng này",
+                          placement: "top",
+                        });
+                      }
+                    }}
                   />
-                </div>
-              ))}
+                ) : (
+                  <HeartOutlined
+                    className="text-[#333f48]! text-[20px] cursor-pointer"
+                    onClick={() => {
+                      if (user) {
+                        addToWishlistMutation.mutate({
+                          userId: user?._id || "",
+                          productId: product?._id || "",
+                        });
+                      } else {
+                        _api.warning({
+                          message: "Vui lòng đăng nhập",
+                          description: "Đăng nhập để sử dụng chức năng này",
+                          placement: "top",
+                        });
+                      }
+                    }}
+                  />
+                )}
+              </div>
             </div>
             {/* size */}
             <div className="w-full flex justify-between ">
@@ -220,8 +272,8 @@ const ProductDetailPage: React.FC = () => {
 
             {/* button add to cart and buy now */}
             <div className="w-full flex gap-[10px]">
-              <button
-                className="w-full h-[40px] bg-[#ff0000] text-[#ffffff] text-[15px] font-bold rounded-[5px] cursor-pointer"
+              <div
+                className="w-full h-[40px] bg-[#ff0000] text-[#ffffff] text-[15px] font-bold rounded-[5px] cursor-pointer text-center items-center justify-center flex"
                 onClick={() => {
                   if (user) {
                     if (selectedVariant) {
@@ -249,9 +301,9 @@ const ProductDetailPage: React.FC = () => {
                 }}
               >
                 Thêm vào giỏ hàng
-              </button>
-              <button
-                className="w-full h-[40px] bg-[#ffffff] text-[#333f48] text-[15px] font-bold cursor-pointer border border-[#333f48] border-solid "
+              </div>
+              <div
+                className="w-full h-[40px] bg-[#ffffff] text-[#333f48] text-[15px] font-bold cursor-pointer border border-[#333f48] border-solid  flex   items-center justify-center"
                 onClick={() => {
                   if (user) {
                     if (selectedVariant) {
@@ -282,7 +334,7 @@ const ProductDetailPage: React.FC = () => {
                 }}
               >
                 Mua ngay
-              </button>
+              </div>
             </div>
 
             {/* description and  material*/}

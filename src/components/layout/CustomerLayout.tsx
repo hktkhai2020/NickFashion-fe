@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Badge, Breadcrumb, Image, Modal, Upload } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { HeartOutlined, PlusOutlined } from "@ant-design/icons";
 import useUserStore from "@/store/useUserStore";
 import { formatDate } from "@/utils";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -87,6 +87,7 @@ const CustomerLayout = () => {
                 </span>
               </div>
             </div>
+
             {/* account info */}
             <div
               className="w-full flex items-center justify-between group cursor-pointer border-b-[1px] border-[#e5eaf0] pb-[1rem]!"
@@ -129,6 +130,7 @@ const CustomerLayout = () => {
                 <ArrowRightOutlined />
               </div>
             </div>
+
             {/* Order history */}
             <div
               onClick={() => {
@@ -154,16 +156,36 @@ const CustomerLayout = () => {
                   </svg>
                 </Badge>
               </div>
-              <div className="flex flex-col justify-center">
-                <div className="flex gap-1 items-center">
-                  <span className="text-[#333f48] text-[15px] font-bold">
-                    Đơn hàng
-                  </span>
-                  <span className="text-[#da291c] p-[2px]! bg-[#fceae9] text-[11px] font-bold">
-                    cập nhật ngay
-                  </span>
-                </div>
+              <div className="flex flex-col justify-center text-center">
+                <span className="text-[#333f48] text-[15px] font-bold">
+                  Đơn hàng
+                </span>
                 <div className="text-[#c8e5c7]">Tra cứu thông tin đơn hàng</div>
+              </div>
+              <div className="text-[#da291c] group-hover:translate-x-[10px] duration-300 transition-all ease-in-out cursor-pointer">
+                <ArrowRightOutlined />
+              </div>
+            </div>
+
+            {/* Wishlist */}
+            <div
+              onClick={() => {
+                navigate(ROUTES.WISHLIST);
+              }}
+              className="w-full flex items-center justify-between group cursor-pointer border-b-[1px] border-[#e5eaf0] pb-[1rem]!"
+            >
+              <div>
+                <Badge dot={true}>
+                <HeartOutlined style={{ color: "#333F48", fontSize: 24 }} />
+                </Badge>
+              </div>
+              <div className="flex flex-col justify-center text-center">
+                <span className="text-[#333f48] text-[15px] font-bold">
+                  Yêu thích
+                </span>
+                <div className="text-[#c8e5c7]">
+                  Xem danh sách sản phẩm yêu thích
+                </div>
               </div>
               <div className="text-[#da291c] group-hover:translate-x-[10px] duration-300 transition-all ease-in-out cursor-pointer">
                 <ArrowRightOutlined />
@@ -207,6 +229,8 @@ const CustomerLayout = () => {
           <Outlet />
         </div>
       </div>
+
+      {/* Modal đăng xuất */}
       <Modal
         title="Đăng xuất"
         styles={{
@@ -263,6 +287,7 @@ const CustomerLayout = () => {
           </span>
         </div>
       </Modal>
+      {/* Modal cập nhật ảnh đại diện */}
       <Modal
         title="Cập nhật ảnh đại diện"
         open={isOpenAvatar}
