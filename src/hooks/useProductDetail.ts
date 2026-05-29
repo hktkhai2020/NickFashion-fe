@@ -4,53 +4,57 @@ import { cartService } from "@/services";
 import wishlistService from "@/services/wishlistService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProductBySlug } from "@/hooks/useProductBySlug";
-
+import useCart from "@/hooks/useCart";
 const useProductDetail = (slug?: string) => {
   const queryClient = useQueryClient();
   const [activeColor, setActiveColor] = useState<string>("");
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [_api, contextHolder] = notification.useNotification();
-
+  const { reloadCart } = useCart();
   // Fetch product with TanStack Query
-  const { data: productData, isLoading, isError, error } = useProductBySlug(slug || "");
+  const {
+    data: productData,
+    isLoading,
+    isError,
+    error,
+  } = useProductBySlug(slug || "");
   const product = productData?.data;
 
   // Add to cart mutation
-  const addToCartMutation = useMutation({
-    mutationFn: ({
-      userId,
-      productId,
-      variantId,
-      quantity,
-      price,
-    }: {
-      userId: string;
-      productId: string;
-      variantId: string;
-      quantity: number;
-      price: number;
-    }) =>
-      cartService.addToCart(
+  const handleAddToCart = async ({
+    userId,
+    productId,
+    variantId,
+    quantity,
+    price,
+  }: {
+    userId: string;
+    productId: string;
+    variantId: string;
+    quantity: number;
+    price: number;
+  }) => {
+    try {
+      const response = await cartService.addToCart(
         userId,
         productId,
         variantId,
         quantity,
         price,
-      ),
-    onSuccess: () => {
-      _api.success({
-        message: "Thêm vào giỏ hàng thành công",
-        placement: "top",
-      });
-    },
-    onError: () => {
-      _api.error({
-        message: "Thêm vào giỏ hàng thất bại",
-        placement: "top",
-      });
-    },
-  });
-
+      );
+      reloadCart();
+      if (response) {
+        _api.success({
+          message: "Thêm vào giỏ hàng thành công",
+          placement: "top",
+        });
+      } else {
+        console.log("Thêm vào giỏ hàng thất bại");
+      }
+    } catch (err: unknown) {
+      console.log("Đã có lỗi xảy ra", err);
+    }
+  };
   // Add to wishlist mutation
   const addToWishlistMutation = useMutation({
     mutationFn: ({
@@ -99,28 +103,6 @@ const useProductDetail = (slug?: string) => {
     },
   });
 
-  const handleAddToCart = ({
-    userId,
-    productId,
-    variantId,
-    quantity,
-    price,
-  }: {
-    userId: string;
-    productId: string;
-    variantId: string;
-    quantity: number;
-    price: number;
-  }) => {
-    addToCartMutation.mutate({
-      userId,
-      productId,
-      variantId,
-      quantity,
-      price,
-    });
-  };
-
   return {
     product,
     productId: product?._id || "",
@@ -133,7 +115,6 @@ const useProductDetail = (slug?: string) => {
     contextHolder,
     addToWishlistMutation,
     removeFromWishlistMutation,
-    addToCartMutation,
     isLoading,
     isError,
     error,
