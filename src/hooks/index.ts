@@ -4,3 +4,5 @@ export * from './useCart';
 export * from './useWishlist';
 export * from './useFilter';
 export { default as useProduct } from './useProduct';
+export { default as useMessage } from './useMessage';
+export { default as useAdminMessage } from './useAdminMessage';

@@ -232,7 +232,10 @@ export const AdminLayout: React.FC = () => {
               <div className="toggle-sidebar">
                 <Button
                   icon={<RollbackOutlined />}
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsSidebarOpen(!isSidebarOpen);
+                  }}
                 />
               </div>
             </div>

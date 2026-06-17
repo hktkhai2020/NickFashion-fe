@@ -33,7 +33,8 @@
       "utils/*": ["./src/utils/*"],
       "validations/*": ["./src/validations/*"],
       "store/*": ["./src/store/*"],
-      "providers/*": ["./src/providers/*"]
+      "providers/*": ["./src/providers/*"],
+      "lib/*": ["./src/lib/*"]
     }
   },
   "include": ["src"],

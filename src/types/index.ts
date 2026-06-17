@@ -13,3 +13,4 @@ export * from './variant';
 export * from './admin';
 export * from './coupon';
 export * from './receipt';
+export * from './message';

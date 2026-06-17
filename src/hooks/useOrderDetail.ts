@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import orderService from "@/services/orderService";
 
 const useOrderDetail = (id: string) => {
+    
     return useQuery({
         queryKey: ["order", id],
         queryFn: () => orderService.getOrderDetails(id),

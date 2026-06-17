@@ -21,6 +21,7 @@ export const ROUTES = {
   PRODUCT_NEW: "san-pham-moi/:category",
   RUNAWAY_COLLECTION: "runawaycollection",
   SEARCH: "search",
+  CHAT: "chat",
 };
 
 export const ADMIN_ROUTES = {

@@ -91,13 +91,12 @@ export const endpoints = {
   // Reviews - public
   getReviews: (productId: string) => `/review/product/${productId}`,
   getStatsReviews: (productId: string) => `/review/product/${productId}/stats`,
-  getMyReview: (productId: string, userId: string) => `/review/product/${productId}/me/${userId}`,
+  getMyReview: (productId: string, userId: string) =>
+    `/review/product/${productId}/me/${userId}`,
   // Reviews - user (auth required)
   createReview: "/review",
   updateReview: (reviewId: string) => `/review/${reviewId}`,
   deleteReview: (reviewId: string) => `/review/${reviewId}`,
-
-
 
   // Payment
   paymentMethods: "/payments/methods",
@@ -136,4 +135,21 @@ export const endpoints = {
 
   // Payment
   createPayment: "/payment",
+
+  //messages
+  getConversations: "/message/conversation",
+  getMessages: "/message/messages",
+  sendMessage: "/message/messages",
+  editMessage: (messageId: string) => `/message/${messageId}`,
+  getUnreadCount: "/message/unread-count",
+  closeConversation: "/message/close",
+
+  //adminMessages
+  getConversationsByAdmin: "/admin/messages/conversations",
+  getMessagesByAdmin: (conversationId: string) =>
+    `/admin/messages/conversations/${conversationId}/messages`,
+  sendMessageByAdmin: "admin/messages/messages",
+  getUnreadCountByAdmin: "/admin/messages/unread-count",
+  closeConversationByAdmin: (conversationId: string) =>
+    `/admin/messages/conversations/${conversationId}/close`,
 };

@@ -7,6 +7,7 @@ import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { CheckoutPage, NotFoundPage } from "@/pages";
 import { QueryProvider } from "@/providers/queryProvider";
+import SocketProvider from "@/providers/SocketProvider";
 function App() {
   const { loading } = useAuthInit();
 
@@ -29,7 +30,8 @@ function App() {
     >
       <AntApp>
         <QueryProvider>
-          <BrowserRouter>
+          <SocketProvider>
+            <BrowserRouter>
             <Routes>
               <Route path="/*" element={<AppRoutes />} />
               <Route path="/buyer/*" element={<AuthRoutes />} />
@@ -38,6 +40,7 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
+          </SocketProvider>
         </QueryProvider>
       </AntApp>
     </ConfigProvider>

@@ -13,6 +13,7 @@ import AdminGoodsReceipt from "@/pages/admin/AdminGoodsReceipt";
 import AdminImportStatistics from "@/pages/admin/AdminImportStatistics";
 import AdminUsers from "@/pages/admin/AdminUsers";
 import { NotFoundPage } from "@/pages";
+import AdminChat from "@/pages/admin/AdminChat";
 const AdminRoutes = () => {
   return (
     <Routes>
@@ -31,6 +32,7 @@ const AdminRoutes = () => {
         <Route path={ADMIN_ROUTES.GOODSRECEIPT} element={<AdminGoodsReceipt />} />
         <Route path={ADMIN_ROUTES.IMPORTSTATISTICS} element={<AdminImportStatistics />} />
         <Route path={ADMIN_ROUTES.USERS} element={<AdminUsers />} />
+        <Route path={ADMIN_ROUTES.CHAT} element={<AdminChat />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

@@ -65,7 +65,7 @@ const Header = () => {
           </div>
         )}
         {/* header app */}
-        <div className="header-app w-full flex justify-between items-center px-[5rem]!   lg:py-0! py-4!">
+        <div className="header-app w-full flex justify-between items-center px-[5rem]!   lg:py-0! py-4! ">
           <div
             className="logo flex items-center cursor-pointer"
             onClick={() => {
@@ -151,7 +151,7 @@ const Header = () => {
         </div>
 
         {/* menu*/}
-        <div className="header-menu w-full bg-[#333f48] flex items-center shadow-sm lg:px-[5rem]! px-[0.5rem]! relative z-40 text-nowrap overflow-x-auto overflow-y-hidden lg:overflow-visible  lg:sticky lg:top-12 [&::-webkit-scrollbar]:hidden">
+        <div className="header-menu w-full bg-[#333f48] flex items-center shadow-sm lg:px-[5rem]! px-[0.5rem]! relative z-2 text-nowrap overflow-x-auto overflow-y-hidden lg:overflow-visible  lg:sticky lg:top-12 [&::-webkit-scrollbar]:hidden">
           <ul className="flex items-center font-semibold text-white text-[13px] h-[45px]">
             <li className=" group h-full flex items-center cursor-pointer">
               <span className="hover:text-[#333f48] hover:bg-white transition-colors uppercase h-full flex items-center  px-[20px]!">
