@@ -474,7 +474,7 @@ const CheckoutPage: React.FC = () => {
                     type="primary"
                     key="console"
                     onClick={() => {
-                      navigate("/nickfashion");
+                      navigate("/");
                     }}
                   >
                     Tiếp tục mua sắm

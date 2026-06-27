@@ -23,6 +23,8 @@ import {
 import { MainLayout } from "@/components/layout";
 import CustomerLayout from "@/components/layout/CustomerLayout";
 import OrderDetailPage from "@/pages/OrderDetailPage";
+import InformationPage from "@/pages/InformationPage";
+import MapShopPage from "@/pages/MapShopPage";
 
 const AppRoutes = () => {
   return (
@@ -36,7 +38,8 @@ const AppRoutes = () => {
         <Route path={ROUTES.PRODUCT_BOY} element={<ProductBoy />} />
         <Route path={ROUTES.RUNAWAY_COLLECTION} element={<RunawayCollection />} />
         <Route path={ROUTES.SEARCH} element={<SearchPage />} />
-
+        <Route path={ROUTES.INFORMATION} element={<InformationPage />} />
+        <Route path={ROUTES.MAP_SHOP} element={<MapShopPage />} />
         {/* customer */}
         <Route path={"customer/"} element={<CustomerLayout />}>
           <Route path={ROUTES.PROFILE} element={<ProfilePage />} />

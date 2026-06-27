@@ -22,6 +22,8 @@ export const ROUTES = {
   RUNAWAY_COLLECTION: "runawaycollection",
   SEARCH: "search",
   CHAT: "chat",
+  INFORMATION: "information",
+  MAP_SHOP: "map-shop",
 };
 
 export const ADMIN_ROUTES = {

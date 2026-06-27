@@ -15,6 +15,10 @@ import useCartStore from "@/store/useCartStore";
 import CartDrawer from "@/components/cart/CartDrawer";
 import useUserStore from "@/store/useUserStore";
 import useGlobal from "@/hooks/useGlobal";
+import Notification from "@/components/notification/user/notification";
+import useNotifications from "@/hooks/useNotification";
+import { ROUTES } from "@/constants";
+
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#333f48",
@@ -29,6 +33,7 @@ const Header = () => {
   const cart = useCartStore((state) => state.cart);
   const user = useUserStore((state) => state.user);
   const setIsShowCart = useCartStore((state) => state.setIsShowCart);
+  const { context } = useNotifications();
   const toggleMenu = (menuName: string) => {
     if (width < 1024) {
       setActiveMenu(activeMenu === menuName ? null : menuName);
@@ -36,6 +41,7 @@ const Header = () => {
   };
   return (
     <>
+      {context}
       <div className="header-main w-full flex flex-col relative lg:contents ">
         {/*banner promotion */}
         <div className="header-promotion w-full bg-[#519656] relative lg:sticky lg:top-0 lg:z-20 z-10">
@@ -100,12 +106,14 @@ const Header = () => {
             <div
               className="shop cursor-pointer flex flex-col items-center"
               onClick={() => {
-                navigate("/nickfashion/asd");
+                navigate(`/${ROUTES.MAP_SHOP}`);
               }}
             >
               <ShopOutlined style={{ fontSize: 25, color: "#4d575f" }} />
               <span className="hidden lg:block  text-center">Cửa hàng</span>
             </div>
+            {/* notification */}
+            <Notification />
             {/* account */}
             <div
               className="account cursor-pointer flex flex-col items-center"

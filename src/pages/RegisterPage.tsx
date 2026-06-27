@@ -4,10 +4,13 @@ import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { authService } from "@/services";
+import { authService, cartService } from "@/services";
 import "@/styles/auth/registerPage.scss";
 import type { FormProps } from "antd";
 import { motion } from "framer-motion";
+import useUserStore from "@/store/useUserStore";
+import useCartStore from "@/store/useCartStore";
+import { User } from "@/types";
 type FieldType = {
   otp?: string;
   username?: string;
@@ -21,6 +24,8 @@ type FieldType = {
 const RegisterPage: React.FC = () => {
   const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
+  const { setUser } = useUserStore();
+  const { setCart } = useCartStore();
   const [form] = Form.useForm<FieldType>();
   const [api, contextHolder] = notification.useNotification();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -342,25 +347,37 @@ const RegisterPage: React.FC = () => {
             <Divider className="!text-white !border-amber-50 ">or</Divider>
             {/* Sign up with Google */}
             <div className="">
-              <GoogleOAuthProvider
+            <GoogleOAuthProvider
                 clientId={
-                  "280651426960-0nhnuabhsr2mo3aoq6mu33cso0qti1lg.apps.googleusercontent.com"
+                  import.meta.env.VITE_GOOGLE_CLIENT_ID
                 }
               >
                 <GoogleLogin
-                  text={"signup_with"}
                   onSuccess={async (event) => {
                     const { credential } = event;
                     try {
-                      const response = await authService.registerGoogle(
+                      const response = await authService.loginGoogle(
                         credential!,
                       );
+                      const cartResponse = await cartService.getCart(response.user._id);
+                      if (cartResponse) {
+                        setCart(cartResponse.data);
+                      }
                       if (response) {
                         api.success({
                           message: t("login.loginSuccess"),
                           description: response.message,
                         });
-                        navigate("/buyer/login");
+                        localStorage.setItem(
+                          "accessToken",
+                          response.accessToken,
+                        );
+                        setUser(response.user as unknown as User);
+                        if (response.user.role === "admin") {
+                          navigate("/admin/dashboard");
+                        } else {
+                          navigate("/");
+                        }
                       }
                     } catch (error) {
                       console.log("Error Login Google:", error);

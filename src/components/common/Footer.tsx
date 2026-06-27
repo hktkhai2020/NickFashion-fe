@@ -6,8 +6,14 @@ import {
   YoutubeOutlined,
   TikTokOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import useUserStore from "@/store/useUserStore";
+import { ROUTES } from "@/constants";
 
+const infoLink = (section: string) => `${ROUTES.INFORMATION}?section=${section}`;
 export const Footer: React.FC = () => {
+  const { user } = useUserStore();
+  const navigate = useNavigate();
   return (
     <footer className="w-full font-['Montserrat',sans-serif] text-[#333f48]">
       {/* Subscribe & Store block */}
@@ -45,7 +51,9 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <a
-              href="#"
+              onClick={() => {
+                // navigate(`/store-locator`);
+              }}
               className="text-[#2e90fa] text-[14px] font-[700] hover:opacity-80 transition-opacity"
             >
               XEM DANH SÁCH
@@ -83,7 +91,13 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <a
-              href="#"
+              onClick={() => {
+                if (user) {
+                  navigate(`/customer/account`);
+                } else {
+                  navigate(`/buyer/login`);
+                }
+              }}
               className="text-[#2e90fa] text-[14px] font-[700] hover:opacity-80 transition-opacity"
             >
               ĐĂNG KÝ NGAY
@@ -124,32 +138,32 @@ export const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-3 text-[14px] font-[400] leading-[21px]">
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("gioi-thieu")} className="hover:text-gray-300">
                     Giới thiệu
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("he-thong-cua-hang")} className="hover:text-gray-300">
                     Hệ thống cửa hàng
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("tin-tuc")} className="hover:text-gray-300">
                     Tin tức
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("tuyen-dung")} className="hover:text-gray-300">
                     Tuyển dụng
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("voi-cong-dong")} className="hover:text-gray-300">
                     Với cộng đồng
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("lien-he")} className="hover:text-gray-300">
                     Liên hệ
                   </Link>
                 </li>
@@ -162,37 +176,37 @@ export const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-3 text-[14px] font-[400] leading-[21px]">
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("hoi-dap")} className="hover:text-gray-300">
                     Hỏi đáp
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("dieu-kien-dieu-khoan")} className="hover:text-gray-300">
                     Điều kiện - Điều khoản KHTT
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("chinh-sach-khtt")} className="hover:text-gray-300">
                     Chính sách KHTT
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("chinh-sach-van-chuyen")} className="hover:text-gray-300">
                     Chính sách vận chuyển
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("chinh-sach-bao-mat")} className="hover:text-gray-300">
                     Chính sách bảo mật thông tin KH
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("tra-cuu-don-hang")} className="hover:text-gray-300">
                     Tra cứu đơn hàng
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" className="hover:text-gray-300">
+                  <Link to={infoLink("bang-kich-co")} className="hover:text-gray-300">
                     Bảng kích cỡ
                   </Link>
                 </li>

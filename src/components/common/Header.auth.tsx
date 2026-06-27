@@ -1,14 +1,17 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const HeaderAuth = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
   const { t } = useTranslation("translation");
   return (
     <>
       <div className="w-dvw  h-auto  flex items-center sm:justify-around  ">
         <div className="flex items-center gap-[2rem] ">
-          <div className="">
+          <div className="cursor-pointer" onClick={() => {
+            navigate(`/`);
+          }}>
             <svg
               version="1.0"
               xmlns="http://www.w3.org/2000/svg"

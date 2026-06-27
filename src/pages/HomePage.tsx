@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useCoupon from "@/hooks/useCoupon";
 import { formatDate } from "@/utils/format";
 import useProduct from "@/hooks/useProduct";
@@ -7,6 +8,7 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import CardProductList from "@/components/home/CardProductList";
 import { QRCode } from "antd";
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const { coupons } = useCoupon();
   const [activeTab, setActiveTab] = useState<
     "woman" | "all" | "man" | "girl" | "boy" | "unisex" | undefined
@@ -47,7 +49,9 @@ const HomePage: React.FC = () => {
                       Điều kiện từ {coupon.minOrderAmount}
                     </span>
                   </div>
-                  <div className="w-[80px]  bg-[#333f48] flex justify-center items-center cursor-pointer hover:bg-green-700 transition-all duration-300">
+                  <div className="w-[80px]  bg-[#333f48] flex justify-center items-center cursor-pointer hover:bg-green-700 transition-all duration-300" onClick={() => {
+                    navigate(`/nu/ao-phong-ao-thun`);
+                  }}>
                     <span className="text-white text-[14px] font-bold">
                       Dùng mã
                     </span>
@@ -162,7 +166,9 @@ const HomePage: React.FC = () => {
                     kế dễ thương, năng động và tràn đầy năng lượng tích cực cho
                     mùa đông thêm vui!
                   </div>
-                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer">
+                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer" onClick={() => {
+                    navigate(`/nu/ao-khoac-and-giu-nhiet`);
+                  }}>
                     Xem thêm <ArrowRightOutlined />
                   </div>
                 </div>
@@ -185,7 +191,9 @@ const HomePage: React.FC = () => {
                     Nịck Fashion tự hào là thương hiệu thời trang Việt Nam, mang
                     đến những sản phẩm chất lượng cao với giá cả phải chăng.
                   </div>
-                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer">
+                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer" onClick={() => {
+                    navigate(`/nu/ao-khoac-and-giu-nhiet`);
+                  }}>
                     Xem thêm <ArrowRightOutlined />
                   </div>
                 </div>
@@ -209,7 +217,9 @@ const HomePage: React.FC = () => {
                     Fashion! Với những nhân vật quen thuộc và thiết kế đáng yêu,
                     bạn sẽ tìm thấy phong cách độc đáo cho riêng mình.
                   </div>
-                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer">
+                  <div className="rounded-sm text-[16px] font-[500] bg-white text-[#333f48] px-[2rem]! py-[8px]! cursor-pointer" onClick={() => {
+                    navigate(`/nu/ao-khoac-and-giu-nhiet`);
+                  }}>
                     Xem thêm <ArrowRightOutlined />
                   </div>
                 </div>

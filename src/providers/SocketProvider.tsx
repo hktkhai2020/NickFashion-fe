@@ -20,6 +20,7 @@ const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     if (user) {
       connect();
+      
     } else {
       disconnect();
     }

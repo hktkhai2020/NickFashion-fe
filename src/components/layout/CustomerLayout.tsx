@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Badge, Breadcrumb, Image, Modal, Upload } from "antd";
-import { HeartOutlined, PlusOutlined } from "@ant-design/icons";
+import { HeartOutlined, PlusOutlined, TableOutlined } from "@ant-design/icons";
 import useUserStore from "@/store/useUserStore";
 import { formatDate } from "@/utils";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -11,6 +11,7 @@ import useCartStore from "@/store/useCartStore";
 import { ROUTES } from "@/constants";
 import uploadService from "@/services/uploadService";
 import userService from "@/services/userService";
+import useNotification from "@/hooks/useNotification";
 const CustomerLayout = () => {
   const { api, contextHolder } = useGlobal();
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const CustomerLayout = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const { clearNotifications } = useNotification();
   return (
     <>
       <div className="w-full lg:px-[6rem]! px-[1rem]!">
@@ -176,7 +178,7 @@ const CustomerLayout = () => {
             >
               <div>
                 <Badge dot={true}>
-                <HeartOutlined style={{ color: "#333F48", fontSize: 24 }} />
+                  <HeartOutlined style={{ color: "#333F48", fontSize: 24 }} />
                 </Badge>
               </div>
               <div className="flex flex-col justify-center text-center">
@@ -191,6 +193,30 @@ const CustomerLayout = () => {
                 <ArrowRightOutlined />
               </div>
             </div>
+            {/* Admin */}
+            {user?.role == "admin" ? (
+              <div
+                onClick={() => {
+                  navigate("/admin");
+                }}
+                className="w-full flex items-center justify-between group cursor-pointer border-b-[1px] border-[#e5eaf0] pb-[1rem]!"
+              >
+                <div>
+                  <Badge dot={true}>
+                    <TableOutlined style={{ color: "#333F48", fontSize: 24 }} />
+                  </Badge>
+                </div>
+                <div className="flex flex-col justify-center text-center">
+                  <span className="text-[#333f48] text-[15px] font-bold">
+                    Quản lý
+                  </span>
+                  <div className="text-[#c8e5c7]">Quản lý hệ thống</div>
+                </div>
+                <div className="text-[#da291c] group-hover:translate-x-[10px] duration-300 transition-all ease-in-out cursor-pointer">
+                  <ArrowRightOutlined />
+                </div>
+              </div>
+            ) : null}
             {/*  Logout*/}
             <div
               className="w-full flex items-center justify-between group cursor-pointer border-b-[1px] border-[#e5eaf0] pb-[1rem]!"
@@ -262,9 +288,9 @@ const CustomerLayout = () => {
                     });
                     removeUser();
                     removeCart();
-                    setTimeout(() => {
-                      navigate("/");
-                    }, 1500);
+                    clearNotifications();
+                    navigate("/");
+
                     setIsOpen(false);
                   } else {
                     api.error(responseLogout.message);

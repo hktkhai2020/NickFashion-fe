@@ -152,4 +152,15 @@ export const endpoints = {
   getUnreadCountByAdmin: "/admin/messages/unread-count",
   closeConversationByAdmin: (conversationId: string) =>
     `/admin/messages/conversations/${conversationId}/close`,
+
+  // notificationForAdmin
+  getAdminNotifications:"/admin/notifications/",
+  markAllAsReadAdmin:"/admin/notifications/read-all",
+  deleteNotificationAdmin:(notificationId:string)=> `/admin/notifications/${notificationId}`,
+
+  // notificationForUser
+  getNotifications: "/notifications",
+  markAllAsReadNotifications: "/notifications/read-all",
+  deleteNotification: (notificationId: string) => `/notifications/${notificationId}`,
+
 };
